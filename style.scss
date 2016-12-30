@@ -241,10 +241,6 @@ nav {
 // .main
 //
 
-.posts_title {
-  margin-bottom: 5px;
-}
-
 ul.posts {
   list-style-type: none;
   margin-top: 0;
@@ -269,6 +265,7 @@ ul.posts a {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   background-color: $lightGray;
+  margin-top: 50px;
 }
 
 .footer {
@@ -283,10 +280,6 @@ ul.posts a {
 
 .footer .contact {
   float: left;
-}
-
-.footer .contact a {
-  color: #8085C1;
 }
 
 .footer .social {

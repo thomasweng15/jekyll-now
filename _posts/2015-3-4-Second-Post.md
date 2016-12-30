@@ -1,13 +1,6 @@
 ---
 layout: post
-title: First post
+title: Second post
 ---
-
-Here's something I'm working on:
-
-<a data-flickr-embed="true"  href="https://www.flickr.com/photos/145491926@N08/31420853615/in/dateposted-public/" title="1_workspace">
-  <img src="https://c8.staticflickr.com/6/5687/31420853615_a0cd863399.jpg" width="500" height="500" alt="1_workspace">
-</a>
-<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
