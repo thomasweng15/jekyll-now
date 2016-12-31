@@ -1,9 +1,8 @@
 ---
 layout: page
+title: About me
 permalink: /about/
 ---
-
-### Who are you?
 
 I'm Thomas, a software engineer at Microsoft. I worked on [Bing's 2016 presidential election experiences](http://blogs.bing.com/search?tagname=election%202016&groupid=10), and currently work on both the [flight booking answer](https://www.bing.com/search?q=book%20flight) as well as a project related to Office 365.
 
