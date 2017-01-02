@@ -290,6 +290,19 @@ ul.posts a {
   border: 0;
 }
 
+@media screen and (max-width: 420px) {
+  .footer .contact {
+    float: none;
+    text-align: center;
+  }
+
+  .footer .social {
+    margin-top: 10px;
+    float: none;
+    text-align: center;
+  }
+}
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
