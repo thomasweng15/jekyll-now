@@ -17,7 +17,7 @@ Watch the demo video from my thesis submission below:
 
 ### What's on this blog?
 
-I'm still breathing life into the site, but the plan is to post writeups of the projects I'm working on, along with short essays on various topics.
+I'm still breathing life into the site, but the plan is to post writeups of the projects I'm working on, along with short essays on various topics. Stay tuned!
 
 ### How can I reach you?
 
