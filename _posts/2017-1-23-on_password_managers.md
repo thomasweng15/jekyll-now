@@ -3,7 +3,11 @@ layout: post
 title: You Should Use a Password Manager
 ---
 
-Using a password manager saved me a lot of time in 2016. Before I started using one, I had to remember an ever-expanding number of different passwords for different accounts. I ended up spending a lot of time remembering my passwords, typing them incorrectly, or resetting them.<span class="ftnt">[1]</span>
+It's easy to get lazy and use the same password for multiple account logins. But doing so leaves you _much_ less secure than having different passwords.
+
+Still, it's near impossible nowadays to remember an ever-expanding number of passwords for different accounts. Last year, I found that I was spending a silly amount of time coming up with passwords, remembering them, typing them in incorrectly, and resetting them.
+
+I consequently started hunting for a solution, and ended up trying out a password manager. It solved my password issues so well, I haven't looked back!
 
 There isn't much to a password manager, and using one has made logging into accounts so much easier and safer. Here's the gist of it in ~1 minute.
 
@@ -13,21 +17,21 @@ Password managers keep your passwords secure by keeping them in an encrypted dat
 
 The password database and the master password are like safe and key: even if the safe is stolen, thieves wont be able to access your passwords without the key.
 
-When you need to log in to an account, you simply unlock your database, copy your credentials, and paste them into the login fields.<span class="ftnt">[2]</span> No more hassle with typing complicated passwords.
+When you need to log in to an account, you simply unlock your database, copy your credentials, and paste them into the login fields.<span class="ftnt">[1]</span> No more straining to type complicated passwords.
 
-When you need a new password, password managers create new ones for you that are hard to crack. They can also remind you to change your passwords if it's been a while.
+When you need a new password, password managers create new ones for you that are hard to crack. Many of them also remind you to change your passwords if it's been a while.
 
 ## Which password manager should I use?
 
 I use [KeePass](http://keepass.info/), a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.
 
-KeePass, however, is not the most user-friendly service out there. I've played with [LastPass](https://www.lastpass.com/) as an alternative. LastPass keeps your passwords in a "cloud" so you can access them anywhere.<span class="ftnt">[3]</span> LastPass runs on an ad-based model, making it also "free" to use.
+KeePass, however, is not the most user-friendly service out there. I've played with [LastPass](https://www.lastpass.com/) as an alternative. LastPass keeps your passwords in a "cloud" so you can access them anywhere.<span class="ftnt">[2]</span> LastPass runs on an ad-based model, making it also "free" to use.
 
 There are also other password management programs and services out there, though I haven't tried any others personally.
 
-## I am worried about screwing up and losing all my passwords. What should I do?
+## What if I screw up with a password manager and lose all of my passwords?
 
-You can gradually transition to using a password manager. Start with putting one password into the manager for something that isn't critically important, so that you get the hang of using it. As you get more comfortable, you can add more and more passwords.
+If you're worried about losing your passwords and/or aren't sure if a password manager is for you, you always have the option of easing into it. Start by putting one password into the manager for something that isn't critically important, so that you get the hang of using it. As you get more comfortable, you can add more and more passwords.
 
 If anything goes wrong, you can still reset your passwords to online accounts the regular way.
 
@@ -40,8 +44,7 @@ I hope you take a few minutes out of your day to give a password manager a try. 
 If you're interested in more on practical online security, stay tuned!
 
 ## Footnotes
-[1] It's also easy to get lazy and use the same password for multiple accounts. But this leaves you _much_ less secure.
 
-[2] Some services even offer "Auto-Type", which fills in the login fields for you with one click or shortcut combo!
+[1] Some services even offer "Auto-Type", which fills in the login fields for you with one click or shortcut combo!
 
-[3] I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.).
+[2] I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.).
