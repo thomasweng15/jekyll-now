@@ -13,9 +13,9 @@ There isn't much to a password manager, and using one has made logging into acco
 
 ## How do password managers work?
 
-Password managers keep your passwords secure by keeping them in an encrypted database. You access your passwords by entering a master password to decrypt the database. It's much easier to remember one long, secure password than numerous different ones.
+A password manager works like a safe. Your passwords are securely stored in an encrypted database, and you access them by entering a master password to decrypt the database.
 
-The password database and the master password are like safe and key: even if the safe is stolen, thieves wont be able to access your passwords without the key.
+It's much easier to remember one long, secure password than numerous different ones. And if the safe (encrypted database) is stolen, thieves wont be able read your passwords without the key (master password).
 
 When you need to log in to an account, you simply unlock your database, copy your credentials, and paste them into the login fields.<span class="ftnt">[1]</span> No more straining to type complicated passwords.
 
@@ -25,7 +25,15 @@ When you need a new password, password managers create new ones for you that are
 
 I use [KeePass](http://keepass.info/), a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.
 
+<div class="cntr">
+  <img src="../images/1/keepass.PNG" />
+</div>
+
 KeePass, however, is not the most user-friendly service out there. I've played with [LastPass](https://www.lastpass.com/) as an alternative. LastPass keeps your passwords in a "cloud" so you can access them anywhere.<span class="ftnt">[2]</span> LastPass runs on an ad-based model, making it also "free" to use.
+
+<div class="cntr">
+  <img src="../images/1/lastpass.jpg" />
+</div>
 
 There are also other password management programs and services out there, though I haven't tried any others personally.
 
@@ -48,3 +56,7 @@ If you're interested in more on practical online security, stay tuned!
 [1] Some services even offer "Auto-Type", which fills in the login fields for you with one click or shortcut combo!
 
 [2] I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.).
+
+#### Updated  January 28, 2017
+* Added pictures.
+* Edited "How do password managers work?" section.
