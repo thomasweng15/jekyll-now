@@ -29,6 +29,7 @@ Which converts into the following HTML:
 * __exercise__ 7 minute workout
 * Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we've been spending our spare time doing these past few months.
 * Met up with Y. at Cafe Cesura. Worked on a blog post about journaling.
+
 ---
 
 Markdown's lightweight structure provides both organization and flexibility. I generally use headers for dates, followed by bullet points describing each significant event of the day. I keep each month in a separate file, and each year of files in a distinct folder.
