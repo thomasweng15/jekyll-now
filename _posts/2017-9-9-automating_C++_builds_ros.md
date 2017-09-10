@@ -85,7 +85,6 @@ Done checking log file disk usage. Usage is <1GB.
 
 started roslaunch server http://localhost:34414/
 ```
-Note the comment I added in between the ">>><<<" symbols.
 
 You can get `launcher.sh` [here](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh). You'd run it in a terminal (`bash launcher.sh`), just like the first one.
 
