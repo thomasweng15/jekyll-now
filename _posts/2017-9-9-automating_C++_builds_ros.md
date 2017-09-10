@@ -36,7 +36,7 @@ octomapper.cpp modified, rebuilding...
 ```
 
 It's fairly simple to get this set up for your workspace. You'll need to:
-1. Get the script from this Github gist: https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh
+1. Get the script from this Github gist: [builder.sh](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh)
 2. Configure it to watch your workspace directories
 3. Run it in a terminal using `bash builder.sh`
 4. Start coding and enjoying ~build-on-save~
@@ -95,6 +95,6 @@ Hope this helps and you find it useful!
 ---
 ## Footnotes: 
 
-[1] Originally inspired by Brett Victor's talk, "Inventing on Principle." Check it out a recording of it here: https://vimeo.com/36579366.
+[1] Originally inspired by Brett Victor's talk, "Inventing on Principle." Check it out a recording of it here: [video link](https://vimeo.com/36579366).
 
 [2] I set the main node with the `required=true` attribute in my launch file so I only need to kill that node to stop the others.
