@@ -88,12 +88,13 @@ started roslaunch server http://localhost:34414/
 
 You can get `launcher.sh` [here](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh). You'd run it in a terminal (`bash launcher.sh`), just like the first one.
 
-If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven't had any problems rebuilding on save. One option would be to rebuild only the package you are working on.
+If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven't had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.
 
 Hope this helps and you find it useful!
 
 ---
 ## Footnotes: 
 
-[1] Originally inspired by Brett Victor's talk, "Inventing on Principle." Check it out a recording of it here: https://vimeo.com/36579366
+[1] Originally inspired by Brett Victor's talk, "Inventing on Principle." Check it out a recording of it here: https://vimeo.com/36579366.
+
 [2] I set the main node with the `required=true` attribute in my launch file so I only need to kill that node to stop the others.
