@@ -30,4 +30,4 @@ I'm still breathing life into the site, but I plan to I post writeups of the pro
 
 ### How can I reach you?
 
-Email is the best way to reach me: __thomas.weng@aya.yale.edu__
+Email is the best way to reach me: __thomas.weng11@gmail.com__
