@@ -5,7 +5,7 @@ title: Hi, I'm Thomas.
 
 <h2>Hi, I'm Thomas.</h2>
 
-I'm software engineer at Microsoft. I've worked on the Bing Answers & Widget Experiences team for almost two years, contributing to projects such as the [Bing 2016 Election Answers](http://blogs.bing.com/search?tagname=election%202016&groupid=10), the [Flight Booking Answer](https://www.bing.com/search?q=book%20flight), and Bing at Work.
+I'm a software engineer at Microsoft. I've worked on the Bing Answers & Widget Experiences team for almost two years, contributing to projects such as the [Bing 2016 Election Answers](http://blogs.bing.com/search?tagname=election%202016&groupid=10), the [Flight Booking Answer](https://www.bing.com/search?q=book%20flight), and Bing at Work.
 
 Download a copy of my resume here: [resume.pdf](../resources/resume.pdf){:target="\_blank"}
 
