@@ -15,9 +15,19 @@
 
 html {
   font-size: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
+  position: relative;
+  min-height: 100%;
 	background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
@@ -196,7 +206,8 @@ img {
   cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 300;
-  font-size: 28px;
+  font-size: 36px;
+  line-height: 70px;
   letter-spacing: 1px;
 }
 
@@ -251,21 +262,30 @@ ul.posts li {
   line-height: 1.75em;
 }
 
-ul.posts span {
+ul.posts .post-date {
   color: #888;
   font-family: Monaco, "Courier New", monospace;
-  font-size: 80%;
+  font-size: 13px;
+  line-height: 20px;
+  margin-bottom: 12px;
 }
 
 ul.posts a {
   text-decoration: inherit;
 }
 
+#main {
+  padding-bottom: 151px;
+}
+
 .wrapper-footer {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  background-color: $lightGray;
-  margin-top: 50px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
 }
 
 .footer {
@@ -280,6 +300,7 @@ ul.posts a {
 
 .footer .contact {
   float: left;
+  line-height: 40px;
 }
 
 .footer .social {
@@ -323,11 +344,21 @@ ul.posts a {
     width: 100%;
     height: 215px;
   }
+
+  .site-name {
+    font-size: 28px;
+    line-height: 52px;
+  }
 }
 
 @media screen and (max-width: 320px) {
   .ytv {
     height: 160px;
+  }
+
+  .site-name {
+    font-size: 28px;
+    line-height: normal;
   }
 }
 
