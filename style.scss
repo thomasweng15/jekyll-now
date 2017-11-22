@@ -328,6 +328,11 @@ ul.posts a {
   text-align: center;
 }
 
+#cv_iframe {
+  margin-top: 20px;
+  border: 1px solid #888;
+}
+
 @media screen and (max-width: 420px) {
   .footer .contact {
     float: none;
