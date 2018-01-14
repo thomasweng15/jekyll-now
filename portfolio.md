@@ -4,9 +4,9 @@ layout: default
 
 # Portfolio
 
-This is a curated list of past projects in chronological order. 
+This is a curated list of past projects in chronological order. With the exception of my senior project, these were all side projects completed in my spare time.
 
-## Deep Learning on a Drone to Track Targets in Simulation
+## Deep Learning o  n a Drone to Track Targets in Simulation
 
 ![image](https://github.com/thomasweng15/RoboND-DeepLearning-Project/raw/master/screenshot1.png)
 

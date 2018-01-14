@@ -3,7 +3,7 @@ layout: default
 title: Homepage
 ---
 
-I am an aspiring graduate student seeking admission to robotics PhD programs. My research interests lie in robot task learning and human-robot interaction. I currently conduct research at Maya Cakmak's [Human-Centered Robotics Lab](https://hcrlab.cs.washington.edu/){:target="\_blank"}. Read my CV <a href="{{ site.baseurl }}/cv">here</a>.
+I am an aspiring graduate student seeking admission to robotics PhD programs. My research interests lie in robot task learning and human-robot interaction. I currently conduct research at Maya Cakmak's [Human-Centered Robotics Lab](https://hcrlab.cs.washington.edu/){:target="\_blank"}. Read my CV <a href="{{ site.baseurl }}/cv">here</a>, or check out a <a href="{{ site.baseurl }}/cv">portfolio</a> of past projects.
 
 I graduated from Yale in 2015 with Bachelor's degrees in Computer Science and Economics. In college, I assisted Brian Scassellati's research at the [Social Robotics Lab](https://scazlab.yale.edu/){:target="\_blank"}, co-authoring publications in [HRI 2016](http://scazlab.yale.edu/sites/default/files/files/ADMONI_hri16.pdf){:target="\_blank"} and [ICRA 2016](http://hennyadmoni.com/documents/admoni2016icra.pdf){:target="\_blank"}. My senior thesis on robotic perception of human gestures was awarded the Computer Science Research Prize.
 
