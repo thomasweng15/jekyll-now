@@ -12,7 +12,8 @@ To fix this, I've automated the build process to build when saving a file! No mo
 
 Here's how it works. I've written a shell script called `builder.sh` that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it'll print a success message. Here's an example of a build failure, followed by success:
 
-```
+<pre class="highlight">
+<code>
 $ bash builder.sh
 Setting up watches.
 Watches established.
@@ -29,14 +30,17 @@ make: *** [all] Error 2
 cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
 ...............................................................................
 Failed     << perception:make           [ Exited with code 2 ]                 
-```
+</code>
+</pre>
 There is syntax highlighting in your terminal which makes this output more readable.
 
 After fixing the issue and saving, the build runs again automatically:
-```
+<pre class="highlight">
+<code>
 octomapper.cpp modified, rebuilding...
 [build] Summary: All 2 packages succeeded!
-```
+</code>
+</pre>
 
 It's fairly simple to get this set up for your workspace. You'll need to:
 1. Get the script from this Github gist: [builder.sh](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh)
@@ -50,7 +54,8 @@ After your build completes, you'll probably need to run or restart your ROS node
 
 This time, a script called `launcher.sh` runs your project's `roslaunch` command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, `builder.sh` – the original script – sends a signal to kill your ROS nodes [2]. When the ROS nodes die, `launcher.sh` will automatically restart them, grabbing your newest build. Here's an example of what restarting looks like:
 
-```
+<pre class="highlight">
+<code>
 $ bash launcher.sh
 Launching roslaunch
 ... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
@@ -75,11 +80,13 @@ Initiating shutdown!
 shutting down processing monitor...
 ... shutting down processing monitor complete
 done
-```
+</code>
+</pre>
 
 `launcher.sh` notices that the node has gone down and triggers a restart:
 
-```
+<pre class="highlight">
+<code>
 Launching roslaunch
 ... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
 Checking log directory for disk usage. This may take awhile.
@@ -87,7 +94,8 @@ Press Ctrl-C to interrupt
 Done checking log file disk usage. Usage is <1GB.
 
 started roslaunch server http://localhost:34414/
-```
+</code>
+</pre>
 
 You can get `launcher.sh` [here](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh). You'd run it in a terminal (`bash launcher.sh`), just like the first one.
 
