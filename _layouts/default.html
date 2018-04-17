@@ -5,13 +5,22 @@
 
     {% include meta.html %}
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:normal,b,i,bi" rel="stylesheet">
+    <script src="https://use.fontawesome.com/60beeb5aee.js" type="text/javascript"></script>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
-    <link rel="shortcut icon" type="image/png" href="{{ site.baseurl }}/favicon.png"  />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
   </head>
@@ -24,12 +33,12 @@
 
           <div class="site-info">
             <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
+            <p class="site-description">{{ site.description }}</p>
           </div>
 
           <nav>
-            <a href="{{ site.baseurl }}/posts">Blog</a>
-            <a href="https://github.com/thomasweng15" target="_blank">Github</a>
-            <a href="{{ site.baseurl }}/cv">CV</a>
+            <a href="{{ site.baseurl }}/archive">Archive</a>
+            <a href="{{ site.baseurl }}/about">About</a>
           </nav>
         </header>
       </div>
@@ -40,23 +49,21 @@
     </div>
 
     <div class="wrapper-footer">
-      <div class="footer">
-        <div class="contact">
-          <div>Email me at <a href="mailto:thomas.weng11@gmail.com">thomas.weng11@gmail.com</a></div>
-        </div>
-        <div class="social">
-          {% include svg-icons.html %}
-        </div>
+      <div class="container">
+        <footer class="footer">
+                <a href="/#contact"><i class="fa fa-envelope-open fa-navbar" aria-hidden="true"></i></a>
+                <a href="https://twitter.com/RandomlyWalking"><i class="fa fa-twitter fa-navbar" aria-hidden="true"></i></a>
+                <a href="http://scholar.google.co.uk/citations?user=hYtGXD0AAAAJ&amp;hl=en"><i class="fa fa-google fa-navbar" aria-hidden="true"></i></a>
+                <a href="https://github.com/casutton/"><i class="fa fa-github fa-navbar" aria-hidden="true"></i></a>
+	        <a href="{{ site.baseurl }}/feed.xml"><i class="fa fa-rss fa-navbar"  aria-hidden="true"></i></a>
+	</footer>
       </div>
     </div>
 
     {% include analytics.html %}
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-2036884969643177",
-        enable_page_level_ads: true
-      });
-    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
   </body>
 </html>
