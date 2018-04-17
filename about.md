@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Homepage
+title: About
 ---
 
 I am an aspiring graduate student seeking admission to robotics PhD programs. My research interests lie in robot task learning and human-robot interaction. I currently conduct research at Maya Cakmak's [Human-Centered Robotics Lab](https://hcrlab.cs.washington.edu/){:target="\_blank"}. Read my CV <a href="{{ site.baseurl }}/cv">here</a>, or check out a <a href="{{ site.baseurl }}/cv">portfolio</a> of past projects.

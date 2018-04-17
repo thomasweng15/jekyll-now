@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Robotics Day at Microsoft
+author: Thomas Weng
+tags:
+- robotics
 ---
 
 When it comes to applying for opportunities, I'm no different from everyone else: I always get anxious. But preparing an application is often a great way to make your work presentable and gauge your progress.

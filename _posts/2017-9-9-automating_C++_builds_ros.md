@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Automating C++ builds in ROS
+author: Thomas Weng
+tags:
+- productivity
 ---
 
 If you're working on a C++ ROS project, you probably run `catkin build` every time you make a change. This is tedious and takes you out of your programming flow. It's especially annoying when your build fails multiple times due to small errors. I'm a big proponent of keeping the iteration loop as small as possible [1].

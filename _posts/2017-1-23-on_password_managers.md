@@ -1,6 +1,11 @@
 ---
 layout: post
 title: You Should Use a Password Manager
+author: Thomas Weng
+tags:
+- productivity
+- security
+- popular
 ---
 
 It's easy to get lazy and use the same password for multiple account logins. But doing so leaves you _much_ less secure than having different passwords.
