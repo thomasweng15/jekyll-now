@@ -14,14 +14,14 @@ In my spare time, I read/listen to [books](https://www.goodreads.com/user/show/4
 
 ## Recent News
 
-<table class="table">
+<table class="table news">
   <tbody>
     <tr>
-      <th scope="row">Apr 4, 2018</th>
+      <th scope="row">Apr 04, 2018</th>
       <td>I received an Honorable Mention for my 2018 NSF Graduate Research Fellowship submission!</td>
     </tr>
     <tr>
-      <th scope="row">Apr 3, 2018</th>
+      <th scope="row">Apr 03, 2018</th>
       <td>I am participating in the Spring 2 batch at <a href="https://www.recurse.com" target="_blank">Recurse Center</a> in NYC from April to June.</td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@ In my spare time, I read/listen to [books](https://www.goodreads.com/user/show/4
       <td>Excited to announce that I will be starting my doctoral studies at the CMU Robotics Institute this fall!</td>
     </tr>
     <tr>
-      <th scope="row">Jul 1, 2017</th>
+      <th scope="row">Jul 01, 2017</th>
       <td>I'm starting a new position as lab staff in Maya Cakmak's <a href="https://hcrlab.cs.washington.edu" target="_blank">Human-Centered Robotics Lab</a> at UW!</td>
     </tr>
   </tbody>
