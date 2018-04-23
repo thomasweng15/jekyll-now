@@ -2,6 +2,7 @@
 layout: post
 title: How I Journal
 author: Thomas Weng
+comments: true
 tags:
 - productivity
 ---

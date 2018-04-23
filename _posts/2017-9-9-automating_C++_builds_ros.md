@@ -2,6 +2,7 @@
 layout: post
 title: Automating C++ builds in ROS
 author: Thomas Weng
+comments: true
 tags:
 - productivity
 ---

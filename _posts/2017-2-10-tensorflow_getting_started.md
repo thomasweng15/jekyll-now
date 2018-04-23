@@ -2,6 +2,7 @@
 layout: post
 title: Getting Started with Tensorflow
 author: Thomas Weng
+comments: true
 tags:
 - machine learning
 ---

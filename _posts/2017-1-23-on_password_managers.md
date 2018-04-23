@@ -2,6 +2,7 @@
 layout: post
 title: You Should Use a Password Manager
 author: Thomas Weng
+comments: true
 tags:
 - productivity
 - security

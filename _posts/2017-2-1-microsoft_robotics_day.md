@@ -2,6 +2,7 @@
 layout: post
 title: Robotics Day at Microsoft
 author: Thomas Weng
+comments: true
 tags:
 - robotics
 ---
