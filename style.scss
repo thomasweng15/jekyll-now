@@ -247,6 +247,13 @@ nav {
 }
 
 .post {
+  margin-bottom: 50px;
+
+  h1:first-child {
+    font-weight: bold;
+    font-size: 28px;
+  }
+
   blockquote {
     margin: 1.8em .8em;
     border-left: 2px solid $gray;

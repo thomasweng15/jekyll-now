@@ -17,7 +17,7 @@ I wavered for a bit about applying, but ultimately I figured that I would give i
 
 In the end, I got to do it all: I volunteered, attended the talks, and presented at the expo! I'll focus on my experience at the expo here, so that this post doesn't get too long.
 
-## At the expo
+# At the expo
 My presentation naturally focused on Rover, the robot that I have been building and programming for almost half a year. Here is a picture of the bot:
 
 <div class="cntr">
@@ -40,19 +40,19 @@ Here's an online version of the poster on the wall; click for a full page view:
   </a>
 </div>
 
-#### Presentation materials
+## Presentation materials
 * __Poster.__ On the poster, I mapped out the project goals, system design, roadmap, and key challenges, and other topics. It served as a handy reference when people asked questions, as I could point out the relevant details quickly.
 * __Video.__ I played a short video on loop with clips demoing Rover at different stages of development. I also included demos of robots on the market aiming to be intelligent agents for comparison.
 * __Contact info.__ I laid out some paper strips with project links and my contact information for people to take, in case they wanted to connect with me later.
 
-#### How presenting went
+## How presenting went
 The expo lasted for two hours, and lots of people stopped by. I ended up having virtually no downtime, which was great! It was rewarding to see people checking out my robot, looking at my presentation materials, and asking me questions about what I had built.
 
 It was interesting to observe what drew people's attention. My robot was powered on but stationary, and many people were drawn to the booth by the spinning LIDAR on the robot. It turned out that few people knew that fairly inexpensive LIDARs were available for hobby robotics. Once people were engaged, I pitched my vision for Rover as an intelligent pet-like robot, and described the progress I was making towards that goal.
 
 There were a lot of other cool robots on display, like battle robots, mobile robots made with bicycle wheels, and even a foosball-playing robot! All the presenters were really friendly, and we all had a great time demoing our creations.
 
-## What I learned
+# What I learned
 
 My biggest takeaway from this experience is realizing how important it is to practice pitching my ideas to other people. Though I had been working on my robot for months, I had very little to show for it besides the physical robot.
 

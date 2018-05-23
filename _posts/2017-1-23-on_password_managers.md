@@ -17,7 +17,7 @@ I consequently started hunting for a solution, and ended up trying out a passwor
 
 There isn't much to a password manager, and using one has made logging into accounts so much easier and safer. Here's the gist of it in ~1 minute.
 
-## How do password managers work?
+# How do password managers work?
 
 A password manager works like a safe. Your passwords are securely stored in an encrypted database, and you access them by entering a master password to decrypt the database.
 
@@ -43,7 +43,7 @@ KeePass, however, is not the most user-friendly service out there. I've played w
 
 There are also other password management programs and services out there, though I haven't tried any others personally.
 
-## What if I screw up with a password manager and lose all of my passwords?
+# What if I screw up with a password manager and lose all of my passwords?
 
 If you're worried about losing your passwords and/or aren't sure if a password manager is for you, you always have the option of easing into it. Start by putting one password into the manager for something that isn't critically important, so that you get the hang of using it. As you get more comfortable, you can add more and more passwords.
 
@@ -57,12 +57,12 @@ I hope you take a few minutes out of your day to give a password manager a try. 
 
 If you're interested in more on practical online security, stay tuned!
 
-## Footnotes
+### Footnotes
 
 [1] Some services even offer "Auto-Type", which fills in the login fields for you with one click or shortcut combo!
 
 [2] I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.).
 
-#### Updated  January 28, 2017
+### Updated  January 28, 2017
 * Added pictures.
 * Edited "How do password managers work?" section.

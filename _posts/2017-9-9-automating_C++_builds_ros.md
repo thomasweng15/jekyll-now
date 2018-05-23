@@ -7,11 +7,11 @@ tags:
 - productivity
 ---
 
-If you're working on a C++ ROS project, you probably run `catkin build` every time you make a change. This is tedious and takes you out of your programming flow. It's especially annoying when your build fails multiple times due to small errors. I'm a big proponent of keeping the iteration loop as small as possible [1].
+If you're working on a C++ ROS project, you probably run <code class="text">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It's especially annoying when your build fails multiple times due to small errors. I'm a big proponent of keeping the iteration loop as small as possible [1].
 
 To fix this, I've automated the build process to build when saving a file! No more manual building :).
 
-Here's how it works. I've written a shell script called `builder.sh` that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it'll print a success message. Here's an example of a build failure, followed by success:
+Here's how it works. I've written a shell script called <code class="text">builder.sh</code> that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it'll print a success message. Here's an example of a build failure, followed by success:
 
 <pre class="highlight">
 <code>
@@ -46,14 +46,14 @@ octomapper.cpp modified, rebuilding...
 It's fairly simple to get this set up for your workspace. You'll need to:
 1. Get the script from this Github gist: [builder.sh](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh)
 2. Configure it to watch your workspace directories
-3. Run it in a terminal using `bash builder.sh`
+3. Run it in a terminal using <code class="text">bash builder.sh</code>
 4. Start coding and enjoying ~build-on-save~
 
-# But wait, there's more: `roslaunch` auto-restart!
+# But wait, there's more: <code class="text">roslaunch</code> auto-restart!
 
 After your build completes, you'll probably need to run or restart your ROS nodes to test your changes. That's another manual step we can automate.
 
-This time, a script called `launcher.sh` runs your project's `roslaunch` command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, `builder.sh` – the original script – sends a signal to kill your ROS nodes [2]. When the ROS nodes die, `launcher.sh` will automatically restart them, grabbing your newest build. Here's an example of what restarting looks like:
+This time, a script called <code class="text">launcher.sh</code> runs your project's <code class="text">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="text">builder.sh</code> – the original script – sends a signal to kill your ROS nodes [2]. When the ROS nodes die, <code class="text">launcher.sh</code> will automatically restart them, grabbing your newest build. Here's an example of what restarting looks like:
 
 <pre class="highlight">
 <code>
@@ -84,7 +84,7 @@ done
 </code>
 </pre>
 
-`launcher.sh` notices that the node has gone down and triggers a restart:
+<code class="text">launcher.sh</code> notices that the node has gone down and triggers a restart:
 
 <pre class="highlight">
 <code>
@@ -98,7 +98,7 @@ started roslaunch server http://localhost:34414/
 </code>
 </pre>
 
-You can get `launcher.sh` [here](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh). You'd run it in a terminal (`bash launcher.sh`), just like the first one.
+You can get <code class="text">launcher.sh</code> [here](https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh). You'd run it in a terminal (<code class="text">bash launcher.sh</code>), just like the first one.
 
 If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven't had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.
 
@@ -109,4 +109,4 @@ Hope this helps and you find it useful!
 
 [1] Originally inspired by Brett Victor's talk, "Inventing on Principle." Check it out a recording of it here: [video link](https://vimeo.com/36579366).
 
-[2] I set the main node with the `required=true` attribute in my launch file so I only need to kill that node to stop the others.
+[2] I set the main node with the <code class="text">required=true</code> attribute in my launch file so I only need to kill that node to stop the others.
