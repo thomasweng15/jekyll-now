@@ -19,5 +19,3 @@ Of course, the math does become more relevant as one continues working with ML. 
 
 I'm looking forward to playing more with Tensorflow and learning about what's going on under the hood. I'll be keeping up with the math through online resources -- courses, textbooks, and hopefully papers. Most of all, I'm excited to take the training wheels off soon and start building my own models from scratch!
 
-<br>
-<hr>

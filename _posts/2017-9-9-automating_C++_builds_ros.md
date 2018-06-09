@@ -7,7 +7,7 @@ tags:
 - productivity
 ---
 
-If you're working on a C++ ROS project, you probably run <code class="text">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It's especially annoying when your build fails multiple times due to small errors. I'm a big proponent of keeping the iteration loop as small as possible [1].
+If you're working on a C++ ROS project, you probably run <code class="text">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It's especially annoying when your build fails multiple times due to small errors. I'm a big proponent of keeping the iteration loop as small as possible[^1].
 
 To fix this, I've automated the build process to build when saving a file! No more manual building :).
 
@@ -53,7 +53,7 @@ It's fairly simple to get this set up for your workspace. You'll need to:
 
 After your build completes, you'll probably need to run or restart your ROS nodes to test your changes. That's another manual step we can automate.
 
-This time, a script called <code class="text">launcher.sh</code> runs your project's <code class="text">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="text">builder.sh</code> – the original script – sends a signal to kill your ROS nodes [2]. When the ROS nodes die, <code class="text">launcher.sh</code> will automatically restart them, grabbing your newest build. Here's an example of what restarting looks like:
+This time, a script called <code class="text">launcher.sh</code> runs your project's <code class="text">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="text">builder.sh</code> – the original script – sends a signal to kill your ROS nodes[^2]. When the ROS nodes die, <code class="text">launcher.sh</code> will automatically restart them, grabbing your newest build. Here's an example of what restarting looks like:
 
 <pre class="highlight">
 <code>
@@ -105,8 +105,8 @@ If your builds take a lot of processing power and/or take a long time, you may n
 Hope this helps and you find it useful!
 
 ---
-## Footnotes: 
+Footnotes
 
-[1] Originally inspired by Brett Victor's talk, "Inventing on Principle." Check it out a recording of it here: [video link](https://vimeo.com/36579366).
+[^1]: Originally inspired by Brett Victor's talk, "Inventing on Principle." Check it out a recording of it here: [video link](https://vimeo.com/36579366).
 
-[2] I set the main node with the <code class="text">required=true</code> attribute in my launch file so I only need to kill that node to stop the others.
+[^2]: I set the main node with the <code class="text">required=true</code> attribute in my launch file so I only need to kill that node to stop the others.

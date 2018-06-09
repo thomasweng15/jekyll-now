@@ -60,8 +60,5 @@ Preparing to show my project to other people forced me to distill the nebulous t
 
 Finally, I'm learning to become less anxious about applying to things. I want to treat applications more as learning opportunities rather than tests. If I feel overly anxious, not only is it counter productive, but it probably means that I'm overestimating how much I'll lose if I get rejected. It's better to just keep trying, learning, and growing.
 
-<br>
-
 ---
-
 Thanks for reading, and best wishes to you on whatever projects or opportunities you are working towards! Stay tuned for more details about Rover.
