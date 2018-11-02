@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2018-11-02T19:17:12-04:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Setting up TeX math rendering for your blog or website</title><link href="http://thomasweng.com/setting_up_tex/" rel="alternate" type="text/html" title="Setting up TeX math rendering for your blog or website" /><published>2018-04-26T00:00:00-04:00</published><updated>2018-04-26T00:00:00-04:00</updated><id>http://thomasweng.com/setting_up_tex</id><content type="html" xml:base="http://thomasweng.com/setting_up_tex/">&lt;p&gt;Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.&lt;/p&gt;
+
+&lt;p&gt;I used Khan Academy’s &lt;a href=&quot;https://khan.github.io/KaTeX/&quot;&gt;KaTeX&lt;/a&gt; typesetting library for my blog. KaTeX is fast, self-contained, and works largely as you would expect. Here are the instructions:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Include KaTeX on your site by adding the &lt;a href=&quot;https://github.com/Khan/KaTeX/blob/master/contrib/auto-render/README.md&quot;&gt;required reference tags and scripts&lt;/a&gt; to your html template&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. See 
+&lt;a href=&quot;https://github.com/thomasweng15/thomasweng15.github.io/commit/a8ae4f214dd8bec31e29c62f3cdc79d2e9b761f8&quot;&gt;this commit&lt;/a&gt; for the changes I made to get it working on this blog.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Typeset math by enclosing your notation within &lt;code class=&quot;text&quot;&gt;\\(&lt;/code&gt; and &lt;code class=&quot;text&quot;&gt;\\)&lt;/code&gt; for inline typesetting, or &lt;code class=&quot;text&quot;&gt;\\[&lt;/code&gt; and &lt;code class=&quot;text&quot;&gt;\\]&lt;/code&gt; for typesetting on a separate line.&lt;/p&gt;
+
+    &lt;p&gt;For example, with inline typesetting, &lt;code class=&quot;text&quot;&gt;\\(\alpha\\)&lt;/code&gt;, becomes \(\alpha\). With non-inline typesetting, &lt;code class=&quot;text&quot;&gt;\\[x^2 + y^2 + z^2 = r^2\\]&lt;/code&gt; becomes: \[x^2 + y^2 + z^2 = r^2\]&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you have any rendering issues, check your console for error messages. Also take a look at the full documentation on &lt;a href=&quot;https://github.com/Khan/KaTeX&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Footnotes&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;You can also download these files and host them on your server directly instead of getting them from the cdn. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="blogging" /><summary type="html">Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</summary></entry><entry><title type="html">Automating C++ builds in ROS</title><link href="http://thomasweng.com/automating_C++_builds_ros/" rel="alternate" type="text/html" title="Automating C++ builds in ROS" /><published>2017-09-09T00:00:00-04:00</published><updated>2017-09-09T00:00:00-04:00</updated><id>http://thomasweng.com/automating_C++_builds_ros</id><content type="html" xml:base="http://thomasweng.com/automating_C++_builds_ros/">&lt;p&gt;If you’re working on a C++ ROS project, you probably run &lt;code class=&quot;text&quot;&gt;catkin build&lt;/code&gt; every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;To fix this, I’ve automated the build process to build when saving a file! No more manual building :).&lt;/p&gt;
+
+&lt;p&gt;Here’s how it works. I’ve written a shell script called &lt;code class=&quot;text&quot;&gt;builder.sh&lt;/code&gt; that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:&lt;/p&gt;
+
+&lt;pre class=&quot;highlight&quot;&gt;
+&lt;code&gt;
+$ bash builder.sh
+Setting up watches.
+Watches established.
+octomapper.cpp modified, rebuilding...
+_______________________________________________________________________________
+Errors     &amp;lt;&amp;lt; perception:make /home/tweng/catkin_ws/logs/perception/build.make.1447.log
+/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp: In member function ‘void perception::Octomapper::publish_octomap(octomap::OcTree*)’:
+/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp:99:3: error: ‘pub’ was not declared in this scope
+   pub.publish(octomap_msg);
+   ^
+make[2]: *** [CMakeFiles/perception_octomapper.dir/src/octomapper.cpp.o] Error 1
+make[1]: *** [CMakeFiles/perception_octomapper.dir/all] Error 2
+make: *** [all] Error 2
+cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
+...............................................................................
+Failed     &amp;lt;&amp;lt; perception:make           [ Exited with code 2 ]                 
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;There is syntax highlighting in your terminal which makes this output more readable.&lt;/p&gt;
+
+&lt;p&gt;After fixing the issue and saving, the build runs again automatically:&lt;/p&gt;
+&lt;pre class=&quot;highlight&quot;&gt;
+&lt;code&gt;
+octomapper.cpp modified, rebuilding...
+[build] Summary: All 2 packages succeeded!
+&lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;It’s fairly simple to get this set up for your workspace. You’ll need to:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Get the script from this Github gist: &lt;a href=&quot;https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh&quot;&gt;builder.sh&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Configure it to watch your workspace directories&lt;/li&gt;
+  &lt;li&gt;Run it in a terminal using &lt;code class=&quot;text&quot;&gt;bash builder.sh&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Start coding and enjoying ~build-on-save~&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;but-wait-theres-more-roslaunch-auto-restart&quot;&gt;But wait, there’s more: &lt;code class=&quot;text&quot;&gt;roslaunch&lt;/code&gt; auto-restart!&lt;/h1&gt;
+
+&lt;p&gt;After your build completes, you’ll probably need to run or restart your ROS nodes to test your changes. That’s another manual step we can automate.&lt;/p&gt;
+
+&lt;p&gt;This time, a script called &lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; runs your project’s &lt;code class=&quot;text&quot;&gt;roslaunch&lt;/code&gt; command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, &lt;code class=&quot;text&quot;&gt;builder.sh&lt;/code&gt; – the original script – sends a signal to kill your ROS nodes&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. When the ROS nodes die, &lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:&lt;/p&gt;
+
+&lt;pre class=&quot;highlight&quot;&gt;
+&lt;code&gt;
+$ bash launcher.sh
+Launching roslaunch
+... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is &amp;lt;1GB.
+
+started roslaunch server http://localhost:39545/
+
+...
+
+/process_cloud_main shutdownCallback:163: Shutdown request received.
+/process_cloud_main shutdownCallback:164: Reason given for shutdown: [user request]
+================================================================================REQUIRED process [process_cloud_main-1] has died!
+process has finished cleanly
+log file: /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/process_cloud_main-1*.log
+Initiating shutdown!
+================================================================================
+[publish_saved_cloud-3] killing on exit
+[person_broadcaster-2] killing on exit
+[process_cloud_main-1] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+done
+&lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; notices that the node has gone down and triggers a restart:&lt;/p&gt;
+
+&lt;pre class=&quot;highlight&quot;&gt;
+&lt;code&gt;
+Launching roslaunch
+... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is &amp;lt;1GB.
+
+started roslaunch server http://localhost:34414/
+&lt;/code&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;You can get &lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; &lt;a href=&quot;https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh&quot;&gt;here&lt;/a&gt;. You’d run it in a terminal (&lt;code class=&quot;text&quot;&gt;bash launcher.sh&lt;/code&gt;), just like the first one.&lt;/p&gt;
+
+&lt;p&gt;If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven’t had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.&lt;/p&gt;
+
+&lt;p&gt;Hope this helps and you find it useful!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Footnotes&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: &lt;a href=&quot;https://vimeo.com/36579366&quot;&gt;video link&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;I set the main node with the &lt;code class=&quot;text&quot;&gt;required=true&lt;/code&gt; attribute in my launch file so I only need to kill that node to stop the others. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><summary type="html">If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible1. Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &amp;#8617;</summary></entry><entry><title type="html">How I Journal</title><link href="http://thomasweng.com/journaling/" rel="alternate" type="text/html" title="How I Journal" /><published>2017-05-30T00:00:00-04:00</published><updated>2017-05-30T00:00:00-04:00</updated><id>http://thomasweng.com/journaling</id><content type="html" xml:base="http://thomasweng.com/journaling/">&lt;p&gt;Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.&lt;/p&gt;
+
+&lt;p&gt;Journaling is one effective way to take control of your life and memories. Although taking photos and videos are more common ways to keep track of what you do or see, I’ve found writing to be more effective when it comes to reflecting on my life and staying organized.&lt;/p&gt;
+
+&lt;h1 id=&quot;forming-habits&quot;&gt;Forming habits&lt;/h1&gt;
+
+&lt;p&gt;People I’ve spoken to on this subject are generally receptive to the concept of journaling, but many find it difficult to prioritize the activity and keep a routine. I personally journal about once a week, filling in several days at a time. After a few months, it’s fulfilling to go back and revisit old entries. It’s amazing how a few short sentences can bring you back to an amazing conversation with a close friend, or your mood on a sunny, relaxing day, for example.&lt;/p&gt;
+
+&lt;p&gt;For me, one of the biggest starting hurdles was choosing the proper journaling medium. There are countless apps out there, but many of them have inconvenient tradeoffs. Apps often make it difficult to export your data, get in your way with ads, or keep useful features behind paywalls. There’s always pen and paper, but while writing by hand can be relaxing, it is also slower than typing, difficult to search through, and hard to preserve through the years.&lt;/p&gt;
+
+&lt;h1 id=&quot;journaling-in-markdown&quot;&gt;Journaling in Markdown&lt;/h1&gt;
+
+&lt;p&gt;My solution for the past year and a half has been to journal digitally in Markdown files. Markdown is designed to be easy-to-read, easy-to-write, and it avoids the pitfalls I mentioned above. Here’s a example of how I journal, albeit somewhat contrived and with less detail:&lt;/p&gt;
+
+&lt;pre class=&quot;highlight&quot;&gt;
+&lt;code&gt;
+## Mon 29
+* __exercise__ 7 minute workout
+* Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we've been spending our spare time doing these past few months.
+* Met up with Y at Cafe Cesura. Worked on a blog post about journaling.
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;p&gt;Which converts into the following HTML:&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;mon-29&quot;&gt;Mon 29&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;exercise&lt;/strong&gt; 7 minute workout&lt;/li&gt;
+  &lt;li&gt;Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we’ve been spending our spare time doing these past few months.&lt;/li&gt;
+  &lt;li&gt;Met up with Y. at Cafe Cesura. Worked on a blog post about journaling.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Markdown’s lightweight structure provides both organization and flexibility. I generally use headers for dates, followed by bullet points describing each significant event of the day. I keep each month in a separate file, and each year of files in a distinct folder.&lt;/p&gt;
+
+&lt;p&gt;I also use tags like &lt;code class=&quot;text&quot;&gt;__exercise__&lt;/code&gt; above to mark certain categories of events or thoughts. This has an added benefit of being easily searchable in Atom, my text editor of choice for journaling.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../images/4/search.png&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+Atom also provides a handy Markdown preview:
+&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../images/4/preview.png&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+Using Markdown, I can write faster than on paper, search through my notes quickly, and save backup copies easily. I don’t have to rely on any apps, nor give any third parties ownership of my data.&lt;/p&gt;
+
+&lt;h1 id=&quot;a-year-and-a-half-of-markdown&quot;&gt;A year and a half of Markdown&lt;/h1&gt;
+&lt;p&gt;As I mentioned earlier, I’ve been journaling in markdown for the past 1.5 years, and I’m really enjoying the setup. I journal approximately once a week, but I’ve been trying to increase the frequency. The amount of information I retain about a particular day significantly diminishes by the third passing day.&lt;/p&gt;
+
+&lt;h2 id=&quot;perspectives-on-time-and-value&quot;&gt;Perspectives on time and value&lt;/h2&gt;
+
+&lt;p&gt;Journaling has given me a much better higher-level understanding of where my time goes and more importantly, what I value. Keeping the one folder per year structure I have now, I’ll have 60 folders of journal files, give or take, by the end of my life. That’s not a lot, all things considered, and made me think about what I want to accomplish and record in my lifetime.&lt;/p&gt;
+
+&lt;h2 id=&quot;handwritten-notes-are-still-cool&quot;&gt;Handwritten notes are still cool&lt;/h2&gt;
+
+&lt;p&gt;Digital journaling hasn’t completely replaced pen and paper. I still take handwritten notes in pocket notepads to remember things to do, books to read, or random thoughts. More often than not, I’ll transfer the interesting portions into my journal.&lt;/p&gt;
+
+&lt;h1 id=&quot;whats-next&quot;&gt;What’s next&lt;/h1&gt;
+&lt;p&gt;There are other sources of data besides journaling that I want to pull together to form a richer picture. Photos, calendars, conversations, and geotags would add a lot of context to my journal.&lt;/p&gt;
+
+&lt;p&gt;To this end, I started writing a parser in Python for the Markdown-generated HTML files. The output is a Python object, which I can work with programmatically. As an example use case, I’ll be able to match up a given date with photos taken on that date in Google Photos. Ultimately, I hope to put together a simple webpage to show what I was up to on a given date in every year of my life.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><summary type="html">Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.</summary></entry><entry><title type="html">Getting Started with Tensorflow</title><link href="http://thomasweng.com/tensorflow_getting_started/" rel="alternate" type="text/html" title="Getting Started with Tensorflow" /><published>2017-02-10T00:00:00-05:00</published><updated>2017-02-10T00:00:00-05:00</updated><id>http://thomasweng.com/tensorflow_getting_started</id><content type="html" xml:base="http://thomasweng.com/tensorflow_getting_started/">&lt;p&gt;I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.&lt;/p&gt;
+
+&lt;p&gt;The resource I relied on to ramp up was &lt;a href=&quot;https://cloud.google.com/blog/big-data/2017/01/learn-tensorflow-and-deep-learning-without-a-phd&quot;&gt;Google’s crash course through Tensorflow&lt;/a&gt;, presented by Martin Gorner at &lt;a href=&quot;https://devoxx.com/&quot;&gt;Devoxx&lt;/a&gt;. The talk starts with a simple one-layer neural network, building quickly into multi-layer neural nets, convolutional neural nets, recurrent neural nets, and a collection of optimization techniques (e.g. learning rate decay, dropout, batch normalization).&lt;/p&gt;
+
+&lt;p&gt;I took the time to write out the code and get things working on my machine. That took longer than simply watching the video, but it deepened my understanding and guaranteed that I didn’t gloss over any important details. The slides from the talk included most of the code required for the models, but I did need to fill in some of the gaps. When I got stuck, I referenced the complete model at the &lt;a href=&quot;https://github.com/martin-gorner/tensorflow-mnist-tutorial&quot;&gt;Github repo&lt;/a&gt; Gorner created for this talk.&lt;/p&gt;
+
+&lt;p&gt;Gorner’s presentation glosses over the math behind concepts presented in order to focus on model building. I think this was a smart tradeoff. Having spent quite a bit of time taking courses and learning the math powering machine learning, the details of how the math works would probably be too involved for a short talk. And when it comes to actually building models, Tensorflow does the heavy lifting and abstracts the mathematical details away anyway.&lt;/p&gt;
+
+&lt;p&gt;Of course, the math does become more relevant as one continues working with ML. I’m sure I wouldn’t have picked things up so quickly with Tensorflow had I not already studied the background concepts.&lt;/p&gt;
+
+&lt;p&gt;I’m looking forward to playing more with Tensorflow and learning about what’s going on under the hood. I’ll be keeping up with the math through online resources – courses, textbooks, and hopefully papers. Most of all, I’m excited to take the training wheels off soon and start building my own models from scratch!&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="machine" /><category term="learning" /><summary type="html">I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.</summary></entry><entry><title type="html">Robotics Day at Microsoft</title><link href="http://thomasweng.com/microsoft_robotics_day/" rel="alternate" type="text/html" title="Robotics Day at Microsoft" /><published>2017-02-01T00:00:00-05:00</published><updated>2017-02-01T00:00:00-05:00</updated><id>http://thomasweng.com/microsoft_robotics_day</id><content type="html" xml:base="http://thomasweng.com/microsoft_robotics_day/">&lt;p&gt;When it comes to applying for opportunities, I’m no different from everyone else: I always get anxious. But preparing an application is often a great way to make your work presentable and gauge your progress.&lt;/p&gt;
+
+&lt;p&gt;Earlier this month, I heard about Robotics Day, an all-day event at Microsoft consisting of a series of talks, guided tours of Microsoft Research labs, and an expo showcasing robots built by hobbyist employees. The organizers sent out a call for volunteers and an application for prospective expo presenters.&lt;/p&gt;
+
+&lt;p&gt;This event was right up my alley. I was excited at the prospect of connecting with other MS folks doing robotics. I had even been building my own robot these past few months, so the expo was the perfect opportunity to show it off! However, I didn’t feel confident about applying for the expo, because I feared my work wouldn’t meet the same bar as other presenters. I didn’t want to stick out and look like I didn’t know what I was doing.&lt;/p&gt;
+
+&lt;p&gt;I wavered for a bit about applying, but ultimately I figured that I would give it my best shot and let the organizers decide if I made the cut. I also signed up to be a volunteer, so that in case of rejection, I could at least help out and get to know the organizers.&lt;/p&gt;
+
+&lt;p&gt;In the end, I got to do it all: I volunteered, attended the talks, and presented at the expo! I’ll focus on my experience at the expo here, so that this post doesn’t get too long.&lt;/p&gt;
+
+&lt;h1 id=&quot;at-the-expo&quot;&gt;At the expo&lt;/h1&gt;
+&lt;p&gt;My presentation naturally focused on Rover, the robot that I have been building and programming for almost half a year. Here is a picture of the bot:&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;a data-flickr-embed=&quot;true&quot; href=&quot;https://www.flickr.com/photos/145491926@N08/32280109700/in/dateposted-public/&quot; title=&quot;rover&quot;&gt;&lt;img src=&quot;https://c1.staticflickr.com/1/714/32280109700_3c62f38457_c.jpg&quot; width=&quot;400&quot; height=&quot;400&quot; alt=&quot;rover&quot; /&gt;&lt;/a&gt;&lt;script async=&quot;&quot; src=&quot;//embedr.flickr.com/assets/client-code.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I am building Rover to be an intelligent, mobile agent, kind of like a pet. A big part of the fun is seeing how much intelligence I can build using off-the-shelf hardware and open-source software. I’ll be writing up a more detailed post on building and designing Rover soon.&lt;/p&gt;
+
+&lt;p&gt;Rover is still a work in progress, so I put together several materials to aid me with the presentation. Here’s a picture of my booth setup:&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;a data-flickr-embed=&quot;true&quot; href=&quot;https://www.flickr.com/photos/145491926@N08/32455305401/in/dateposted-public/&quot; title=&quot;IMG_8918&quot;&gt;&lt;img src=&quot;https://c1.staticflickr.com/1/564/32455305401_9b0a127ced_c.jpg&quot; width=&quot;450&quot; height=&quot;600&quot; alt=&quot;IMG_8918&quot; /&gt;&lt;/a&gt;&lt;script async=&quot;&quot; src=&quot;//embedr.flickr.com/assets/client-code.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here’s an online version of the poster on the wall; click for a full page view:&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;a target=&quot;\_blank&quot; href=&quot;../images/2/diag.png&quot;&gt;
+    &lt;img src=&quot;../images/2/diag.png&quot; style=&quot;width: 90%; height: 90%;&quot; /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;presentation-materials&quot;&gt;Presentation materials&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Poster.&lt;/strong&gt; On the poster, I mapped out the project goals, system design, roadmap, and key challenges, and other topics. It served as a handy reference when people asked questions, as I could point out the relevant details quickly.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Video.&lt;/strong&gt; I played a short video on loop with clips demoing Rover at different stages of development. I also included demos of robots on the market aiming to be intelligent agents for comparison.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Contact info.&lt;/strong&gt; I laid out some paper strips with project links and my contact information for people to take, in case they wanted to connect with me later.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;how-presenting-went&quot;&gt;How presenting went&lt;/h2&gt;
+&lt;p&gt;The expo lasted for two hours, and lots of people stopped by. I ended up having virtually no downtime, which was great! It was rewarding to see people checking out my robot, looking at my presentation materials, and asking me questions about what I had built.&lt;/p&gt;
+
+&lt;p&gt;It was interesting to observe what drew people’s attention. My robot was powered on but stationary, and many people were drawn to the booth by the spinning LIDAR on the robot. It turned out that few people knew that fairly inexpensive LIDARs were available for hobby robotics. Once people were engaged, I pitched my vision for Rover as an intelligent pet-like robot, and described the progress I was making towards that goal.&lt;/p&gt;
+
+&lt;p&gt;There were a lot of other cool robots on display, like battle robots, mobile robots made with bicycle wheels, and even a foosball-playing robot! All the presenters were really friendly, and we all had a great time demoing our creations.&lt;/p&gt;
+
+&lt;h1 id=&quot;what-i-learned&quot;&gt;What I learned&lt;/h1&gt;
+
+&lt;p&gt;My biggest takeaway from this experience is realizing how important it is to practice pitching my ideas to other people. Though I had been working on my robot for months, I had very little to show for it besides the physical robot.&lt;/p&gt;
+
+&lt;p&gt;Preparing to show my project to other people forced me to distill the nebulous thoughts I had been working with into well-formed concepts. Showing my work also allowed me to gauge how people responded to Rover and get their feedback. And practicing my pitch helped me keep my communication skills sharp.&lt;/p&gt;
+
+&lt;p&gt;Finally, I’m learning to become less anxious about applying to things. I want to treat applications more as learning opportunities rather than tests. If I feel overly anxious, not only is it counter productive, but it probably means that I’m overestimating how much I’ll lose if I get rejected. It’s better to just keep trying, learning, and growing.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Thanks for reading, and best wishes to you on whatever projects or opportunities you are working towards! Stay tuned for more details about Rover.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">When it comes to applying for opportunities, I’m no different from everyone else: I always get anxious. But preparing an application is often a great way to make your work presentable and gauge your progress.</summary></entry><entry><title type="html">You Should Use a Password Manager</title><link href="http://thomasweng.com/on_password_managers/" rel="alternate" type="text/html" title="You Should Use a Password Manager" /><published>2017-01-23T00:00:00-05:00</published><updated>2017-01-23T00:00:00-05:00</updated><id>http://thomasweng.com/on_password_managers</id><content type="html" xml:base="http://thomasweng.com/on_password_managers/">&lt;p&gt;It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you &lt;em&gt;much&lt;/em&gt; less secure than having different passwords.&lt;/p&gt;
+
+&lt;p&gt;Still, it’s near impossible nowadays to remember an ever-expanding number of passwords for different accounts. Last year, I found that I was spending a silly amount of time coming up with passwords, remembering them, typing them in incorrectly, and resetting them.&lt;/p&gt;
+
+&lt;p&gt;I consequently started hunting for a solution, and ended up trying out a password manager. It solved my password issues so well, I haven’t looked back!&lt;/p&gt;
+
+&lt;p&gt;There isn’t much to a password manager, and using one has made logging into accounts so much easier and safer. Here’s the gist of it in ~1 minute.&lt;/p&gt;
+
+&lt;h1 id=&quot;how-do-password-managers-work&quot;&gt;How do password managers work?&lt;/h1&gt;
+
+&lt;p&gt;A password manager works like a safe. Your passwords are securely stored in an encrypted database, and you access them by entering a master password to decrypt the database.&lt;/p&gt;
+
+&lt;p&gt;It’s much easier to remember one long, secure password than numerous different ones. And if the safe (encrypted database) is stolen, thieves wont be able read your passwords without the key (master password).&lt;/p&gt;
+
+&lt;p&gt;When you need to log in to an account, you simply unlock your database, copy your credentials, and paste them into the login fields.&lt;span class=&quot;ftnt&quot;&gt;&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/span&gt; No more straining to type complicated passwords.&lt;/p&gt;
+
+&lt;p&gt;When you need a new password, password managers create new ones for you that are hard to crack. Many of them also remind you to change your passwords if it’s been a while.&lt;/p&gt;
+
+&lt;h2 id=&quot;which-password-manager-should-i-use&quot;&gt;Which password manager should I use?&lt;/h2&gt;
+
+&lt;p&gt;I use &lt;a href=&quot;http://keepass.info/&quot;&gt;KeePass&lt;/a&gt;, a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../images/1/keepass.PNG&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;KeePass, however, is not the most user-friendly service out there. I’ve played with &lt;a href=&quot;https://www.lastpass.com/&quot;&gt;LastPass&lt;/a&gt; as an alternative. LastPass keeps your passwords in a “cloud” so you can access them anywhere.&lt;span class=&quot;ftnt&quot;&gt;&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/span&gt; LastPass runs on an ad-based model, making it also “free” to use.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../images/1/lastpass.jpg&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There are also other password management programs and services out there, though I haven’t tried any others personally.&lt;/p&gt;
+
+&lt;h1 id=&quot;what-if-i-screw-up-with-a-password-manager-and-lose-all-of-my-passwords&quot;&gt;What if I screw up with a password manager and lose all of my passwords?&lt;/h1&gt;
+
+&lt;p&gt;If you’re worried about losing your passwords and/or aren’t sure if a password manager is for you, you always have the option of easing into it. Start by putting one password into the manager for something that isn’t critically important, so that you get the hang of using it. As you get more comfortable, you can add more and more passwords.&lt;/p&gt;
+
+&lt;p&gt;If anything goes wrong, you can still reset your passwords to online accounts the regular way.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;I hope you take a few minutes out of your day to give a password manager a try. In retrospect, I can’t believe it took me so long to take the jump–using a manager has been so much easier than the old system of remembering passwords that weren’t as safe anyway.&lt;/p&gt;
+
+&lt;p&gt;Edited January 28, 2017&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Added pictures.&lt;/li&gt;
+  &lt;li&gt;Edited “How do password managers work?” section.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Footnotes&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;Some services even offer “Auto-Type”, which fills in the login fields for you with one click or shortcut combo! &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.). &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="security" /><category term="popular" /><summary type="html">It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you much less secure than having different passwords.</summary></entry></feed>

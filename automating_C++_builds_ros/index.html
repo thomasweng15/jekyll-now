@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Automating C++ builds in ROS – Thomas Weng – adventures in computing, productivity, and ?</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible1.
+
+
+  
+    
+      Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &#8617;
+    
+  
+
+" />
+    <meta property="og:description" content="If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible1.
+
+
+  
+    
+      Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &#8617;
+    
+  
+
+" />
+    
+    <meta name="author" content="Thomas Weng" />
+
+    
+    <meta property="og:title" content="Automating C++ builds in ROS" />
+    <meta property="twitter:title" content="Automating C++ builds in ROS" />
+    
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:normal,b,i,bi" rel="stylesheet">
+    <script src="https://use.fontawesome.com/60beeb5aee.js" type="text/javascript"></script>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" id="avadaredux-google-fonts-avada_theme_options-css" href="https://fonts.googleapis.com/css?family=Lato%3A300%2C400%2C700italic%2C700%7CPT+Serif%3A400&amp;subset=latin" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Thomas Weng - adventures in computing, productivity, and ?" href="/feed.xml" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/contrib/auto-render.min.js" integrity="sha384-IiI65aU9ZYub2MY9zhtKd1H2ps7xxf+eb2YFG9lX6uRqpXCvBTOidPRCXCrQ++Uc" crossorigin="anonymous"></script>
+    
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"  />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="https://avatars3.githubusercontent.com/u/1114539?v=3&s=140" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Thomas Weng</a></h1>
+            <p class="site-description">adventures in computing, productivity, and ?</p>
+          </div>
+
+          <nav>
+            <a href="/archive">Archive</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <div class="row">
+<div class="col-sm-8">
+
+<article class="post">
+  <h1>Automating C++ builds in ROS</h1>
+
+  <div class="author">
+By Thomas Weng on September  9, 2017
+</div>
+
+
+
+  <div class="content">
+  <p>If you’re working on a C++ ROS project, you probably run <code class="text">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
+
+<p>To fix this, I’ve automated the build process to build when saving a file! No more manual building :).</p>
+
+<p>Here’s how it works. I’ve written a shell script called <code class="text">builder.sh</code> that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:</p>
+
+<pre class="highlight">
+<code>
+$ bash builder.sh
+Setting up watches.
+Watches established.
+octomapper.cpp modified, rebuilding...
+_______________________________________________________________________________
+Errors     &lt;&lt; perception:make /home/tweng/catkin_ws/logs/perception/build.make.1447.log
+/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp: In member function ‘void perception::Octomapper::publish_octomap(octomap::OcTree*)’:
+/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp:99:3: error: ‘pub’ was not declared in this scope
+   pub.publish(octomap_msg);
+   ^
+make[2]: *** [CMakeFiles/perception_octomapper.dir/src/octomapper.cpp.o] Error 1
+make[1]: *** [CMakeFiles/perception_octomapper.dir/all] Error 2
+make: *** [all] Error 2
+cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
+...............................................................................
+Failed     &lt;&lt; perception:make           [ Exited with code 2 ]                 
+</code>
+</pre>
+<p>There is syntax highlighting in your terminal which makes this output more readable.</p>
+
+<p>After fixing the issue and saving, the build runs again automatically:</p>
+<pre class="highlight">
+<code>
+octomapper.cpp modified, rebuilding...
+[build] Summary: All 2 packages succeeded!
+</code>
+</pre>
+
+<p>It’s fairly simple to get this set up for your workspace. You’ll need to:</p>
+<ol>
+  <li>Get the script from this Github gist: <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh">builder.sh</a></li>
+  <li>Configure it to watch your workspace directories</li>
+  <li>Run it in a terminal using <code class="text">bash builder.sh</code></li>
+  <li>Start coding and enjoying ~build-on-save~</li>
+</ol>
+
+<h1 id="but-wait-theres-more-roslaunch-auto-restart">But wait, there’s more: <code class="text">roslaunch</code> auto-restart!</h1>
+
+<p>After your build completes, you’ll probably need to run or restart your ROS nodes to test your changes. That’s another manual step we can automate.</p>
+
+<p>This time, a script called <code class="text">launcher.sh</code> runs your project’s <code class="text">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="text">builder.sh</code> – the original script – sends a signal to kill your ROS nodes<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>. When the ROS nodes die, <code class="text">launcher.sh</code> will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:</p>
+
+<pre class="highlight">
+<code>
+$ bash launcher.sh
+Launching roslaunch
+... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is &lt;1GB.
+
+started roslaunch server http://localhost:39545/
+
+...
+
+/process_cloud_main shutdownCallback:163: Shutdown request received.
+/process_cloud_main shutdownCallback:164: Reason given for shutdown: [user request]
+================================================================================REQUIRED process [process_cloud_main-1] has died!
+process has finished cleanly
+log file: /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/process_cloud_main-1*.log
+Initiating shutdown!
+================================================================================
+[publish_saved_cloud-3] killing on exit
+[person_broadcaster-2] killing on exit
+[process_cloud_main-1] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+done
+</code>
+</pre>
+
+<p><code class="text">launcher.sh</code> notices that the node has gone down and triggers a restart:</p>
+
+<pre class="highlight">
+<code>
+Launching roslaunch
+... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is &lt;1GB.
+
+started roslaunch server http://localhost:34414/
+</code>
+</pre>
+
+<p>You can get <code class="text">launcher.sh</code> <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh">here</a>. You’d run it in a terminal (<code class="text">bash launcher.sh</code>), just like the first one.</p>
+
+<p>If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven’t had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.</p>
+
+<p>Hope this helps and you find it useful!</p>
+
+<hr />
+<p>Footnotes</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: <a href="https://vimeo.com/36579366">video link</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>I set the main node with the <code class="text">required=true</code> attribute in my launch file so I only need to kill that node to stop the others. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+
+</article>
+
+  
+<div class="tags">
+    Tags:
+   
+    <span class="tag"><a href="/tag/productivity">productivity</a></span>
+   
+</div>
+
+
+
+  <div class="row pagenav">
+      
+      <div class="col-xs-6 prev_post"><a href="/journaling/">&larr; How I Journal</a></div>
+      
+      
+      <div class="col-xs-6 next_post"><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website &rarr;</a></div>
+      
+  </div>
+
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'http-thomasweng-com';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+  </div>
+
+  	 <div class="sidebar col-sm-4">
+	   <h1>Recent Posts</h1>
+
+	   <ul>
+	     
+	     <li><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></li>
+	     
+	     <li><a href="/automating_C++_builds_ros/">Automating C++ builds in ROS</a></li>
+	     
+	     <li><a href="/journaling/">How I Journal</a></li>
+	     
+	     <li><a href="/tensorflow_getting_started/">Getting Started with Tensorflow</a></li>
+	     
+	     <li><a href="/microsoft_robotics_day/">Robotics Day at Microsoft</a></li>
+	     
+	   </ul>
+
+	   <h1>Most Popular</h1>
+	   <ul>
+	     
+	     <li><a href="/on_password_managers/">You Should Use a Password Manager</a></li>
+	     
+	   </ul>
+
+	   <h1>Topics</h1>
+	   <ul>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/blogging">blogging</a> (1)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/learning">learning</a> (1)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/machine">machine</a> (1)</li>
+	     
+	     
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/productivity">productivity</a> (3)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/robotics">robotics</a> (1)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/security">security</a> (1)</li>
+	     
+	     
+	   </ul>
+
+	 </div>
+
+  
+</div>
+
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="footer">
+          
+<a href="mailto:thomas.weng11@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/thomasweng15"><i class="svg-icon github"></i></a>
+
+<a href="https://www.linkedin.com/in/thomasweng"><i class="svg-icon linkedin"></i></a>
+
+<a href="/feed.xml"><i class="svg-icon rss"></i></a>
+
+
+
+
+      </div>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-50853593-2', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/automating_C++_builds_ros/',
+		  'title': 'Automating C++ builds in ROS'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script>
+      renderMathInElement(document.body);
+    </script>
+  </body>
+</html>
