@@ -1,4 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2018-11-02T19:23:18-04:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Setting up TeX math rendering for your blog or website</title><link href="http://thomasweng.com/setting_up_tex/" rel="alternate" type="text/html" title="Setting up TeX math rendering for your blog or website" /><published>2018-04-26T00:00:00-04:00</published><updated>2018-04-26T00:00:00-04:00</updated><id>http://thomasweng.com/setting_up_tex</id><content type="html" xml:base="http://thomasweng.com/setting_up_tex/">&lt;p&gt;Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2018-11-03T22:08:22-04:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Staying on top of email</title><link href="http://thomasweng.com/staying_on_top_of_email/" rel="alternate" type="text/html" title="Staying on top of email" /><published>2018-11-03T00:00:00-04:00</published><updated>2018-11-03T00:00:00-04:00</updated><id>http://thomasweng.com/staying_on_top_of_email</id><content type="html" xml:base="http://thomasweng.com/staying_on_top_of_email/">&lt;p&gt;I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../images/7/cluttered.png&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    Screenshot of someone's inbox from the Internet. 13k unread emails = instant anxiety.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To keep a tidy inbox, I aim for Inbox Zero daily. That means for each email:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;If there’s a task that can be done in a minute, I’ll do it immediately and archive it.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If there’s a task to be done today, I’ll add it to my to-do list and then &lt;a href=&quot;https://support.google.com/mail/answer/7622010?co=GENIE.Platform%3DDesktop&amp;amp;hl=en&quot;&gt;snooze&lt;/a&gt; the email.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the task isn’t urgent, I’ll just snooze it to whenever I can/need to do it.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../images/7/clean.png&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    Much better!
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I don’t always achieve an empty inbox following this approach, especially when a lot of things are happening at once. The goal may also not always be to clear all emails, if you need some handy for your task for example.&lt;/p&gt;
+
+&lt;p&gt;Though I tried to keep my approach lightweight, there’s definitely room for improvement. For example, I’m still experimenting to find a good to-do list workflow. I could be more disciplined about when I check my email to avoid interruptions in my work. So far, though, this method is pretty effective in helping me stay organized.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><summary type="html">I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.</summary></entry><entry><title type="html">Setting up TeX math rendering for your blog or website</title><link href="http://thomasweng.com/setting_up_tex/" rel="alternate" type="text/html" title="Setting up TeX math rendering for your blog or website" /><published>2018-04-26T00:00:00-04:00</published><updated>2018-04-26T00:00:00-04:00</updated><id>http://thomasweng.com/setting_up_tex</id><content type="html" xml:base="http://thomasweng.com/setting_up_tex/">&lt;p&gt;Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.&lt;/p&gt;
 
 &lt;p&gt;I used Khan Academy’s &lt;a href=&quot;https://khan.github.io/KaTeX/&quot;&gt;KaTeX&lt;/a&gt; typesetting library for my blog. KaTeX is fast, self-contained, and works largely as you would expect. Here are the instructions:&lt;/p&gt;
 

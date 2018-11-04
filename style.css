@@ -449,6 +449,17 @@ code.text {
   font-size: 12px;
 }
 
+.cntr {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.caption {
+  font-size: 13px;
+  font-style: italic;
+}
+
 .highlight {
   background-color: #efefef;
   padding: 7px 7px 7px 10px;
