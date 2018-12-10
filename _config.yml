@@ -87,6 +87,7 @@ exclude:
   - README.md
   - CNAME
   - [vendor]
+  - ruby
 
 # settings for jekyll-paginate as per https://jekyllrb.com/docs/pagination/
 paginate: 5
