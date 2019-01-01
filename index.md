@@ -1,9 +1,8 @@
 ---
 layout: default
-title: About
+redirect_from: "/about"
 ---
 
-## About Me
 Hi, I am an aspiring researcher in the field of robotics starting my doctoral studies at the CMU Robotics Institute this fall. My research interests lie in robot learning and human-robot interaction.
 
 I graduated from Yale in 2015 with bachelor's degrees in Computer Science and Economics. As an undergraduate, I assisted Brian Scassellati's research at the [Social Robotics Lab](https://scazlab.yale.edu/){:target="\_blank"}, resulting in second-author publications in [HRI 2016](http://scazlab.yale.edu/sites/default/files/files/ADMONI_hri16.pdf){:target="\_blank"} and [ICRA 2016](http://hennyadmoni.com/documents/admoni2016icra.pdf){:target="\_blank"}. My senior thesis on robotic perception of human gestures was awarded the 2015 Computer Science Research Prize. 
