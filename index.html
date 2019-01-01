@@ -54,473 +54,56 @@
           </div>
 
           <nav>
-            <a href="/archive">Archive</a>
-            <a href="/about">About</a>
+            <!-- <a href="/archive">Archive</a> -->
+            <a href="/">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/cv">CV</a>
           </nav>
         </header>
       </div>
     </div>
 
     <div id="main" role="main" class="container">
-      <div class="posts">
-  
-  <div class="row">
-    <div class="col-sm-8">
-     
-       <article class="post">
+      <div class="home">
+  <p>
+    Hi, I am a PhD student in Robotics working with Prof. <a href="http://davheld.github.io/">Dave Held</a> at the CMU Robotics Institute. My research interests lie in robot learning and human-robot interaction.
+  </p>
 
-         <h1><a href="/staying_on_top_of_email/">Staying on top of email</a></h1>
+  <p>
+    I graduated from Yale in 2015 with bachelor's degrees in Computer Science and Economics. As an undergraduate, I assisted Brian Scassellati's research at the <a href="https://scazlab.yale.edu/" target="_blank">Social Robotics Lab</a>, resulting in second-author publications in <a href="http://scazlab.yale.edu/sites/default/files/files/ADMONI_hri16.pdf" target="_blank">HRI 2016</a> and <a href="http://hennyadmoni.com/documents/admoni2016icra.pdf" target="_blank">ICRA 2016</a>. My senior thesis on robotic perception of human gestures was awarded the 2015 Computer Science Research Prize. 
+  </p>
 
-         <div class="author">
-By Thomas Weng on November  3, 2018
+  <p>
+    Since college, I worked at Microsoft for a few years before returning to research as lab staff at Maya Cakmak's <a href="https://hcrlab.cs.washington.edu/" target="_blank">Human-Centered Robotics Lab</a>. Read my CV <a href="/cv" target="_blank">here</a>.
+  </p>
+
+  <p>
+    In my spare time, I read/listen to <a href="https://www.goodreads.com/user/show/49071790-thomas" target="_blank">books</a>, practice cooking, participate in athletic events like Tough Mudder with friends, and travel with a moleskine so I can sketch the sights.
+  </p>
 </div>
 
-
-
-         <div class="entry">
-         <p>I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.</p>
-
-<div class="cntr">
-  <img src="../images/7/cluttered.png" />
-  <div class="caption">
-    Screenshot of someone's inbox from the Internet. 13k unread emails = instant anxiety.
-  </div>
-</div>
-
-<p>To keep a tidy inbox, I aim for Inbox Zero daily. That means for each email:</p>
-
-<ol>
-  <li>
-    <p>If there’s a task that can be done in a minute, I’ll do it immediately and archive it.</p>
-  </li>
-  <li>
-    <p>If there’s a task to be done today, I’ll add it to my to-do list and then <a href="https://support.google.com/mail/answer/7622010?co=GENIE.Platform%3DDesktop&amp;hl=en">snooze</a> the email.</p>
-  </li>
-  <li>
-    <p>If the task isn’t urgent, I’ll just snooze it to whenever I can/need to do it.</p>
-  </li>
-</ol>
-
-<div class="cntr">
-  <img src="../images/7/clean.png" />
-  <div class="caption">
-    Much better!
-  </div>
-</div>
-
-<p>I don’t always achieve an empty inbox following this approach, especially when a lot of things are happening at once. The goal may also not always be to clear all emails, if you need some handy for your task for example.</p>
-
-<p>Though I tried to keep my approach lightweight, there’s definitely room for improvement. For example, I’m still experimenting to find a good to-do list workflow. I could be more disciplined about when I check my email to avoid interruptions in my work. So far, though, this method is pretty effective in helping me stay organized.</p>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/productivity">productivity</a></span>
-   
-</div>
-
-
-
-       </article>
-   
-       <article class="post">
-
-         <h1><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></h1>
-
-         <div class="author">
-By Thomas Weng on April 26, 2018
-</div>
-
-
-
-         <div class="entry">
-         <p>Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</p>
-
-<p>I used Khan Academy’s <a href="https://khan.github.io/KaTeX/">KaTeX</a> typesetting library for my blog. KaTeX is fast, self-contained, and works largely as you would expect. Here are the instructions:</p>
-
-<ol>
-  <li>
-    <p>Include KaTeX on your site by adding the <a href="https://github.com/Khan/KaTeX/blob/master/contrib/auto-render/README.md">required reference tags and scripts</a> to your html template<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>. See 
-<a href="https://github.com/thomasweng15/thomasweng15.github.io/commit/a8ae4f214dd8bec31e29c62f3cdc79d2e9b761f8">this commit</a> for the changes I made to get it working on this blog.</p>
-  </li>
-  <li>
-    <p>Typeset math by enclosing your notation within <code class="text">\\(</code> and <code class="text">\\)</code> for inline typesetting, or <code class="text">\\[</code> and <code class="text">\\]</code> for typesetting on a separate line.</p>
-
-    <p>For example, with inline typesetting, <code class="text">\\(\alpha\\)</code>, becomes \(\alpha\). With non-inline typesetting, <code class="text">\\[x^2 + y^2 + z^2 = r^2\\]</code> becomes: \[x^2 + y^2 + z^2 = r^2\]</p>
-  </li>
-  <li>
-    <p>If you have any rendering issues, check your console for error messages. Also take a look at the full documentation on <a href="https://github.com/Khan/KaTeX">Github</a>.</p>
-  </li>
-</ol>
-
-<hr />
-<p>Footnotes</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>You can also download these files and host them on your server directly instead of getting them from the cdn. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/blogging">blogging</a></span>
-   
-</div>
-
-
-
-       </article>
-   
-       <article class="post">
-
-         <h1><a href="/automating_C++_builds_ros/">Automating C++ builds in ROS</a></h1>
-
-         <div class="author">
-By Thomas Weng on September  9, 2017
-</div>
-
-
-
-         <div class="entry">
-         <p>If you’re working on a C++ ROS project, you probably run <code class="text">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
-
-<p>To fix this, I’ve automated the build process to build when saving a file! No more manual building :).</p>
-
-<p>Here’s how it works. I’ve written a shell script called <code class="text">builder.sh</code> that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:</p>
-
-<pre class="highlight">
-<code>
-$ bash builder.sh
-Setting up watches.
-Watches established.
-octomapper.cpp modified, rebuilding...
-_______________________________________________________________________________
-Errors     &lt;&lt; perception:make /home/tweng/catkin_ws/logs/perception/build.make.1447.log
-/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp: In member function ‘void perception::Octomapper::publish_octomap(octomap::OcTree*)’:
-/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp:99:3: error: ‘pub’ was not declared in this scope
-   pub.publish(octomap_msg);
-   ^
-make[2]: *** [CMakeFiles/perception_octomapper.dir/src/octomapper.cpp.o] Error 1
-make[1]: *** [CMakeFiles/perception_octomapper.dir/all] Error 2
-make: *** [all] Error 2
-cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
-...............................................................................
-Failed     &lt;&lt; perception:make           [ Exited with code 2 ]                 
-</code>
-</pre>
-<p>There is syntax highlighting in your terminal which makes this output more readable.</p>
-
-<p>After fixing the issue and saving, the build runs again automatically:</p>
-<pre class="highlight">
-<code>
-octomapper.cpp modified, rebuilding...
-[build] Summary: All 2 packages succeeded!
-</code>
-</pre>
-
-<p>It’s fairly simple to get this set up for your workspace. You’ll need to:</p>
-<ol>
-  <li>Get the script from this Github gist: <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh">builder.sh</a></li>
-  <li>Configure it to watch your workspace directories</li>
-  <li>Run it in a terminal using <code class="text">bash builder.sh</code></li>
-  <li>Start coding and enjoying ~build-on-save~</li>
-</ol>
-
-<h1 id="but-wait-theres-more-roslaunch-auto-restart">But wait, there’s more: <code class="text">roslaunch</code> auto-restart!</h1>
-
-<p>After your build completes, you’ll probably need to run or restart your ROS nodes to test your changes. That’s another manual step we can automate.</p>
-
-<p>This time, a script called <code class="text">launcher.sh</code> runs your project’s <code class="text">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="text">builder.sh</code> – the original script – sends a signal to kill your ROS nodes<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>. When the ROS nodes die, <code class="text">launcher.sh</code> will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:</p>
-
-<pre class="highlight">
-<code>
-$ bash launcher.sh
-Launching roslaunch
-... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
-Checking log directory for disk usage. This may take awhile.
-Press Ctrl-C to interrupt
-Done checking log file disk usage. Usage is &lt;1GB.
-
-started roslaunch server http://localhost:39545/
-
-...
-
-/process_cloud_main shutdownCallback:163: Shutdown request received.
-/process_cloud_main shutdownCallback:164: Reason given for shutdown: [user request]
-================================================================================REQUIRED process [process_cloud_main-1] has died!
-process has finished cleanly
-log file: /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/process_cloud_main-1*.log
-Initiating shutdown!
-================================================================================
-[publish_saved_cloud-3] killing on exit
-[person_broadcaster-2] killing on exit
-[process_cloud_main-1] killing on exit
-shutting down processing monitor...
-... shutting down processing monitor complete
-done
-</code>
-</pre>
-
-<p><code class="text">launcher.sh</code> notices that the node has gone down and triggers a restart:</p>
-
-<pre class="highlight">
-<code>
-Launching roslaunch
-... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
-Checking log directory for disk usage. This may take awhile.
-Press Ctrl-C to interrupt
-Done checking log file disk usage. Usage is &lt;1GB.
-
-started roslaunch server http://localhost:34414/
-</code>
-</pre>
-
-<p>You can get <code class="text">launcher.sh</code> <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh">here</a>. You’d run it in a terminal (<code class="text">bash launcher.sh</code>), just like the first one.</p>
-
-<p>If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven’t had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.</p>
-
-<p>Hope this helps and you find it useful!</p>
-
-<hr />
-<p>Footnotes</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: <a href="https://vimeo.com/36579366">video link</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:2">
-      <p>I set the main node with the <code class="text">required=true</code> attribute in my launch file so I only need to kill that node to stop the others. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/productivity">productivity</a></span>
-   
-</div>
-
-
-
-       </article>
-   
-       <article class="post">
-
-         <h1><a href="/journaling/">How I Journal</a></h1>
-
-         <div class="author">
-By Thomas Weng on May 30, 2017
-</div>
-
-
-
-         <div class="entry">
-         <p>Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.</p>
-
-<p>Journaling is one effective way to take control of your life and memories. Although taking photos and videos are more common ways to keep track of what you do or see, I’ve found writing to be more effective when it comes to reflecting on my life and staying organized.</p>
-
-<h1 id="forming-habits">Forming habits</h1>
-
-<p>People I’ve spoken to on this subject are generally receptive to the concept of journaling, but many find it difficult to prioritize the activity and keep a routine. I personally journal about once a week, filling in several days at a time. After a few months, it’s fulfilling to go back and revisit old entries. It’s amazing how a few short sentences can bring you back to an amazing conversation with a close friend, or your mood on a sunny, relaxing day, for example.</p>
-
-<p>For me, one of the biggest starting hurdles was choosing the proper journaling medium. There are countless apps out there, but many of them have inconvenient tradeoffs. Apps often make it difficult to export your data, get in your way with ads, or keep useful features behind paywalls. There’s always pen and paper, but while writing by hand can be relaxing, it is also slower than typing, difficult to search through, and hard to preserve through the years.</p>
-
-<h1 id="journaling-in-markdown">Journaling in Markdown</h1>
-
-<p>My solution for the past year and a half has been to journal digitally in Markdown files. Markdown is designed to be easy-to-read, easy-to-write, and it avoids the pitfalls I mentioned above. Here’s a example of how I journal, albeit somewhat contrived and with less detail:</p>
-
-<pre class="highlight">
-<code>
-## Mon 29
-* __exercise__ 7 minute workout
-* Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we've been spending our spare time doing these past few months.
-* Met up with Y at Cafe Cesura. Worked on a blog post about journaling.
-</code>
-</pre>
-<p>Which converts into the following HTML:</p>
-
-<hr />
-<h2 id="mon-29">Mon 29</h2>
-<ul>
-  <li><strong>exercise</strong> 7 minute workout</li>
-  <li>Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we’ve been spending our spare time doing these past few months.</li>
-  <li>Met up with Y. at Cafe Cesura. Worked on a blog post about journaling.</li>
-</ul>
-
-<hr />
-
-<p>Markdown’s lightweight structure provides both organization and flexibility. I generally use headers for dates, followed by bullet points describing each significant event of the day. I keep each month in a separate file, and each year of files in a distinct folder.</p>
-
-<p>I also use tags like <code class="text">__exercise__</code> above to mark certain categories of events or thoughts. This has an added benefit of being easily searchable in Atom, my text editor of choice for journaling.</p>
-
-<div class="cntr">
-  <img src="../images/4/search.png" />
-</div>
-<p><br />
-Atom also provides a handy Markdown preview:
-<br /></p>
-<div class="cntr">
-  <img src="../images/4/preview.png" />
-</div>
-<p><br />
-Using Markdown, I can write faster than on paper, search through my notes quickly, and save backup copies easily. I don’t have to rely on any apps, nor give any third parties ownership of my data.</p>
-
-<h1 id="a-year-and-a-half-of-markdown">A year and a half of Markdown</h1>
-<p>As I mentioned earlier, I’ve been journaling in markdown for the past 1.5 years, and I’m really enjoying the setup. I journal approximately once a week, but I’ve been trying to increase the frequency. The amount of information I retain about a particular day significantly diminishes by the third passing day.</p>
-
-<h2 id="perspectives-on-time-and-value">Perspectives on time and value</h2>
-
-<p>Journaling has given me a much better higher-level understanding of where my time goes and more importantly, what I value. Keeping the one folder per year structure I have now, I’ll have 60 folders of journal files, give or take, by the end of my life. That’s not a lot, all things considered, and made me think about what I want to accomplish and record in my lifetime.</p>
-
-<h2 id="handwritten-notes-are-still-cool">Handwritten notes are still cool</h2>
-
-<p>Digital journaling hasn’t completely replaced pen and paper. I still take handwritten notes in pocket notepads to remember things to do, books to read, or random thoughts. More often than not, I’ll transfer the interesting portions into my journal.</p>
-
-<h1 id="whats-next">What’s next</h1>
-<p>There are other sources of data besides journaling that I want to pull together to form a richer picture. Photos, calendars, conversations, and geotags would add a lot of context to my journal.</p>
-
-<p>To this end, I started writing a parser in Python for the Markdown-generated HTML files. The output is a Python object, which I can work with programmatically. As an example use case, I’ll be able to match up a given date with photos taken on that date in Google Photos. Ultimately, I hope to put together a simple webpage to show what I was up to on a given date in every year of my life.</p>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/productivity">productivity</a></span>
-   
-</div>
-
-
-
-       </article>
-   
-       <article class="post">
-
-         <h1><a href="/tensorflow_getting_started/">Getting Started with Tensorflow</a></h1>
-
-         <div class="author">
-By Thomas Weng on February 10, 2017
-</div>
-
-
-
-         <div class="entry">
-         <p>I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.</p>
-
-<p>The resource I relied on to ramp up was <a href="https://cloud.google.com/blog/big-data/2017/01/learn-tensorflow-and-deep-learning-without-a-phd">Google’s crash course through Tensorflow</a>, presented by Martin Gorner at <a href="https://devoxx.com/">Devoxx</a>. The talk starts with a simple one-layer neural network, building quickly into multi-layer neural nets, convolutional neural nets, recurrent neural nets, and a collection of optimization techniques (e.g. learning rate decay, dropout, batch normalization).</p>
-
-<p>I took the time to write out the code and get things working on my machine. That took longer than simply watching the video, but it deepened my understanding and guaranteed that I didn’t gloss over any important details. The slides from the talk included most of the code required for the models, but I did need to fill in some of the gaps. When I got stuck, I referenced the complete model at the <a href="https://github.com/martin-gorner/tensorflow-mnist-tutorial">Github repo</a> Gorner created for this talk.</p>
-
-<p>Gorner’s presentation glosses over the math behind concepts presented in order to focus on model building. I think this was a smart tradeoff. Having spent quite a bit of time taking courses and learning the math powering machine learning, the details of how the math works would probably be too involved for a short talk. And when it comes to actually building models, Tensorflow does the heavy lifting and abstracts the mathematical details away anyway.</p>
-
-<p>Of course, the math does become more relevant as one continues working with ML. I’m sure I wouldn’t have picked things up so quickly with Tensorflow had I not already studied the background concepts.</p>
-
-<p>I’m looking forward to playing more with Tensorflow and learning about what’s going on under the hood. I’ll be keeping up with the math through online resources – courses, textbooks, and hopefully papers. Most of all, I’m excited to take the training wheels off soon and start building my own models from scratch!</p>
-
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/machine%20learning">machine learning</a></span>
-   
-</div>
-
-
-
-       </article>
-   
-
-    <!-- Pagination links -->
-    <div class="pagination">
-      
-      <a href="/page2" class="older">&larr; Older Posts</a>
-      
-
-      
-    </div>
-   </div>
-
-   	 <div class="sidebar col-sm-4">
-	   <h1>Recent Posts</h1>
-
-	   <ul>
-	     
-	     <li><a href="/staying_on_top_of_email/">Staying on top of email</a></li>
-	     
-	     <li><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></li>
-	     
-	     <li><a href="/automating_C++_builds_ros/">Automating C++ builds in ROS</a></li>
-	     
-	     <li><a href="/journaling/">How I Journal</a></li>
-	     
-	     <li><a href="/tensorflow_getting_started/">Getting Started with Tensorflow</a></li>
-	     
-	   </ul>
-
-	   <h1>Most Popular</h1>
-	   <ul>
-	     
-	     <li><a href="/on_password_managers/">You Should Use a Password Manager</a></li>
-	     
-	   </ul>
-
-	   <h1>Topics</h1>
-	   <ul>
-	     
-	     
-	     
-	     
-	     <li><a href="/tag/blogging">blogging</a> (1)</li>
-	     
-	     
-	     
-	     
-	     <li><a href="/tag/machine learning">machine learning</a> (1)</li>
-	     
-	     
-	     
-	     
-	     
-	     
-	     <li><a href="/tag/productivity">productivity</a> (4)</li>
-	     
-	     
-	     
-	     
-	     <li><a href="/tag/robotics">robotics</a> (1)</li>
-	     
-	     
-	     
-	     
-	     <li><a href="/tag/security">security</a> (1)</li>
-	     
-	     
-	   </ul>
-
-	 </div>
-
-
-  </div>
-</div>
+<h2>Recent News</h2>
+
+<table class="table news">
+  <tbody>
+    <tr>
+      <th scope="row">Apr 04, 2018</th>
+      <td>I received an Honorable Mention for my 2018 NSF Graduate Research Fellowship submission!</td>
+    </tr>
+    <tr>
+      <th scope="row">Apr 03, 2018</th>
+      <td>I am participating in the Spring 2 batch at <a href="https://www.recurse.com" target="_blank">Recurse Center</a> in NYC from April to June.</td>
+    </tr>
+    <tr>
+      <th scope="row">May 30, 2018</th>
+      <td>Excited to announce that I will be starting my doctoral studies at the CMU Robotics Institute this fall!</td>
+    </tr>
+    <tr>
+      <th scope="row">Jul 01, 2017</th>
+      <td>I'm starting a new position as lab staff in Maya Cakmak's <a href="https://hcrlab.cs.washington.edu" target="_blank">Human-Centered Robotics Lab</a> at UW!</td>
+    </tr>
+  </tbody>
+</table>
 
     </div>
 
