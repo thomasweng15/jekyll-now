@@ -43,3 +43,13 @@ redirect_from: "/about"
     </tr>
   </tbody>
 </table>
+
+<h2>Recent Blog Posts</h2>
+
+<div class="posts">
+  {% for post in site.posts limit:3 %}
+    <article>
+      <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+    </article>
+  {% endfor %}
+</div>
