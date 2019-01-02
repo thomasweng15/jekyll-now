@@ -32,13 +32,13 @@ When you need a new password, password managers create new ones for you that are
 I use [KeePass](http://keepass.info/), a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.
 
 <div class="cntr">
-  <img src="../images/1/keepass.PNG" />
+  <img src="../assets/1-keepass.png" />
 </div>
 
 KeePass, however, is not the most user-friendly service out there. I've played with [LastPass](https://www.lastpass.com/) as an alternative. LastPass keeps your passwords in a "cloud" so you can access them anywhere.<span class="ftnt">[^2]</span> LastPass runs on an ad-based model, making it also "free" to use.
 
 <div class="cntr">
-  <img src="../images/1/lastpass.jpg" />
+  <img src="../assets/1-lastpass.jpg" />
 </div>
 
 There are also other password management programs and services out there, though I haven't tried any others personally.

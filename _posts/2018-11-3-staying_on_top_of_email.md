@@ -10,7 +10,7 @@ tags:
 I find it hard to be productive when my inbox is cluttered with emails. It's easy to lose track of high-priority tasks in a messy inbox. 
 
 <div class="cntr">
-  <img src="../images/7/cluttered.png" />
+  <img src="../assets/7-cluttered.png" />
   <div class="caption">
     Screenshot of someone's inbox from the Internet. 13k unread emails = instant anxiety.
   </div>
@@ -25,7 +25,7 @@ To keep a tidy inbox, I aim for Inbox Zero daily. That means for each email:
 3. If the task isn't urgent, I'll just snooze it to whenever I can/need to do it.
 
 <div class="cntr">
-  <img src="../images/7/clean.png" />
+  <img src="../assets/7-clean.png" />
   <div class="caption">
     Much better!
   </div>

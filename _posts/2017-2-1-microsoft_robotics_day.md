@@ -35,8 +35,8 @@ Rover is still a work in progress, so I put together several materials to aid me
 Here's an online version of the poster on the wall; click for a full page view:
 
 <div class="cntr" >
-  <a target="\_blank" href="../images/2/diag.png">
-    <img src="../images/2/diag.png" style="width: 90%; height: 90%;" />
+  <a target="\_blank" href="../assets/2-diag.png">
+    <img src="../assets/2-diag.png" style="width: 90%; height: 90%;" />
   </a>
 </div>
 

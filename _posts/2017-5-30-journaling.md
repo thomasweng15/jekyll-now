@@ -44,13 +44,13 @@ Markdown's lightweight structure provides both organization and flexibility. I g
 I also use tags like <code class="text">__exercise__</code> above to mark certain categories of events or thoughts. This has an added benefit of being easily searchable in Atom, my text editor of choice for journaling.
 
 <div class="cntr">
-  <img src="../images/4/search.png" />
+  <img src="../assets/4-search.png" />
 </div>
 <br/>
 Atom also provides a handy Markdown preview:
 <br>
 <div class="cntr">
-  <img src="../images/4/preview.png" />
+  <img src="../assets/4-preview.png" />
 </div>
 <br>
 Using Markdown, I can write faster than on paper, search through my notes quickly, and save backup copies easily. I don't have to rely on any apps, nor give any third parties ownership of my data.
