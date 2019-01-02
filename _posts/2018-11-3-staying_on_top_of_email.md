@@ -5,6 +5,7 @@ author: Thomas Weng
 comments: true
 tags:
 - productivity
+minutes: 1
 ---
 
 I find it hard to be productive when my inbox is cluttered with emails. It's easy to lose track of high-priority tasks in a messy inbox. 
