@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-01-02T22:49:19+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Staying on top of email</title><link href="http://thomasweng.com/staying_on_top_of_email/" rel="alternate" type="text/html" title="Staying on top of email" /><published>2018-11-03T00:00:00+00:00</published><updated>2018-11-03T00:00:00+00:00</updated><id>http://thomasweng.com/staying_on_top_of_email</id><content type="html" xml:base="http://thomasweng.com/staying_on_top_of_email/">&lt;p&gt;I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-01-02T23:02:17+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Staying on top of email</title><link href="http://thomasweng.com/staying_on_top_of_email/" rel="alternate" type="text/html" title="Staying on top of email" /><published>2018-11-03T00:00:00+00:00</published><updated>2018-11-03T00:00:00+00:00</updated><id>http://thomasweng.com/staying_on_top_of_email</id><content type="html" xml:base="http://thomasweng.com/staying_on_top_of_email/">&lt;p&gt;I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.&lt;/p&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../images/7/cluttered.png&quot; /&gt;
+  &lt;img src=&quot;../assets/7-cluttered.png&quot; /&gt;
   &lt;div class=&quot;caption&quot;&gt;
     Screenshot of someone's inbox from the Internet. 13k unread emails = instant anxiety.
   &lt;/div&gt;
@@ -22,7 +22,7 @@
 &lt;/ol&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../images/7/clean.png&quot; /&gt;
+  &lt;img src=&quot;../assets/7-clean.png&quot; /&gt;
   &lt;div class=&quot;caption&quot;&gt;
     Much better!
   &lt;/div&gt;
@@ -208,13 +208,13 @@ started roslaunch server http://localhost:34414/
 &lt;p&gt;I also use tags like &lt;code class=&quot;text&quot;&gt;__exercise__&lt;/code&gt; above to mark certain categories of events or thoughts. This has an added benefit of being easily searchable in Atom, my text editor of choice for journaling.&lt;/p&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../images/4/search.png&quot; /&gt;
+  &lt;img src=&quot;../assets/4-search.png&quot; /&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;
 Atom also provides a handy Markdown preview:
 &lt;br /&gt;&lt;/p&gt;
 &lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../images/4/preview.png&quot; /&gt;
+  &lt;img src=&quot;../assets/4-preview.png&quot; /&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;
 Using Markdown, I can write faster than on paper, search through my notes quickly, and save backup copies easily. I don’t have to rely on any apps, nor give any third parties ownership of my data.&lt;/p&gt;
@@ -233,7 +233,7 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 &lt;h1 id=&quot;whats-next&quot;&gt;What’s next&lt;/h1&gt;
 &lt;p&gt;There are other sources of data besides journaling that I want to pull together to form a richer picture. Photos, calendars, conversations, and geotags would add a lot of context to my journal.&lt;/p&gt;
 
-&lt;p&gt;To this end, I started writing a parser in Python for the Markdown-generated HTML files. The output is a Python object, which I can work with programmatically. As an example use case, I’ll be able to match up a given date with photos taken on that date in Google Photos. Ultimately, I hope to put together a simple webpage to show what I was up to on a given date in every year of my life.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><summary type="html">Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.</summary></entry><entry><title type="html">Getting Started with Tensorflow</title><link href="http://thomasweng.com/tensorflow_getting_started/" rel="alternate" type="text/html" title="Getting Started with Tensorflow" /><published>2017-02-10T00:00:00+00:00</published><updated>2017-02-10T00:00:00+00:00</updated><id>http://thomasweng.com/tensorflow_getting_started</id><content type="html" xml:base="http://thomasweng.com/tensorflow_getting_started/">&lt;p&gt;I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.&lt;/p&gt;
+&lt;p&gt;To this end, I started writing a parser in Python for the Markdown-generated HTML files. The output is a Python object, which I can work with programmatically. As an example use case, I’ll be able to match up a given date with photos taken on that date in Google Photos. Ultimately, I hope to put together a simple webpage to show what I was up to on a given date in every year of my life.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="popular" /><summary type="html">Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.</summary></entry><entry><title type="html">Getting Started with Tensorflow</title><link href="http://thomasweng.com/tensorflow_getting_started/" rel="alternate" type="text/html" title="Getting Started with Tensorflow" /><published>2017-02-10T00:00:00+00:00</published><updated>2017-02-10T00:00:00+00:00</updated><id>http://thomasweng.com/tensorflow_getting_started</id><content type="html" xml:base="http://thomasweng.com/tensorflow_getting_started/">&lt;p&gt;I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.&lt;/p&gt;
 
 &lt;p&gt;The resource I relied on to ramp up was &lt;a href=&quot;https://cloud.google.com/blog/big-data/2017/01/learn-tensorflow-and-deep-learning-without-a-phd&quot;&gt;Google’s crash course through Tensorflow&lt;/a&gt;, presented by Martin Gorner at &lt;a href=&quot;https://devoxx.com/&quot;&gt;Devoxx&lt;/a&gt;. The talk starts with a simple one-layer neural network, building quickly into multi-layer neural nets, convolutional neural nets, recurrent neural nets, and a collection of optimization techniques (e.g. learning rate decay, dropout, batch normalization).&lt;/p&gt;
 
@@ -271,8 +271,8 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 &lt;p&gt;Here’s an online version of the poster on the wall; click for a full page view:&lt;/p&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
-  &lt;a target=&quot;\_blank&quot; href=&quot;../images/2/diag.png&quot;&gt;
-    &lt;img src=&quot;../images/2/diag.png&quot; style=&quot;width: 90%; height: 90%;&quot; /&gt;
+  &lt;a target=&quot;\_blank&quot; href=&quot;../assets/2-diag.png&quot;&gt;
+    &lt;img src=&quot;../assets/2-diag.png&quot; style=&quot;width: 90%; height: 90%;&quot; /&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 
@@ -322,13 +322,13 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 &lt;p&gt;I use &lt;a href=&quot;http://keepass.info/&quot;&gt;KeePass&lt;/a&gt;, a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.&lt;/p&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../images/1/keepass.PNG&quot; /&gt;
+  &lt;img src=&quot;../assets/1-keepass.png&quot; /&gt;
 &lt;/div&gt;
 
 &lt;p&gt;KeePass, however, is not the most user-friendly service out there. I’ve played with &lt;a href=&quot;https://www.lastpass.com/&quot;&gt;LastPass&lt;/a&gt; as an alternative. LastPass keeps your passwords in a “cloud” so you can access them anywhere.&lt;span class=&quot;ftnt&quot;&gt;&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/span&gt; LastPass runs on an ad-based model, making it also “free” to use.&lt;/p&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../images/1/lastpass.jpg&quot; /&gt;
+  &lt;img src=&quot;../assets/1-lastpass.jpg&quot; /&gt;
 &lt;/div&gt;
 
 &lt;p&gt;There are also other password management programs and services out there, though I haven’t tried any others personally.&lt;/p&gt;
