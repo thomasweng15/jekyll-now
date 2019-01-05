@@ -5,6 +5,7 @@ author: Thomas Weng
 comments: true
 tags: 
 - machine learning
+minutes: 1
 ---
 
 I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.

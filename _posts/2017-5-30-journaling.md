@@ -6,6 +6,7 @@ comments: true
 tags:
 - productivity
 - popular
+minutes: 3
 ---
 
 Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.
