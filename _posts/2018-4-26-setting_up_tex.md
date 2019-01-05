@@ -5,6 +5,7 @@ author: Thomas Weng
 comments: true
 tags:
 - blogging
+minutes: 1
 ---
 
 Setting up \\(\TeX\\)math typesetting on your website is one of those tasks that can seem really difficult if you don't know what to look for. Here's a simple way to do it. 
