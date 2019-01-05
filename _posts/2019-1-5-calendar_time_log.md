@@ -120,3 +120,5 @@ Some may think it takes a lot of work to log time like this, but it really doesn
 * I also generally try not to have overlapping things in my calendar. If there are conflicting events, I will cancel my appointment with the less important one and move it off my calendar or gray it out. I can't be in two places at the same time anyway.
 * Unlike Philip Guo, I keep track of my efficiency level for each task. I found it both difficult and distracting to assess how efficient I was. 
 * In a way, this is similar to the post I wrote about [how I journal](https://thomasweng.com/journaling/) in that it's about recording things. When I started using this calendar, I stopped journaling my day-to-day items in as much detail because the calendar serves that purpose now. But I'll still put my thoughts and feelings in my journal.
+
+Many thanks to [Cherie Ho](https://www.cherieho.com/) and [Ada Taylor](https://www.ri.cmu.edu/ri-people/ada-taylor/) for reviewing this post!
