@@ -7,6 +7,7 @@ tags:
 - productivity
 - security
 - popular
+minutes: 2
 ---
 
 It's easy to get lazy and use the same password for multiple account logins. But doing so leaves you _much_ less secure than having different passwords.
@@ -15,7 +16,7 @@ Still, it's near impossible nowadays to remember an ever-expanding number of pas
 
 I consequently started hunting for a solution, and ended up trying out a password manager. It solved my password issues so well, I haven't looked back!
 
-There isn't much to a password manager, and using one has made logging into accounts so much easier and safer. Here's the gist of it in ~1 minute.
+There isn't much to a password manager, and using one has made logging into accounts so much easier and safer. Here's the gist of it in less than two minutes.
 
 # How do password managers work?
 
