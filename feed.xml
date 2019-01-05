@@ -1,4 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-01-05T02:36:07+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Staying on top of email</title><link href="http://thomasweng.com/staying_on_top_of_email/" rel="alternate" type="text/html" title="Staying on top of email" /><published>2018-11-03T00:00:00+00:00</published><updated>2018-11-03T00:00:00+00:00</updated><id>http://thomasweng.com/staying_on_top_of_email</id><content type="html" xml:base="http://thomasweng.com/staying_on_top_of_email/">&lt;p&gt;I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-01-05T18:07:08+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Using my calendar as a time log</title><link href="http://thomasweng.com/calendar_time_log/" rel="alternate" type="text/html" title="Using my calendar as a time log" /><published>2019-01-05T00:00:00+00:00</published><updated>2019-01-05T00:00:00+00:00</updated><id>http://thomasweng.com/calendar_time_log</id><content type="html" xml:base="http://thomasweng.com/calendar_time_log/">&lt;p&gt;I used to only use my calendar to track upcoming meetings. But then I read Philip Guo’s &lt;a href=&quot;http://www.pgbovine.net/time-management.htm&quot;&gt;blog post on time management&lt;/a&gt;, and was fascinated by how he used his calendar to show where his time went.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../assets/8-postdoc-day.png&quot; width=&quot;30%&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    The color-coding makes it easy to review at a glance.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I decided to try Philip’s calendaring method to see if I was being as productive as I thought. It’s been over a year since I started logging, and I have found it to be great not only for gauging my past productivity, but also for kickstarting changes to how I spend time going forward.&lt;/p&gt;
+
+&lt;p&gt;In the rest of this post, I’ll describe how I log my time and talk about the insights I’ve gained in more detail.&lt;/p&gt;
+
+&lt;h1 id=&quot;logging-is-simple-and-flexible&quot;&gt;Logging is simple and flexible&lt;/h1&gt;
+
+&lt;p&gt;There’s not much to it—after working on a task, I create a calendar entry for the time spent and color-code it. I use Google calendar, but any kind of calendar works. Here is an example of what one of my recent work days looks like.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../assets/8-workday.png&quot; width=&quot;35%&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    Had a slow morning and missed my bus...didn't want to spend more time looking for an ~ideal~ day
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I’ve color-coded the activities as follows:&lt;/p&gt;
+
+&lt;table style=&quot;margin-left: auto; margin-right: auto;&quot;&gt;
+&lt;colgroup&gt;
+&lt;col width=&quot;40%&quot; /&gt;
+&lt;col width=&quot;80%&quot; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;!-- &lt;tr class=&quot;header&quot;&gt;
+&lt;th&gt;Color&lt;/th&gt;
+&lt;th&gt;Category&lt;/th&gt;
+&lt;/tr&gt; --&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;
+            &lt;span class=&quot;square&quot; style=&quot;background-color: #D98177;&quot;&gt;&lt;/span&gt;
+            Pink
+        &lt;/td&gt;
+        &lt;td&gt;
+            Health
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;
+            &lt;span class=&quot;square&quot; style=&quot;background-color: #616161;&quot;&gt;&lt;/span&gt;
+            Grey
+        &lt;/td&gt;
+        &lt;td&gt;
+            Travel
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;
+            &lt;span class=&quot;square&quot; style=&quot;background-color: #4C87EC;&quot;&gt;&lt;/span&gt;
+            Blue
+        &lt;/td&gt;
+        &lt;td&gt;
+            Coursework
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;
+            &lt;span class=&quot;square&quot; style=&quot;background-color: #3D9ADF;&quot;&gt;&lt;/span&gt; 
+            Cyan
+        &lt;/td&gt;
+        &lt;td&gt;
+            Research
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;
+            &lt;span class=&quot;square&quot; style=&quot;background-color: #397D49;&quot;&gt;&lt;/span&gt;
+            Green
+        &lt;/td&gt;
+        &lt;td&gt;Social and Family&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;style&gt;
+.square {
+    width: 10px;
+    display: inline-block;
+    height: 10px;
+    vertical-align: middle;
+    margin-top: -5px;
+    margin-right: 3px;
+}
+&lt;/style&gt;
+
+&lt;p&gt;The system is very flexible. You can use whatever color categories suit you best. Your labels for each activity can be as simple or as descriptive as you like. You can even adapt it for a productivity methodology like David Allen’s &lt;a href=&quot;https://en.wikipedia.org/wiki/Getting_Things_Done&quot;&gt;Getting Things Done&lt;/a&gt; or Cal Newport’s &lt;a href=&quot;http://calnewport.com/books/deep-work/&quot;&gt;Deep Work&lt;/a&gt;. Cal Newport even describes a similar method of logging your time.&lt;/p&gt;
+
+&lt;h1 id=&quot;logging-shows-me-where-my-time-goes-and-how-to-adjust&quot;&gt;Logging shows me where my time goes and how to adjust&lt;/h1&gt;
+
+&lt;p&gt;Since I started using this method, I have a better sense of how I’m spending my time compared to when I relied on my intuition. I’m able to catch patterns of behavior and reinforce them if they are positive, or work on eliminating them if they are negative. For example, I’ve noticed that my energy and focus dips in late afternoon before returning in the evening. Taking a break from work to nap or exercise helps me get through the slump.&lt;/p&gt;
+
+&lt;p&gt;I also have a better sense of the present. Logging each task helps me be more deliberate about each activity I start, and makes me aware of deviations from my planned schedule quickly, so that I don’t reach the end of the day and realize too late that I went off track.&lt;/p&gt;
+
+&lt;p&gt;Some may think it takes a lot of work to log time like this, but it really doesn’t take long. To me, the benefit of having a better handle on my time is worth the few moments it takes to do the logging.&lt;/p&gt;
+
+&lt;h1 id=&quot;some-final-notes&quot;&gt;Some final notes&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If there are events that fit into multiple categories, I don’t worry too much about it and just pick one.&lt;/li&gt;
+  &lt;li&gt;I work in thirty minute chunks, so I set the default event duration in Google calendar to thirty minutes instead of an hour.&lt;/li&gt;
+  &lt;li&gt;I also generally try not to have overlapping things in my calendar. If there are conflicting events, I will cancel my appointment with the less important one and move it off my calendar or gray it out. I can’t be in two places at the same time anyway.&lt;/li&gt;
+  &lt;li&gt;Unlike Philip Guo, I keep track of my efficiency level for each task. I found it both difficult and distracting to assess how efficient I was.&lt;/li&gt;
+  &lt;li&gt;In a way, this is similar to the post I wrote about &lt;a href=&quot;https://thomasweng.com/journaling/&quot;&gt;how I journal&lt;/a&gt; in that it’s about recording things. When I started using this calendar, I stopped journaling my day-to-day items in as much detail because the calendar serves that purpose now. But I’ll still put my thoughts and feelings in my journal.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><summary type="html">I used to only use my calendar to track upcoming meetings. But then I read Philip Guo’s blog post on time management, and was fascinated by how he used his calendar to show where his time went.</summary></entry><entry><title type="html">Staying on top of email</title><link href="http://thomasweng.com/staying_on_top_of_email/" rel="alternate" type="text/html" title="Staying on top of email" /><published>2018-11-03T00:00:00+00:00</published><updated>2018-11-03T00:00:00+00:00</updated><id>http://thomasweng.com/staying_on_top_of_email</id><content type="html" xml:base="http://thomasweng.com/staying_on_top_of_email/">&lt;p&gt;I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.&lt;/p&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
   &lt;img src=&quot;../assets/7-cluttered.png&quot; /&gt;
