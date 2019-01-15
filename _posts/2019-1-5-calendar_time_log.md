@@ -121,4 +121,4 @@ Some may think it takes a lot of work to log time like this, but it really doesn
 * Unlike Philip Guo, I don't keep track of my efficiency level for each task. I found it both difficult and distracting to assess how efficient I was. 
 * In a way, this is similar to the post I wrote about [how I journal](https://thomasweng.com/journaling/) in that it's about recording things. When I started using this calendar, I stopped journaling my day-to-day items in as much detail because the calendar serves that purpose now. But I'll still put my thoughts and feelings in my journal.
 
-Many thanks to [Cherie Ho](https://www.cherieho.com/) and [Ada Taylor](https://www.ri.cmu.edu/ri-people/ada-taylor/) for reviewing this post!
+<i>Many thanks to [Cherie Ho](https://www.cherieho.com/) and [Ada Taylor](https://www.ri.cmu.edu/ri-people/ada-taylor/) for reviewing this post!</i>
