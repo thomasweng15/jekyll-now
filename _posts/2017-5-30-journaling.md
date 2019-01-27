@@ -72,3 +72,5 @@ Digital journaling hasn't completely replaced pen and paper. I still take handwr
 There are other sources of data besides journaling that I want to pull together to form a richer picture. Photos, calendars, conversations, and geotags would add a lot of context to my journal.
 
 To this end, I started writing a parser in Python for the Markdown-generated HTML files. The output is a Python object, which I can work with programmatically. As an example use case, I'll be able to match up a given date with photos taken on that date in Google Photos. Ultimately, I hope to put together a simple webpage to show what I was up to on a given date in every year of my life.
+
+<i>If you liked this post, you may also like this one I wrote on [how I keep a calendar](https://thomasweng.com/calendar_time_log/).</i>
