@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-04-14T01:59:22+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Using my calendar as a time log</title><link href="http://thomasweng.com/calendar_time_log/" rel="alternate" type="text/html" title="Using my calendar as a time log" /><published>2019-01-05T00:00:00+00:00</published><updated>2019-01-05T00:00:00+00:00</updated><id>http://thomasweng.com/calendar_time_log</id><content type="html" xml:base="http://thomasweng.com/calendar_time_log/">&lt;p&gt;I used to only use my calendar to track upcoming meetings. But then I read Philip Guo’s &lt;a href=&quot;http://www.pgbovine.net/time-management.htm&quot;&gt;blog post on time management&lt;/a&gt;, and was fascinated by how he used his calendar to show where his time went.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-07-19T18:03:31+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">How to install the Azure Kinect SDK on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604/" rel="alternate" type="text/html" title="How to install the Azure Kinect SDK on Ubuntu 16.04" /><published>2019-07-19T00:00:00+00:00</published><updated>2019-07-19T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604/">&lt;p&gt;Microsoft recently released the &lt;a href=&quot;https://azure.microsoft.com/en-us/services/kinect-dk/&quot;&gt;Azure Kinect DK&lt;/a&gt; sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
+The kit’s SDK officially supports Windows and Linux 18.04.
+I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.&lt;/p&gt;
+
+&lt;h1 id=&quot;why-downgrade-to-ubuntu-1604&quot;&gt;Why downgrade to Ubuntu 16.04?&lt;/h1&gt;
+
+&lt;p&gt;Many of the robots I work with or have worked with are tied to Ubuntu 16.04, e.g. the Rethink Robotics Sawyer robot, as well as the PR2.
+Upgrading the robot hardware to 18.04 is difficult and would break existing projects.
+Although upgrading to 18.04 will eventually be necessary, it is helpful to have the Azure Kinect DK working on 16.04 in the meantime.&lt;/p&gt;
+
+&lt;h1 id=&quot;installation-steps&quot;&gt;Installation steps&lt;/h1&gt;
+&lt;p&gt;These steps worked for me on an existing Ubuntu 16.04 installation, not a fresh one, so your mileage may vary.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Download the v1.1 SDK from Github.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Install dependencies using the provided script.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Follow the build steps in &lt;a href=&quot;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md&quot;&gt;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md&lt;/a&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;If you get a CMake error, you may need to upgrade CMake&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% Download and extract cmake 3.14.5
+mkdir ~/temp
+cd ~/temp
+wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
+tar -xzvf cmake-3.14.5.tar.gz
+cd cmake-3.14.5/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% Install extracted source
+./bootstrap
+make -j4
+sudo make install
+cmake --version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;If you get a libsoundio error, you may need to install jack-tools.
+        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install jack-tools
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Get a copy of the depthengine binary &lt;code class=&quot;highlighter-rouge&quot;&gt;libdepthengine.so.1.0&lt;/code&gt; and missing dependencies&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;libdepthengine.so.1.0&lt;/code&gt; is closed-source code for processing the raw depth stream from the camera.
+ This binary is included as part of k4a-tools, the &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions&quot;&gt;Azure Kinect SDK Debian package for Ubuntu 18.04&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;As a result, you’ll need to install k4a-tools on an Ubuntu 18.04 OS following &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions&quot;&gt;these instructions&lt;/a&gt;, then copy the files installed into &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/lib/x86_64-linux-gnu&lt;/code&gt; onto your Ubuntu 16.04 OS.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+    &lt;p&gt;In practice, I found that I only needed &lt;code class=&quot;highlighter-rouge&quot;&gt;libdepthengine.so.1.0&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;libstdc++.so.6&lt;/code&gt; from the &lt;code class=&quot;highlighter-rouge&quot;&gt;x86_64-linux-gnu&lt;/code&gt; folder.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Copy the depthengine binary and missing dependencies into the &lt;code class=&quot;highlighter-rouge&quot;&gt;bin/&lt;/code&gt; folder generated by the build in step 3.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
+cp path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Test the installation by running the SDK viewer.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;If all went well you be able to open your device and see all data streams coming in as below.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../assets/19-07-19_1.png&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    Screenshot from k4aviewer
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Footnotes&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line&quot;&gt;https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;Or find a friend who has a copy :) &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;There are instructions for running the viewer as non-root &lt;a href=&quot;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#linux-device-setup&quot;&gt;here&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">Microsoft recently released the Azure Kinect DK sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. The kit’s SDK officially supports Windows and Linux 18.04. I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.</summary></entry><entry><title type="html">Using my calendar as a time log</title><link href="http://thomasweng.com/calendar_time_log/" rel="alternate" type="text/html" title="Using my calendar as a time log" /><published>2019-01-05T00:00:00+00:00</published><updated>2019-01-05T00:00:00+00:00</updated><id>http://thomasweng.com/calendar_time_log</id><content type="html" xml:base="http://thomasweng.com/calendar_time_log/">&lt;p&gt;I used to only use my calendar to track upcoming meetings. But then I read Philip Guo’s &lt;a href=&quot;http://www.pgbovine.net/time-management.htm&quot;&gt;blog post on time management&lt;/a&gt;, and was fascinated by how he used his calendar to show where his time went.&lt;/p&gt;
 
 &lt;div class=&quot;cntr&quot;&gt;
   &lt;img src=&quot;../assets/8-postdoc-day.png&quot; width=&quot;30%&quot; /&gt;

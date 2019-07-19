@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How to install the Azure Kinect SDK on Ubuntu 16.04 – Thomas Weng – adventures in computing, productivity, and ?</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Microsoft recently released the Azure Kinect DK sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
+The kit’s SDK officially supports Windows and Linux 18.04.
+I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.
+
+" />
+    <meta property="og:description" content="Microsoft recently released the Azure Kinect DK sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
+The kit’s SDK officially supports Windows and Linux 18.04.
+I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.
+
+" />
+    
+    <meta name="author" content="Thomas Weng" />
+
+    
+    <meta property="og:title" content="How to install the Azure Kinect SDK on Ubuntu 16.04" />
+    <meta property="twitter:title" content="How to install the Azure Kinect SDK on Ubuntu 16.04" />
+    
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:normal,b,i,bi" rel="stylesheet">
+    <script src="https://use.fontawesome.com/60beeb5aee.js" type="text/javascript"></script>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" id="avadaredux-google-fonts-avada_theme_options-css" href="https://fonts.googleapis.com/css?family=Lato%3A300%2C400%2C700italic%2C700%7CPT+Serif%3A400&amp;subset=latin" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Thomas Weng - adventures in computing, productivity, and ?" href="/feed.xml" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/contrib/auto-render.min.js" integrity="sha384-IiI65aU9ZYub2MY9zhtKd1H2ps7xxf+eb2YFG9lX6uRqpXCvBTOidPRCXCrQ++Uc" crossorigin="anonymous"></script>
+    
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"  />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="https://avatars3.githubusercontent.com/u/1114539?v=3&s=140" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Thomas Weng</a></h1>
+            <p class="site-description">adventures in computing, productivity, and ?</p>
+          </div>
+
+          <nav>
+            <!-- <a href="/archive">Archive</a> -->
+            <a href="/">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/cv">CV</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <div class="row">
+<div class="col-sm-8">
+
+<article class="post">
+  <h1>How to install the Azure Kinect SDK on Ubuntu 16.04</h1>
+
+  <div class="author">
+    <div>By Thomas Weng on July 19, 2019</div>
+    
+</div>
+
+
+
+  <div class="content">
+  <p>Microsoft recently released the <a href="https://azure.microsoft.com/en-us/services/kinect-dk/">Azure Kinect DK</a> sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
+The kit’s SDK officially supports Windows and Linux 18.04.
+I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.</p>
+
+<h1 id="why-downgrade-to-ubuntu-1604">Why downgrade to Ubuntu 16.04?</h1>
+
+<p>Many of the robots I work with or have worked with are tied to Ubuntu 16.04, e.g. the Rethink Robotics Sawyer robot, as well as the PR2.
+Upgrading the robot hardware to 18.04 is difficult and would break existing projects.
+Although upgrading to 18.04 will eventually be necessary, it is helpful to have the Azure Kinect DK working on 16.04 in the meantime.</p>
+
+<h1 id="installation-steps">Installation steps</h1>
+<p>These steps worked for me on an existing Ubuntu 16.04 installation, not a fresh one, so your mileage may vary.</p>
+
+<ol>
+  <li>Download the v1.1 SDK from Github.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
+</code></pre></div>    </div>
+  </li>
+  <li>Install dependencies using the provided script.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
+</code></pre></div>    </div>
+  </li>
+  <li>Follow the build steps in <a href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md">https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md</a>.
+    <ul>
+      <li>If you get a CMake error, you may need to upgrade CMake<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% Download and extract cmake 3.14.5
+mkdir ~/temp
+cd ~/temp
+wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
+tar -xzvf cmake-3.14.5.tar.gz
+cd cmake-3.14.5/
+</code></pre></div>        </div>
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% Install extracted source
+./bootstrap
+make -j4
+sudo make install
+cmake --version
+</code></pre></div>        </div>
+      </li>
+      <li>If you get a libsoundio error, you may need to install jack-tools.
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install jack-tools
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Get a copy of the depthengine binary <code class="highlighter-rouge">libdepthengine.so.1.0</code> and missing dependencies</p>
+
+    <p><code class="highlighter-rouge">libdepthengine.so.1.0</code> is closed-source code for processing the raw depth stream from the camera.
+ This binary is included as part of k4a-tools, the <a href="https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions">Azure Kinect SDK Debian package for Ubuntu 18.04</a>.</p>
+
+    <p>As a result, you’ll need to install k4a-tools on an Ubuntu 18.04 OS following <a href="https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions">these instructions</a>, then copy the files installed into <code class="highlighter-rouge">/usr/local/lib/x86_64-linux-gnu</code> onto your Ubuntu 16.04 OS.<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></p>
+
+    <p>In practice, I found that I only needed <code class="highlighter-rouge">libdepthengine.so.1.0</code> and <code class="highlighter-rouge">libstdc++.so.6</code> from the <code class="highlighter-rouge">x86_64-linux-gnu</code> folder.</p>
+  </li>
+  <li>Copy the depthengine binary and missing dependencies into the <code class="highlighter-rouge">bin/</code> folder generated by the build in step 3.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
+cp path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
+</code></pre></div>    </div>
+  </li>
+  <li>Test the installation by running the SDK viewer.<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
+</code></pre></div>    </div>
+
+    <p>If all went well you be able to open your device and see all data streams coming in as below.</p>
+  </li>
+</ol>
+
+<div class="cntr">
+  <img src="../assets/19-07-19_1.png" />
+  <div class="caption">
+    Screenshot from k4aviewer
+  </div>
+</div>
+
+<hr />
+<p>Footnotes</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p><a href="https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line">https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line</a> <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>Or find a friend who has a copy :) <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>There are instructions for running the viewer as non-root <a href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#linux-device-setup">here</a> <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+
+</article>
+
+  
+<div class="tags">
+    Tags:
+   
+    <span class="tag"><a href="/tag/robotics">robotics</a></span>
+   
+</div>
+
+
+
+  <div class="row pagenav">
+      
+      <div class="col-xs-6 prev_post"><a href="/calendar_time_log/">&larr; Using my calendar as a time log</a></div>
+      
+      
+  </div>
+
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'http-thomasweng-com';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+
+  </div>
+
+  	 <div class="sidebar col-sm-4">
+	   <h1>Recent Posts</h1>
+
+	   <ul>
+	     
+	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
+	     
+	     <li><a href="/calendar_time_log/">Using my calendar as a time log</a></li>
+	     
+	     <li><a href="/staying_on_top_of_email/">Staying on top of email</a></li>
+	     
+	     <li><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></li>
+	     
+	     <li><a href="/automating_C++_builds_ros/">Automating C++ builds in ROS</a></li>
+	     
+	   </ul>
+
+	   <h1>Most Popular</h1>
+	   <ul>
+	     
+	     <li><a href="/journaling/">How I Journal</a></li>
+	     
+	     <li><a href="/on_password_managers/">You Should Use a Password Manager</a></li>
+	     
+	   </ul>
+
+	   <h1>Topics</h1>
+	   <ul>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/blogging">blogging</a> (1)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/machine learning">machine learning</a> (1)</li>
+	     
+	     
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/productivity">productivity</a> (5)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/robotics">robotics</a> (2)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/security">security</a> (1)</li>
+	     
+	     
+	   </ul>
+
+	 </div>
+
+  
+</div>
+
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="footer">
+          
+<a href="mailto:thomas.weng11@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/thomasweng15"><i class="svg-icon github"></i></a>
+
+<a href="https://www.linkedin.com/in/thomasweng"><i class="svg-icon linkedin"></i></a>
+
+<a href="/feed.xml"><i class="svg-icon rss"></i></a>
+
+
+
+
+      </div>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-50853593-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/azure_kinect_1604/',
+		  'title': 'How to install the Azure Kinect SDK on Ubuntu 16.04'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script>
+      renderMathInElement(document.body);
+    </script>
+  </body>
+</html>
