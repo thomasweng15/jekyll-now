@@ -358,10 +358,19 @@ table.news > tbody > tr > th {
 }
 
 code,
+pre code,
 code.text {
   color: #333;
   background-color: #efefef;
   font-size: 90%;
+}
+
+pre.highlight {
+    -ms-overflow-style: none;  // IE 10+
+    scrollbar-width: none;  // Firefox
+}
+pre.highlight::-webkit-scrollbar { 
+    display: none;  // Safari and Chrome
 }
 
 .footnote {
