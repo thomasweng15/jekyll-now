@@ -74,7 +74,9 @@ sass:
   style: :expanded # You might prefer to minify using :compressed
 
 # Use the following plug-ins
-gems:
+plugins:
+  - jekyll-redirect-from
+  - jekyll-watch
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
   - jekyll-paginate # Paginate front page
@@ -92,6 +94,3 @@ exclude:
 paginate: 5
 
 paginate_path: "/blog/page:num/"
-
-plugins:
-  - jekyll-redirect-from

@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
   color: $darkerGray;
 
   line-height: 1.4;
-  margin: 1em 0 15px;
+  margin: 1.5em 0 15px;
   padding: 0;
 
   @include mobile {
@@ -357,6 +357,7 @@ table.news > tbody > tr > th {
   vertical-align: middle;
 }
 
+code,
 code.text {
   color: #333;
   background-color: #efefef;
