@@ -441,9 +441,20 @@ table.news > tbody > tr > th {
 }
 
 code,
+pre code,
 code.text {
   color: #333;
   background-color: #efefef;
+  font-size: 90%;
+}
+
+pre.highlight {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+pre.highlight::-webkit-scrollbar {
+  display: none;
 }
 
 .footnote {

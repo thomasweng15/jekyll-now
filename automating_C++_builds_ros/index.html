@@ -9,7 +9,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible1.
+    <meta name="description" content="If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.1
 
 
   
@@ -19,7 +19,7 @@
   
 
 " />
-    <meta property="og:description" content="If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible1.
+    <meta property="og:description" content="If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.1
 
 
   
@@ -101,15 +101,13 @@
 
 
   <div class="content">
-  <p>If you’re working on a C++ ROS project, you probably run <code class="text">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
+  <p>If you’re working on a C++ ROS project, you probably run <code class="highlighter-rouge">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
 
 <p>To fix this, I’ve automated the build process to build when saving a file! No more manual building :).</p>
 
-<p>Here’s how it works. I’ve written a shell script called <code class="text">builder.sh</code> that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:</p>
+<p>Here’s how it works. I’ve written a shell script called <code class="highlighter-rouge">builder.sh</code> that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:</p>
 
-<pre class="highlight">
-<code>
-$ bash builder.sh
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bash builder.sh
 Setting up watches.
 Watches established.
 octomapper.cpp modified, rebuilding...
@@ -124,36 +122,30 @@ make[1]: *** [CMakeFiles/perception_octomapper.dir/all] Error 2
 make: *** [all] Error 2
 cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
 ...............................................................................
-Failed     &lt;&lt; perception:make           [ Exited with code 2 ]                 
-</code>
-</pre>
+Failed     &lt;&lt; perception:make           [ Exited with code 2 ]
+</code></pre></div></div>
 <p>There is syntax highlighting in your terminal which makes this output more readable.</p>
 
 <p>After fixing the issue and saving, the build runs again automatically:</p>
-<pre class="highlight">
-<code>
-octomapper.cpp modified, rebuilding...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>octomapper.cpp modified, rebuilding...
 [build] Summary: All 2 packages succeeded!
-</code>
-</pre>
+</code></pre></div></div>
 
 <p>It’s fairly simple to get this set up for your workspace. You’ll need to:</p>
 <ol>
   <li>Get the script from this Github gist: <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh">builder.sh</a></li>
   <li>Configure it to watch your workspace directories</li>
-  <li>Run it in a terminal using <code class="text">bash builder.sh</code></li>
+  <li>Run it in a terminal using <code class="highlighter-rouge">bash builder.sh</code></li>
   <li>Start coding and enjoying ~build-on-save~</li>
 </ol>
 
-<h1 id="but-wait-theres-more-roslaunch-auto-restart">But wait, there’s more: <code class="text">roslaunch</code> auto-restart!</h1>
+<h1 id="but-wait-theres-more-roslaunch-auto-restart">But wait, there’s more: <code class="highlighter-rouge">roslaunch</code> auto-restart!</h1>
 
 <p>After your build completes, you’ll probably need to run or restart your ROS nodes to test your changes. That’s another manual step we can automate.</p>
 
-<p>This time, a script called <code class="text">launcher.sh</code> runs your project’s <code class="text">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="text">builder.sh</code> – the original script – sends a signal to kill your ROS nodes<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>. When the ROS nodes die, <code class="text">launcher.sh</code> will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:</p>
+<p>This time, a script called <code class="highlighter-rouge">launcher.sh</code> runs your project’s <code class="highlighter-rouge">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="highlighter-rouge">builder.sh</code> – the original script – sends a signal to kill your ROS nodes.<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> When the ROS nodes die, <code class="highlighter-rouge">launcher.sh</code> will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:</p>
 
-<pre class="highlight">
-<code>
-$ bash launcher.sh
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bash launcher.sh
 Launching roslaunch
 ... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
 Checking log directory for disk usage. This may take awhile.
@@ -177,24 +169,20 @@ Initiating shutdown!
 shutting down processing monitor...
 ... shutting down processing monitor complete
 done
-</code>
-</pre>
+</code></pre></div></div>
 
-<p><code class="text">launcher.sh</code> notices that the node has gone down and triggers a restart:</p>
+<p><code class="highlighter-rouge">launcher.sh</code> notices that the node has gone down and triggers a restart:</p>
 
-<pre class="highlight">
-<code>
-Launching roslaunch
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Launching roslaunch
 ... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
 Checking log directory for disk usage. This may take awhile.
 Press Ctrl-C to interrupt
 Done checking log file disk usage. Usage is &lt;1GB.
 
 started roslaunch server http://localhost:34414/
-</code>
-</pre>
+</code></pre></div></div>
 
-<p>You can get <code class="text">launcher.sh</code> <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh">here</a>. You’d run it in a terminal (<code class="text">bash launcher.sh</code>), just like the first one.</p>
+<p>You can get <code class="highlighter-rouge">launcher.sh</code> <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh">here</a>. You’d run it in a terminal (<code class="highlighter-rouge">bash launcher.sh</code>), just like the first one.</p>
 
 <p>If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven’t had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.</p>
 
@@ -209,7 +197,7 @@ started roslaunch server http://localhost:34414/
       <p>Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: <a href="https://vimeo.com/36579366">video link</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:2">
-      <p>I set the main node with the <code class="text">required=true</code> attribute in my launch file so I only need to kill that node to stop the others. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+      <p>I set the main node with the <code class="highlighter-rouge">required=true</code> attribute in my launch file so I only need to kill that node to stop the others. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -222,7 +210,9 @@ started roslaunch server http://localhost:34414/
 <div class="tags">
     Tags:
    
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>
+    <span class="tag"><a href="/tag/productivity">productivity</a></span>, 
+   
+    <span class="tag"><a href="/tag/robotics">robotics</a></span>
    
 </div>
 
@@ -264,6 +254,8 @@ started roslaunch server http://localhost:34414/
 
 	   <ul>
 	     
+	     <li><a href="/terminal_tips/">Terminal tips</a></li>
+	     
 	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
 	     
 	     <li><a href="/calendar_time_log/">Using my calendar as a time log</a></li>
@@ -271,8 +263,6 @@ started roslaunch server http://localhost:34414/
 	     <li><a href="/staying_on_top_of_email/">Staying on top of email</a></li>
 	     
 	     <li><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></li>
-	     
-	     <li><a href="/automating_C++_builds_ros/">Automating C++ builds in ROS</a></li>
 	     
 	   </ul>
 
@@ -303,12 +293,17 @@ started roslaunch server http://localhost:34414/
 	     
 	     
 	     
-	     <li><a href="/tag/productivity">productivity</a> (5)</li>
+	     <li><a href="/tag/productivity">productivity</a> (6)</li>
 	     
 	     
 	     
 	     
-	     <li><a href="/tag/robotics">robotics</a> (2)</li>
+	     <li><a href="/tag/programming">programming</a> (1)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/robotics">robotics</a> (3)</li>
 	     
 	     
 	     

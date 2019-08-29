@@ -1,4 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-08-07T22:14:00+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">How to install the Azure Kinect SDK on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604/" rel="alternate" type="text/html" title="How to install the Azure Kinect SDK on Ubuntu 16.04" /><published>2019-07-19T00:00:00+00:00</published><updated>2019-07-19T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604/">&lt;p&gt;Microsoft recently released the &lt;a href=&quot;https://azure.microsoft.com/en-us/services/kinect-dk/&quot;&gt;Azure Kinect DK&lt;/a&gt; sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-08-29T04:36:51+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Terminal tips</title><link href="http://thomasweng.com/terminal_tips/" rel="alternate" type="text/html" title="Terminal tips" /><published>2019-08-27T00:00:00+00:00</published><updated>2019-08-27T00:00:00+00:00</updated><id>http://thomasweng.com/terminal_tips</id><content type="html" xml:base="http://thomasweng.com/terminal_tips/">&lt;p&gt;The terminal is an essential tool,&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; but also one whose tasks are most easily automated and optimized.&lt;/p&gt;
+
+&lt;p&gt;Most of the time spent on the command line is on non-value-adding tasks, like moving files around, executing programs, installing dependencies, and checking system status.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;
+These tasks are necessary, but do not end up in your final deliverable, i.e. a publication, code, or other project output.&lt;/p&gt;
+
+&lt;p&gt;Therefore, you should aim to spend as little time in the terminal as possible, focusing instead on value-adding tasks like writing programs, analyzing data, making visualizations, etc.&lt;/p&gt;
+
+&lt;p&gt;Here are some ways to automate or speed up terminal tasks. I’m assuming you use bash, but the items here are applicable to most terminals.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-shorten-commands-using-aliases-and-scripts&quot;&gt;Shorten commands using aliases and scripts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-use-reverse-i-search-to-find-past-commands&quot;&gt;Use reverse-i-search to find past commands&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-check-system-status-using-htop&quot;&gt;Check system status using htop&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-split-one-terminal-into-multiple-with-tmux&quot;&gt;Split one terminal into several with tmux&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#5-download-files-faster-using-aria2&quot;&gt;Download files faster using aria2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#6-set-up-key-based-authentication-for-ssh-and-github&quot;&gt;Set up key-based authentication for ssh and Github&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#7-try-out-other-terminals&quot;&gt;Try out other terminals&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;1-shorten-commands-using-aliases-and-scripts&quot;&gt;1. Shorten commands using aliases and scripts&lt;/h1&gt;
+
+&lt;p&gt;This one seems obvious, but if you run the same set of commands often, turn them into &lt;a href=&quot;https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions&quot;&gt;aliases&lt;/a&gt;. 
+I use aliases for computers that I ssh into often, e.g.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;alias hostname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ssh &amp;lt;username&amp;gt;@&amp;lt;hostname&amp;gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Another use case is for aliases is to shorten series of commands, like navigating to a directory and running a script.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;intera&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cd ~/catkin_ws &amp;amp;&amp;amp; source intera.sh&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If a series of commands is longer or more complicated (e.g. building and running code), it may be better to turn it into a &lt;a href=&quot;https://www.digitalocean.com/community/tutorial_series/an-introduction-to-shell-scripting&quot;&gt;shell script&lt;/a&gt;, which will allow you to take advantage of for loops, command line arguments, etc.&lt;/p&gt;
+
+&lt;h1 id=&quot;2-use-reverse-i-search-to-find-past-commands&quot;&gt;2. Use reverse-i-search to find past commands&lt;/h1&gt;
+
+&lt;p&gt;Related to the first point, avoid typing out commands, especially if you have typed a similar one already. Besides using tab-autocompleting aggressively, I also use &lt;a href=&quot;https://lifehacker.com/ctrl-r-to-search-and-other-terminal-history-tricks-278888&quot;&gt;reverse-i-search&lt;/a&gt; all the time to search my command history. Activate reverse-i-search using &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl+r&lt;/code&gt; and then type in a query to find matches. Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl+r&lt;/code&gt; again to find the next match.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;https://media.giphy.com/media/lOsUAIXzpcK3nr6Tej/giphy.gif&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+  Demonstrating reverse-i-search.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;3-check-system-status-using-htop&quot;&gt;3. Check system status using htop&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://hisham.hm/htop/&quot;&gt;htop&lt;/a&gt; is an improved version of the &lt;code class=&quot;highlighter-rouge&quot;&gt;top&lt;/code&gt; command, with colors, better navigation, and other features.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../assets/19-08-27_1.png&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+  Screenshot of htop.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Besides checking system usage, I also use this to find (&lt;code class=&quot;highlighter-rouge&quot;&gt;F4&lt;/code&gt;) and kill (&lt;code class=&quot;highlighter-rouge&quot;&gt;F9&lt;/code&gt;) processes as root (&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo htop&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h1 id=&quot;4-split-one-terminal-into-several-with-tmux&quot;&gt;4. Split one terminal into several with tmux&lt;/h1&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;https://github.com/tmux/tmux/wiki&quot;&gt;tmux&lt;/a&gt; to create and switch between multiple terminal panes within one window.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;https://media.giphy.com/media/lquszCDcatgZlrC06g/giphy.gif&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+  Demonstrating how to split panes with tmux.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Another benefit to tmux is that these terminals will persist even if your ssh connection drops. Simply run &lt;code class=&quot;highlighter-rouge&quot;&gt;tmux attach&lt;/code&gt; after ssh-ing back in to return to your panes.&lt;/p&gt;
+
+&lt;h1 id=&quot;5-download-files-faster-using-aria2&quot;&gt;5. Download files faster using aria2&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://aria2.github.io/&quot;&gt;aria2&lt;/a&gt; is an alternative to &lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt; that parallelizes downloads:&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; aria2c &lt;span class=&quot;nt&quot;&gt;-x8&lt;/span&gt; &amp;lt;URL&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-xN&lt;/code&gt; specifies how many connections to open for parallelization.&lt;/p&gt;
+
+&lt;h1 id=&quot;6-set-up-key-based-authentication-for-ssh-and-github&quot;&gt;6. Set up key-based authentication for ssh and Github&lt;/h1&gt;
+
+&lt;p&gt;Instead of typing your password each time you ssh or push/pull from Github, use key-based authentication. It only takes a few minutes and has the dual benefit of being easier and more secure than password authentication.&lt;/p&gt;
+
+&lt;p&gt;To set up key-based authentication for ssh, see this DigitalOcean post: &lt;a href=&quot;https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2&quot;&gt;How To Set Up SSH Keys&lt;/a&gt;. You’ll need to do this once per computer you want to &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into. For Github, follow the steps outlined here: &lt;a href=&quot;https://help.github.com/en/articles/connecting-to-github-with-ssh&quot;&gt;Connecting to Github with SSH&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;7-try-out-other-terminals&quot;&gt;7. Try out other terminals&lt;/h1&gt;
+
+&lt;p&gt;You can also explore beyond bash and try terminals with more features. I use zsh as my default shell with plugins for jumping between directories, better autocomplete, etc. If you’re interested in zsh, check out these articles on how to get started: &lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh/wiki/Articles&quot;&gt;Articles from the Oh My Zsh wiki&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;em&gt;Many thanks to &lt;a href=&quot;http://www.andrew.cmu.edu/user/abhijatb/&quot;&gt;Cherie Ho&lt;/a&gt; for editing this post and introducing me to zsh, &lt;a href=&quot;https://homes.cs.washington.edu/~lrperlmu/&quot;&gt;Leah Perlmutter&lt;/a&gt; for introducing me to reverse-i-search, &lt;a href=&quot;https://personalrobotics.cs.washington.edu/people/&quot;&gt;Rosario Scalise&lt;/a&gt; for tmux, and &lt;a href=&quot;http://www.andrew.cmu.edu/user/abhijatb/&quot;&gt;Abhijat Biswas&lt;/a&gt; for aria2!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Footnotes&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;If you’re a beginner with the terminal, &lt;a href=&quot;https://swcarpentry.github.io/shell-novice/reference/&quot;&gt;this reference&lt;/a&gt; from Software Carpentry is a good starting point. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;I consider working in a terminal-based editor like vim different from being on the command line itself. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="programming" /><category term="productivity" /><summary type="html">The terminal is an essential tool,1 but also one whose tasks are most easily automated and optimized. If you’re a beginner with the terminal, this reference from Software Carpentry is a good starting point. &amp;#8617;</summary></entry><entry><title type="html">How to install the Azure Kinect SDK on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604/" rel="alternate" type="text/html" title="How to install the Azure Kinect SDK on Ubuntu 16.04" /><published>2019-07-19T00:00:00+00:00</published><updated>2019-07-19T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604/">&lt;p&gt;Microsoft recently released the &lt;a href=&quot;https://azure.microsoft.com/en-us/services/kinect-dk/&quot;&gt;Azure Kinect DK&lt;/a&gt; sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
 The kit’s SDK officially supports Windows and Linux 18.04.
 I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.&lt;/p&gt;
 
@@ -13,32 +119,32 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
 &lt;ol&gt;
   &lt;li&gt;Download the v1.1 SDK from Github.
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;Install dependencies using the provided script.
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;Follow the build steps in &lt;a href=&quot;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md&quot;&gt;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md&lt;/a&gt;.
     &lt;ul&gt;
       &lt;li&gt;If you get a CMake error, you may need to upgrade CMake&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% Download and extract cmake 3.14.5
-mkdir ~/temp
-cd ~/temp
-wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
-tar -xzvf cmake-3.14.5.tar.gz
-cd cmake-3.14.5/
+        &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;% Download and extract cmake 3.14.5
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; ~/temp
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/temp
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzvf&lt;/span&gt; cmake-3.14.5.tar.gz
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;cmake-3.14.5/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% Install extracted source
-./bootstrap
-make -j4
-sudo make install
-cmake --version
+        &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;% Install extracted source
+&lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; ./bootstrap
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; make &lt;span class=&quot;nt&quot;&gt;-j4&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; cmake &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
       &lt;/li&gt;
       &lt;li&gt;If you get a libsoundio error, you may need to install jack-tools.
-        &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install jack-tools
+        &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;jack-tools
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
@@ -54,12 +160,12 @@ cmake --version
     &lt;p&gt;In practice, I found that I only needed &lt;code class=&quot;highlighter-rouge&quot;&gt;libdepthengine.so.1.0&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;libstdc++.so.6&lt;/code&gt; from the &lt;code class=&quot;highlighter-rouge&quot;&gt;x86_64-linux-gnu&lt;/code&gt; folder.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;Copy the depthengine binary and missing dependencies into the &lt;code class=&quot;highlighter-rouge&quot;&gt;bin/&lt;/code&gt; folder generated by the build in step 3.
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
-cp path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;Test the installation by running the SDK viewer.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
 
     &lt;p&gt;If all went well you be able to open your device and see all data streams coming in as below.&lt;/p&gt;
@@ -263,15 +369,13 @@ cp path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build
       &lt;p&gt;You can also download these files and host them on your server directly instead of getting them from the cdn. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="blogging" /><summary type="html">Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</summary></entry><entry><title type="html">Automating C++ builds in ROS</title><link href="http://thomasweng.com/automating_C++_builds_ros/" rel="alternate" type="text/html" title="Automating C++ builds in ROS" /><published>2017-09-09T00:00:00+00:00</published><updated>2017-09-09T00:00:00+00:00</updated><id>http://thomasweng.com/automating_C++_builds_ros</id><content type="html" xml:base="http://thomasweng.com/automating_C++_builds_ros/">&lt;p&gt;If you’re working on a C++ ROS project, you probably run &lt;code class=&quot;text&quot;&gt;catkin build&lt;/code&gt; every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="blogging" /><summary type="html">Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</summary></entry><entry><title type="html">Automating C++ builds in ROS</title><link href="http://thomasweng.com/automating_C++_builds_ros/" rel="alternate" type="text/html" title="Automating C++ builds in ROS" /><published>2017-09-09T00:00:00+00:00</published><updated>2017-09-09T00:00:00+00:00</updated><id>http://thomasweng.com/automating_C++_builds_ros</id><content type="html" xml:base="http://thomasweng.com/automating_C++_builds_ros/">&lt;p&gt;If you’re working on a C++ ROS project, you probably run &lt;code class=&quot;highlighter-rouge&quot;&gt;catkin build&lt;/code&gt; every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
 &lt;p&gt;To fix this, I’ve automated the build process to build when saving a file! No more manual building :).&lt;/p&gt;
 
-&lt;p&gt;Here’s how it works. I’ve written a shell script called &lt;code class=&quot;text&quot;&gt;builder.sh&lt;/code&gt; that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:&lt;/p&gt;
+&lt;p&gt;Here’s how it works. I’ve written a shell script called &lt;code class=&quot;highlighter-rouge&quot;&gt;builder.sh&lt;/code&gt; that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:&lt;/p&gt;
 
-&lt;pre class=&quot;highlight&quot;&gt;
-&lt;code&gt;
-$ bash builder.sh
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash builder.sh
 Setting up watches.
 Watches established.
 octomapper.cpp modified, rebuilding...
@@ -286,36 +390,30 @@ make[1]: *** [CMakeFiles/perception_octomapper.dir/all] Error 2
 make: *** [all] Error 2
 cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
 ...............................................................................
-Failed     &amp;lt;&amp;lt; perception:make           [ Exited with code 2 ]                 
-&lt;/code&gt;
-&lt;/pre&gt;
+Failed     &amp;lt;&amp;lt; perception:make           [ Exited with code 2 ]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;There is syntax highlighting in your terminal which makes this output more readable.&lt;/p&gt;
 
 &lt;p&gt;After fixing the issue and saving, the build runs again automatically:&lt;/p&gt;
-&lt;pre class=&quot;highlight&quot;&gt;
-&lt;code&gt;
-octomapper.cpp modified, rebuilding...
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;octomapper.cpp modified, rebuilding...
 [build] Summary: All 2 packages succeeded!
-&lt;/code&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;It’s fairly simple to get this set up for your workspace. You’ll need to:&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Get the script from this Github gist: &lt;a href=&quot;https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh&quot;&gt;builder.sh&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Configure it to watch your workspace directories&lt;/li&gt;
-  &lt;li&gt;Run it in a terminal using &lt;code class=&quot;text&quot;&gt;bash builder.sh&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Run it in a terminal using &lt;code class=&quot;highlighter-rouge&quot;&gt;bash builder.sh&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;Start coding and enjoying ~build-on-save~&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h1 id=&quot;but-wait-theres-more-roslaunch-auto-restart&quot;&gt;But wait, there’s more: &lt;code class=&quot;text&quot;&gt;roslaunch&lt;/code&gt; auto-restart!&lt;/h1&gt;
+&lt;h1 id=&quot;but-wait-theres-more-roslaunch-auto-restart&quot;&gt;But wait, there’s more: &lt;code class=&quot;highlighter-rouge&quot;&gt;roslaunch&lt;/code&gt; auto-restart!&lt;/h1&gt;
 
 &lt;p&gt;After your build completes, you’ll probably need to run or restart your ROS nodes to test your changes. That’s another manual step we can automate.&lt;/p&gt;
 
-&lt;p&gt;This time, a script called &lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; runs your project’s &lt;code class=&quot;text&quot;&gt;roslaunch&lt;/code&gt; command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, &lt;code class=&quot;text&quot;&gt;builder.sh&lt;/code&gt; – the original script – sends a signal to kill your ROS nodes&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. When the ROS nodes die, &lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:&lt;/p&gt;
+&lt;p&gt;This time, a script called &lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; runs your project’s &lt;code class=&quot;highlighter-rouge&quot;&gt;roslaunch&lt;/code&gt; command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, &lt;code class=&quot;highlighter-rouge&quot;&gt;builder.sh&lt;/code&gt; – the original script – sends a signal to kill your ROS nodes.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; When the ROS nodes die, &lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:&lt;/p&gt;
 
-&lt;pre class=&quot;highlight&quot;&gt;
-&lt;code&gt;
-$ bash launcher.sh
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash launcher.sh
 Launching roslaunch
 ... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
 Checking log directory for disk usage. This may take awhile.
@@ -339,24 +437,20 @@ Initiating shutdown!
 shutting down processing monitor...
 ... shutting down processing monitor complete
 done
-&lt;/code&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; notices that the node has gone down and triggers a restart:&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; notices that the node has gone down and triggers a restart:&lt;/p&gt;
 
-&lt;pre class=&quot;highlight&quot;&gt;
-&lt;code&gt;
-Launching roslaunch
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Launching roslaunch
 ... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
 Checking log directory for disk usage. This may take awhile.
 Press Ctrl-C to interrupt
 Done checking log file disk usage. Usage is &amp;lt;1GB.
 
 started roslaunch server http://localhost:34414/
-&lt;/code&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;You can get &lt;code class=&quot;text&quot;&gt;launcher.sh&lt;/code&gt; &lt;a href=&quot;https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh&quot;&gt;here&lt;/a&gt;. You’d run it in a terminal (&lt;code class=&quot;text&quot;&gt;bash launcher.sh&lt;/code&gt;), just like the first one.&lt;/p&gt;
+&lt;p&gt;You can get &lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; &lt;a href=&quot;https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh&quot;&gt;here&lt;/a&gt;. You’d run it in a terminal (&lt;code class=&quot;highlighter-rouge&quot;&gt;bash launcher.sh&lt;/code&gt;), just like the first one.&lt;/p&gt;
 
 &lt;p&gt;If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven’t had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.&lt;/p&gt;
 
@@ -371,10 +465,10 @@ started roslaunch server http://localhost:34414/
       &lt;p&gt;Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: &lt;a href=&quot;https://vimeo.com/36579366&quot;&gt;video link&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;I set the main node with the &lt;code class=&quot;text&quot;&gt;required=true&lt;/code&gt; attribute in my launch file so I only need to kill that node to stop the others. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;I set the main node with the &lt;code class=&quot;highlighter-rouge&quot;&gt;required=true&lt;/code&gt; attribute in my launch file so I only need to kill that node to stop the others. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><summary type="html">If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible1. Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &amp;#8617;</summary></entry><entry><title type="html">How I Journal</title><link href="http://thomasweng.com/journaling/" rel="alternate" type="text/html" title="How I Journal" /><published>2017-05-30T00:00:00+00:00</published><updated>2017-05-30T00:00:00+00:00</updated><id>http://thomasweng.com/journaling</id><content type="html" xml:base="http://thomasweng.com/journaling/">&lt;p&gt;Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="robotics" /><summary type="html">If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.1 Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &amp;#8617;</summary></entry><entry><title type="html">How I Journal</title><link href="http://thomasweng.com/journaling/" rel="alternate" type="text/html" title="How I Journal" /><published>2017-05-30T00:00:00+00:00</published><updated>2017-05-30T00:00:00+00:00</updated><id>http://thomasweng.com/journaling</id><content type="html" xml:base="http://thomasweng.com/journaling/">&lt;p&gt;Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.&lt;/p&gt;
 
 &lt;p&gt;Journaling is one effective way to take control of your life and memories. Although taking photos and videos are more common ways to keep track of what you do or see, I’ve found writing to be more effective when it comes to reflecting on my life and staying organized.&lt;/p&gt;
 

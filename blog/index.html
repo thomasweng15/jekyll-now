@@ -71,6 +71,142 @@
      
        <article class="post">
 
+         <h1><a href="/terminal_tips/">Terminal tips</a></h1>
+
+         <div class="author">
+    <div>By Thomas Weng on August 27, 2019</div>
+    
+</div>
+
+
+
+         <div class="entry">
+         <p>The terminal is an essential tool,<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> but also one whose tasks are most easily automated and optimized.</p>
+
+<p>Most of the time spent on the command line is on non-value-adding tasks, like moving files around, executing programs, installing dependencies, and checking system status.<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>
+These tasks are necessary, but do not end up in your final deliverable, i.e. a publication, code, or other project output.</p>
+
+<p>Therefore, you should aim to spend as little time in the terminal as possible, focusing instead on value-adding tasks like writing programs, analyzing data, making visualizations, etc.</p>
+
+<p>Here are some ways to automate or speed up terminal tasks. I’m assuming you use bash, but the items here are applicable to most terminals.</p>
+<ol>
+  <li><a href="#1-shorten-commands-using-aliases-and-scripts">Shorten commands using aliases and scripts</a></li>
+  <li><a href="#2-use-reverse-i-search-to-find-past-commands">Use reverse-i-search to find past commands</a></li>
+  <li><a href="#3-check-system-status-using-htop">Check system status using htop</a></li>
+  <li><a href="#4-split-one-terminal-into-multiple-with-tmux">Split one terminal into several with tmux</a></li>
+  <li><a href="#5-download-files-faster-using-aria2">Download files faster using aria2</a></li>
+  <li><a href="#6-set-up-key-based-authentication-for-ssh-and-github">Set up key-based authentication for ssh and Github</a></li>
+  <li><a href="#7-try-out-other-terminals">Try out other terminals</a></li>
+</ol>
+
+<h1 id="1-shorten-commands-using-aliases-and-scripts">1. Shorten commands using aliases and scripts</h1>
+
+<p>This one seems obvious, but if you run the same set of commands often, turn them into <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">aliases</a>. 
+I use aliases for computers that I ssh into often, e.g.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">alias hostname</span><span class="o">=</span><span class="s2">"ssh &lt;username&gt;@&lt;hostname&gt;"</span>
+</code></pre></div></div>
+
+<p>Another use case is for aliases is to shorten series of commands, like navigating to a directory and running a script.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">alias </span><span class="nv">intera</span><span class="o">=</span><span class="s2">"cd ~/catkin_ws &amp;&amp; source intera.sh"</span>
+</code></pre></div></div>
+
+<p>If a series of commands is longer or more complicated (e.g. building and running code), it may be better to turn it into a <a href="https://www.digitalocean.com/community/tutorial_series/an-introduction-to-shell-scripting">shell script</a>, which will allow you to take advantage of for loops, command line arguments, etc.</p>
+
+<h1 id="2-use-reverse-i-search-to-find-past-commands">2. Use reverse-i-search to find past commands</h1>
+
+<p>Related to the first point, avoid typing out commands, especially if you have typed a similar one already. Besides using tab-autocompleting aggressively, I also use <a href="https://lifehacker.com/ctrl-r-to-search-and-other-terminal-history-tricks-278888">reverse-i-search</a> all the time to search my command history. Activate reverse-i-search using <code class="highlighter-rouge">Ctrl+r</code> and then type in a query to find matches. Hit <code class="highlighter-rouge">Ctrl+r</code> again to find the next match.</p>
+
+<div class="cntr">
+  <img src="https://media.giphy.com/media/lOsUAIXzpcK3nr6Tej/giphy.gif" />
+  <div class="caption">
+  Demonstrating reverse-i-search.
+  </div>
+</div>
+
+<h1 id="3-check-system-status-using-htop">3. Check system status using htop</h1>
+
+<p><a href="https://hisham.hm/htop/">htop</a> is an improved version of the <code class="highlighter-rouge">top</code> command, with colors, better navigation, and other features.</p>
+
+<div class="cntr">
+  <img src="../assets/19-08-27_1.png" />
+  <div class="caption">
+  Screenshot of htop.
+  </div>
+</div>
+
+<p>Besides checking system usage, I also use this to find (<code class="highlighter-rouge">F4</code>) and kill (<code class="highlighter-rouge">F9</code>) processes as root (<code class="highlighter-rouge">sudo htop</code>).</p>
+
+<h1 id="4-split-one-terminal-into-several-with-tmux">4. Split one terminal into several with tmux</h1>
+
+<p>Use <a href="https://github.com/tmux/tmux/wiki">tmux</a> to create and switch between multiple terminal panes within one window.</p>
+
+<div class="cntr">
+  <img src="https://media.giphy.com/media/lquszCDcatgZlrC06g/giphy.gif" />
+  <div class="caption">
+  Demonstrating how to split panes with tmux.
+  </div>
+</div>
+
+<p>Another benefit to tmux is that these terminals will persist even if your ssh connection drops. Simply run <code class="highlighter-rouge">tmux attach</code> after ssh-ing back in to return to your panes.</p>
+
+<h1 id="5-download-files-faster-using-aria2">5. Download files faster using aria2</h1>
+
+<p><a href="https://aria2.github.io/">aria2</a> is an alternative to <code class="highlighter-rouge">wget</code> or <code class="highlighter-rouge">curl</code> that parallelizes downloads:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> aria2c <span class="nt">-x8</span> &lt;URL&gt;
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">-xN</code> specifies how many connections to open for parallelization.</p>
+
+<h1 id="6-set-up-key-based-authentication-for-ssh-and-github">6. Set up key-based authentication for ssh and Github</h1>
+
+<p>Instead of typing your password each time you ssh or push/pull from Github, use key-based authentication. It only takes a few minutes and has the dual benefit of being easier and more secure than password authentication.</p>
+
+<p>To set up key-based authentication for ssh, see this DigitalOcean post: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">How To Set Up SSH Keys</a>. You’ll need to do this once per computer you want to <code class="highlighter-rouge">ssh</code> into. For Github, follow the steps outlined here: <a href="https://help.github.com/en/articles/connecting-to-github-with-ssh">Connecting to Github with SSH</a></p>
+
+<h1 id="7-try-out-other-terminals">7. Try out other terminals</h1>
+
+<p>You can also explore beyond bash and try terminals with more features. I use zsh as my default shell with plugins for jumping between directories, better autocomplete, etc. If you’re interested in zsh, check out these articles on how to get started: <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Articles">Articles from the Oh My Zsh wiki</a>.</p>
+
+<hr />
+
+<p><em>Many thanks to <a href="http://www.andrew.cmu.edu/user/abhijatb/">Cherie Ho</a> for editing this post and introducing me to zsh, <a href="https://homes.cs.washington.edu/~lrperlmu/">Leah Perlmutter</a> for introducing me to reverse-i-search, <a href="https://personalrobotics.cs.washington.edu/people/">Rosario Scalise</a> for tmux, and <a href="http://www.andrew.cmu.edu/user/abhijatb/">Abhijat Biswas</a> for aria2!</em></p>
+
+<p>Footnotes</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>If you’re a beginner with the terminal, <a href="https://swcarpentry.github.io/shell-novice/reference/">this reference</a> from Software Carpentry is a good starting point. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>I consider working in a terminal-based editor like vim different from being on the command line itself. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+         </div>
+
+         
+<div class="tags">
+    Tags:
+   
+    <span class="tag"><a href="/tag/programming">programming</a></span>, 
+   
+    <span class="tag"><a href="/tag/productivity">productivity</a></span>
+   
+</div>
+
+
+
+       </article>
+   
+       <article class="post">
+
          <h1><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></h1>
 
          <div class="author">
@@ -96,32 +232,32 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
 <ol>
   <li>Download the v1.1 SDK from Github.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
 </code></pre></div>    </div>
   </li>
   <li>Install dependencies using the provided script.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
 </code></pre></div>    </div>
   </li>
   <li>Follow the build steps in <a href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md">https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md</a>.
     <ul>
       <li>If you get a CMake error, you may need to upgrade CMake<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% Download and extract cmake 3.14.5
-mkdir ~/temp
-cd ~/temp
-wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
-tar -xzvf cmake-3.14.5.tar.gz
-cd cmake-3.14.5/
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">% Download and extract cmake 3.14.5
+</span><span class="gp">$</span> <span class="nb">mkdir</span> ~/temp
+<span class="gp">$</span> <span class="nb">cd</span> ~/temp
+<span class="gp">$</span> wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
+<span class="gp">$</span> <span class="nb">tar</span> <span class="nt">-xzvf</span> cmake-3.14.5.tar.gz
+<span class="gp">$</span> <span class="nb">cd </span>cmake-3.14.5/
 </code></pre></div>        </div>
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% Install extracted source
-./bootstrap
-make -j4
-sudo make install
-cmake --version
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">% Install extracted source
+</span><span class="gp">$</span> ./bootstrap
+<span class="gp">$</span> make <span class="nt">-j4</span>
+<span class="gp">$</span> <span class="nb">sudo </span>make <span class="nb">install</span>
+<span class="gp">$</span> cmake <span class="nt">--version</span>
 </code></pre></div>        </div>
       </li>
       <li>If you get a libsoundio error, you may need to install jack-tools.
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install jack-tools
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">sudo </span>apt-get <span class="nb">install </span>jack-tools
 </code></pre></div>        </div>
       </li>
     </ul>
@@ -137,12 +273,12 @@ cmake --version
     <p>In practice, I found that I only needed <code class="highlighter-rouge">libdepthengine.so.1.0</code> and <code class="highlighter-rouge">libstdc++.so.6</code> from the <code class="highlighter-rouge">x86_64-linux-gnu</code> folder.</p>
   </li>
   <li>Copy the depthengine binary and missing dependencies into the <code class="highlighter-rouge">bin/</code> folder generated by the build in step 3.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
-cp path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cp </span>path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
+<span class="gp">$</span> <span class="nb">cp </span>path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
 </code></pre></div>    </div>
   </li>
   <li>Test the installation by running the SDK viewer.<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">sudo </span>path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
 </code></pre></div>    </div>
 
     <p>If all went well you be able to open your device and see all data streams coming in as below.</p>
@@ -452,147 +588,6 @@ cp path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build
 
        </article>
    
-       <article class="post">
-
-         <h1><a href="/automating_C++_builds_ros/">Automating C++ builds in ROS</a></h1>
-
-         <div class="author">
-    <div>By Thomas Weng on September  9, 2017</div>
-    
-        <div style="font-style: italic;">~3 min. read</div>
-    
-</div>
-
-
-
-         <div class="entry">
-         <p>If you’re working on a C++ ROS project, you probably run <code class="text">catkin build</code> every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
-
-<p>To fix this, I’ve automated the build process to build when saving a file! No more manual building :).</p>
-
-<p>Here’s how it works. I’ve written a shell script called <code class="text">builder.sh</code> that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:</p>
-
-<pre class="highlight">
-<code>
-$ bash builder.sh
-Setting up watches.
-Watches established.
-octomapper.cpp modified, rebuilding...
-_______________________________________________________________________________
-Errors     &lt;&lt; perception:make /home/tweng/catkin_ws/logs/perception/build.make.1447.log
-/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp: In member function ‘void perception::Octomapper::publish_octomap(octomap::OcTree*)’:
-/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp:99:3: error: ‘pub’ was not declared in this scope
-   pub.publish(octomap_msg);
-   ^
-make[2]: *** [CMakeFiles/perception_octomapper.dir/src/octomapper.cpp.o] Error 1
-make[1]: *** [CMakeFiles/perception_octomapper.dir/all] Error 2
-make: *** [all] Error 2
-cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
-...............................................................................
-Failed     &lt;&lt; perception:make           [ Exited with code 2 ]                 
-</code>
-</pre>
-<p>There is syntax highlighting in your terminal which makes this output more readable.</p>
-
-<p>After fixing the issue and saving, the build runs again automatically:</p>
-<pre class="highlight">
-<code>
-octomapper.cpp modified, rebuilding...
-[build] Summary: All 2 packages succeeded!
-</code>
-</pre>
-
-<p>It’s fairly simple to get this set up for your workspace. You’ll need to:</p>
-<ol>
-  <li>Get the script from this Github gist: <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh">builder.sh</a></li>
-  <li>Configure it to watch your workspace directories</li>
-  <li>Run it in a terminal using <code class="text">bash builder.sh</code></li>
-  <li>Start coding and enjoying ~build-on-save~</li>
-</ol>
-
-<h1 id="but-wait-theres-more-roslaunch-auto-restart">But wait, there’s more: <code class="text">roslaunch</code> auto-restart!</h1>
-
-<p>After your build completes, you’ll probably need to run or restart your ROS nodes to test your changes. That’s another manual step we can automate.</p>
-
-<p>This time, a script called <code class="text">launcher.sh</code> runs your project’s <code class="text">roslaunch</code> command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, <code class="text">builder.sh</code> – the original script – sends a signal to kill your ROS nodes<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>. When the ROS nodes die, <code class="text">launcher.sh</code> will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:</p>
-
-<pre class="highlight">
-<code>
-$ bash launcher.sh
-Launching roslaunch
-... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
-Checking log directory for disk usage. This may take awhile.
-Press Ctrl-C to interrupt
-Done checking log file disk usage. Usage is &lt;1GB.
-
-started roslaunch server http://localhost:39545/
-
-...
-
-/process_cloud_main shutdownCallback:163: Shutdown request received.
-/process_cloud_main shutdownCallback:164: Reason given for shutdown: [user request]
-================================================================================REQUIRED process [process_cloud_main-1] has died!
-process has finished cleanly
-log file: /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/process_cloud_main-1*.log
-Initiating shutdown!
-================================================================================
-[publish_saved_cloud-3] killing on exit
-[person_broadcaster-2] killing on exit
-[process_cloud_main-1] killing on exit
-shutting down processing monitor...
-... shutting down processing monitor complete
-done
-</code>
-</pre>
-
-<p><code class="text">launcher.sh</code> notices that the node has gone down and triggers a restart:</p>
-
-<pre class="highlight">
-<code>
-Launching roslaunch
-... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
-Checking log directory for disk usage. This may take awhile.
-Press Ctrl-C to interrupt
-Done checking log file disk usage. Usage is &lt;1GB.
-
-started roslaunch server http://localhost:34414/
-</code>
-</pre>
-
-<p>You can get <code class="text">launcher.sh</code> <a href="https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh">here</a>. You’d run it in a terminal (<code class="text">bash launcher.sh</code>), just like the first one.</p>
-
-<p>If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven’t had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.</p>
-
-<p>Hope this helps and you find it useful!</p>
-
-<hr />
-<p>Footnotes</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: <a href="https://vimeo.com/36579366">video link</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:2">
-      <p>I set the main node with the <code class="text">required=true</code> attribute in my launch file so I only need to kill that node to stop the others. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>
-   
-</div>
-
-
-
-       </article>
-   
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -609,6 +604,8 @@ started roslaunch server http://localhost:34414/
 
 	   <ul>
 	     
+	     <li><a href="/terminal_tips/">Terminal tips</a></li>
+	     
 	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
 	     
 	     <li><a href="/calendar_time_log/">Using my calendar as a time log</a></li>
@@ -616,8 +613,6 @@ started roslaunch server http://localhost:34414/
 	     <li><a href="/staying_on_top_of_email/">Staying on top of email</a></li>
 	     
 	     <li><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></li>
-	     
-	     <li><a href="/automating_C++_builds_ros/">Automating C++ builds in ROS</a></li>
 	     
 	   </ul>
 
@@ -648,12 +643,17 @@ started roslaunch server http://localhost:34414/
 	     
 	     
 	     
-	     <li><a href="/tag/productivity">productivity</a> (5)</li>
+	     <li><a href="/tag/productivity">productivity</a> (6)</li>
 	     
 	     
 	     
 	     
-	     <li><a href="/tag/robotics">robotics</a> (2)</li>
+	     <li><a href="/tag/programming">programming</a> (1)</li>
+	     
+	     
+	     
+	     
+	     <li><a href="/tag/robotics">robotics</a> (3)</li>
 	     
 	     
 	     
