@@ -67,7 +67,7 @@ $ source path/to/catkin_ws/devel/setup.bash
 $ roslaunch azure_kinect_ros_driver driver.launch
 ```
 
-    Note that there are parameters you can adjust in the driver launch file, e.g. fps, resolution, etc.
+    Note that there are parameters you can adjust in the driver launch file, e.g. FPS, resolution, etc.
 
 8. Run Rviz and you should be able to open Image and PointCloud2 widgets that read topics from the sensor!
 
