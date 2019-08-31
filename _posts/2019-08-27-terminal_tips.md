@@ -74,7 +74,7 @@ Use [tmux](https://github.com/tmux/tmux/wiki) to create and switch between multi
 <div class="cntr">
   <img src="https://media.giphy.com/media/lquszCDcatgZlrC06g/giphy.gif" />
   <div class="caption">
-  Demonstrating how to split panes with tmux.
+  Demonstrating how to split panes with tmux. Note that my keybindings are different from the tmux defaults.
   </div>
 </div>
 
