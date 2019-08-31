@@ -71,6 +71,103 @@
      
        <article class="post">
 
+         <h1><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></h1>
+
+         <div class="author">
+    <div>By Thomas Weng on August 31, 2019</div>
+    
+</div>
+
+
+
+         <div class="entry">
+         <p>Following up from my previous post on <a href="../azure_kinect_1604">installing the Azure Kinect SDK on Ubuntu 16.04</a>, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.</p>
+
+<p>The credit for figuring out these steps goes to <a href="https://www.ri.cmu.edu/ri-people/kevin-zhang/">Kevin Zhang</a>!</p>
+
+<h1 id="installation-steps">Installation steps</h1>
+<ol>
+  <li>Install the Azure Kinect SDK executables on your path so they can be found by ROS.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cd </span>path/to/Azure-Kinect-Sensor-SDK/build
+<span class="gp">$</span> <span class="nb">sudo </span>ninja <span class="nb">install</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Clone the official ROS driver into a catkin workspace.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cd </span>catkin_ws/src
+<span class="gp">$</span> git clone https://github.com/microsoft/Azure_Kinect_ROS_Driver.git
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Make minor edits to the codebase. If you were to build the workspace now, you would get errors relating to <code class="highlighter-rouge">std::atomic</code> syntax.</p>
+
+    <p>To fix this, open <code class="highlighter-rouge">&lt;repo&gt;/include/azure_kinect_ros_driver/k4a_ros_device.h</code> and convert all instances of <code class="highlighter-rouge">std::atomic_TYPE</code> type declarations to <code class="highlighter-rouge">std::atomic&lt;TYPE&gt;</code>. Below is a diff of the edits I made.</p>
+    <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">@@</span> <span class="o">-</span><span class="mi">117</span><span class="p">,</span><span class="mi">11</span> <span class="o">+</span><span class="mi">117</span><span class="p">,</span><span class="mi">11</span> <span class="err">@@</span> <span class="k">class</span> <span class="nc">K4AROSDevice</span>
+  <span class="k">volatile</span> <span class="kt">bool</span> <span class="n">running_</span><span class="p">;</span>
+ 
+  <span class="c1">// Last capture timestamp for synchronizing playback capture and imu thread</span>
+       <span class="o">-</span>    <span class="n">std</span><span class="o">::</span><span class="n">atomic_int64_t</span> <span class="n">last_capture_time_usec_</span><span class="p">;</span>
+       <span class="o">+</span>    <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span> <span class="n">last_capture_time_usec_</span><span class="p">;</span>
+ 
+  <span class="c1">// Last imu timestamp for synchronizing playback capture and imu thread</span>
+       <span class="o">-</span>    <span class="n">std</span><span class="o">::</span><span class="n">atomic_uint64_t</span> <span class="n">last_imu_time_usec_</span><span class="p">;</span>
+       <span class="o">-</span>    <span class="n">std</span><span class="o">::</span><span class="n">atomic_bool</span> <span class="n">imu_stream_end_of_file_</span><span class="p">;</span>
+       <span class="o">+</span>    <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="o">&gt;</span> <span class="n">last_imu_time_usec_</span><span class="p">;</span>
+       <span class="o">+</span>    <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">imu_stream_end_of_file_</span><span class="p">;</span>
+ 
+  <span class="c1">// Threads</span>
+  <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">frame_publisher_thread_</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Build the catkin workspace with either <code class="highlighter-rouge">catkin_make</code> or <code class="highlighter-rouge">catkin build</code>.</p>
+  </li>
+  <li>Copy the libdepthengine and libstdc++ binaries that you placed in the <code class="highlighter-rouge">Azure_Kinect_SDK/build/bin</code> folder from my <a href="../azure_kinect_1604">previous post</a> in your catkin workspace.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cp </span>path/to/Azure_Kinect_SDK/build/bin/libdepthengine.so.1.0 path/to/catkin_ws/devel/lib/
+<span class="gp">$</span> <span class="nb">cp </span>path/to/Azure_Kinect_SDK/build/bin/libstdc++.so.6 path/to/catkin_ws/devel/lib/
+</code></pre></div>    </div>
+
+    <p>You will have to do this whenever you do a clean build of your workspace.</p>
+  </li>
+  <li>Copy udev rules from the ROS driver repo to your machine.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cp</span> /path/to/Azure_Kinect_ROS_Driver/scripts/99-k4a.rules /etc/udev/rules.d/
+</code></pre></div>    </div>
+
+    <p>Unplug and replug your sensor into the machine after copying the file over.</p>
+  </li>
+  <li>Source your built workspace and launch the driver.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">source </span>path/to/catkin_ws/devel/setup.bash
+<span class="gp">$</span> roslaunch azure_kinect_ros_driver driver.launch
+</code></pre></div>    </div>
+
+    <p>Note that there are parameters you can adjust in the driver launch file, e.g. fps, resolution, etc.</p>
+  </li>
+  <li>Run Rviz and you should be able to open Image and PointCloud2 widgets that read topics from the sensor!</li>
+</ol>
+
+<div class="cntr">
+  <img src="../assets/19-08-29_1.png" />
+  <div class="caption">
+    Screenshot from RViz
+  </div>
+</div>
+
+
+         </div>
+
+         
+<div class="tags">
+    Tags:
+   
+    <span class="tag"><a href="/tag/robotics">robotics</a></span>
+   
+</div>
+
+
+
+       </article>
+   
+       <article class="post">
+
          <h1><a href="/terminal_tips/">Terminal tips</a></h1>
 
          <div class="author">
@@ -147,7 +244,7 @@ I use aliases for computers that I ssh into often, e.g.</p>
 <div class="cntr">
   <img src="https://media.giphy.com/media/lquszCDcatgZlrC06g/giphy.gif" />
   <div class="caption">
-  Demonstrating how to split panes with tmux.
+  Demonstrating how to split panes with tmux. Note that my keybindings are different from the tmux defaults.
   </div>
 </div>
 
@@ -291,6 +388,8 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
     Screenshot from k4aviewer
   </div>
 </div>
+
+<p>To integrate the sensor with ROS, take a look at my follow-up post: <a href="../azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></p>
 
 <hr />
 <p>Footnotes</p>
@@ -530,64 +629,6 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
        </article>
    
-       <article class="post">
-
-         <h1><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></h1>
-
-         <div class="author">
-    <div>By Thomas Weng on April 26, 2018</div>
-    
-        <div style="font-style: italic;">~1 min. read</div>
-    
-</div>
-
-
-
-         <div class="entry">
-         <p>Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</p>
-
-<p>I used Khan Academy’s <a href="https://khan.github.io/KaTeX/">KaTeX</a> typesetting library for my blog. KaTeX is fast, self-contained, and works largely as you would expect. Here are the instructions:</p>
-
-<ol>
-  <li>
-    <p>Include KaTeX on your site by adding the <a href="https://github.com/Khan/KaTeX/blob/master/contrib/auto-render/README.md">required reference tags and scripts</a> to your html template<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>. See 
-<a href="https://github.com/thomasweng15/thomasweng15.github.io/commit/a8ae4f214dd8bec31e29c62f3cdc79d2e9b761f8">this commit</a> for the changes I made to get it working on this blog.</p>
-  </li>
-  <li>
-    <p>Typeset math by enclosing your notation within <code class="text">\\(</code> and <code class="text">\\)</code> for inline typesetting, or <code class="text">\\[</code> and <code class="text">\\]</code> for typesetting on a separate line.</p>
-
-    <p>For example, with inline typesetting, <code class="text">\\(\alpha\\)</code>, becomes \(\alpha\). With non-inline typesetting, <code class="text">\\[x^2 + y^2 + z^2 = r^2\\]</code> becomes: \[x^2 + y^2 + z^2 = r^2\]</p>
-  </li>
-  <li>
-    <p>If you have any rendering issues, check your console for error messages. Also take a look at the full documentation on <a href="https://github.com/Khan/KaTeX">Github</a>.</p>
-  </li>
-</ol>
-
-<hr />
-<p>Footnotes</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>You can also download these files and host them on your server directly instead of getting them from the cdn. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/blogging">blogging</a></span>
-   
-</div>
-
-
-
-       </article>
-   
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -604,6 +645,8 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
 	   <ul>
 	     
+	     <li><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></li>
+	     
 	     <li><a href="/terminal_tips/">Terminal tips</a></li>
 	     
 	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
@@ -611,8 +654,6 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 	     <li><a href="/calendar_time_log/">Using my calendar as a time log</a></li>
 	     
 	     <li><a href="/staying_on_top_of_email/">Staying on top of email</a></li>
-	     
-	     <li><a href="/setting_up_tex/">Setting up TeX math rendering for your blog or website</a></li>
 	     
 	   </ul>
 
@@ -653,7 +694,7 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 	     
 	     
 	     
-	     <li><a href="/tag/robotics">robotics</a> (3)</li>
+	     <li><a href="/tag/robotics">robotics</a> (4)</li>
 	     
 	     
 	     

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Setting up TeX math rendering for your blog or website – Thomas Weng – adventures in computing, productivity, and ?</title>
+    <title>Thomas Weng – adventures in computing, productivity, and ?</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,18 +9,11 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.
-
-" />
-    <meta property="og:description" content="Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.
-
-" />
+    <meta name="description" content="adventures in computing, productivity, and ?">
+    <meta property="og:description" content="adventures in computing, productivity, and ?" />
     
     <meta name="author" content="Thomas Weng" />
 
-    
-    <meta property="og:title" content="Setting up TeX math rendering for your blog or website" />
-    <meta property="twitter:title" content="Setting up TeX math rendering for your blog or website" />
     
 
     <!-- Fonts -->
@@ -71,98 +64,117 @@
     </div>
 
     <div id="main" role="main" class="container">
-      <div class="row">
-<div class="col-sm-8">
+      <div class="posts">
+  
+  <div class="row">
+    <div class="col-sm-8">
+     
+       <article class="post">
 
-<article class="post">
-  <h1>Setting up TeX math rendering for your blog or website</h1>
+         <h1><a href="/on_password_managers/">You Should Use a Password Manager</a></h1>
 
-  <div class="author">
-    <div>By Thomas Weng on April 26, 2018</div>
+         <div class="author">
+    <div>By Thomas Weng on January 23, 2017</div>
     
-        <div style="font-style: italic;">~1 min. read</div>
+        <div style="font-style: italic;">~2 min. read</div>
     
 </div>
 
 
 
-  <div class="content">
-  <p>Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</p>
+         <div class="entry">
+         <p>It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you <em>much</em> less secure than having different passwords.</p>
 
-<p>I used Khan Academy’s <a href="https://khan.github.io/KaTeX/">KaTeX</a> typesetting library for my blog. KaTeX is fast, self-contained, and works largely as you would expect. Here are the instructions:</p>
+<p>Still, it’s near impossible nowadays to remember an ever-expanding number of passwords for different accounts. Last year, I found that I was spending a silly amount of time coming up with passwords, remembering them, typing them in incorrectly, and resetting them.</p>
 
-<ol>
-  <li>
-    <p>Include KaTeX on your site by adding the <a href="https://github.com/Khan/KaTeX/blob/master/contrib/auto-render/README.md">required reference tags and scripts</a> to your html template<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>. See 
-<a href="https://github.com/thomasweng15/thomasweng15.github.io/commit/a8ae4f214dd8bec31e29c62f3cdc79d2e9b761f8">this commit</a> for the changes I made to get it working on this blog.</p>
-  </li>
-  <li>
-    <p>Typeset math by enclosing your notation within <code class="text">\\(</code> and <code class="text">\\)</code> for inline typesetting, or <code class="text">\\[</code> and <code class="text">\\]</code> for typesetting on a separate line.</p>
+<p>I consequently started hunting for a solution, and ended up trying out a password manager. It solved my password issues so well, I haven’t looked back!</p>
 
-    <p>For example, with inline typesetting, <code class="text">\\(\alpha\\)</code>, becomes \(\alpha\). With non-inline typesetting, <code class="text">\\[x^2 + y^2 + z^2 = r^2\\]</code> becomes: \[x^2 + y^2 + z^2 = r^2\]</p>
-  </li>
-  <li>
-    <p>If you have any rendering issues, check your console for error messages. Also take a look at the full documentation on <a href="https://github.com/Khan/KaTeX">Github</a>.</p>
-  </li>
-</ol>
+<p>There isn’t much to a password manager, and using one has made logging into accounts so much easier and safer. Here’s the gist of it in less than two minutes.</p>
+
+<h1 id="how-do-password-managers-work">How do password managers work?</h1>
+
+<p>A password manager works like a safe. Your passwords are securely stored in an encrypted database, and you access them by entering a master password to decrypt the database.</p>
+
+<p>It’s much easier to remember one long, secure password than numerous different ones. And if the safe (encrypted database) is stolen, thieves wont be able read your passwords without the key (master password).</p>
+
+<p>When you need to log in to an account, you simply unlock your database, copy your credentials, and paste them into the login fields.<span class="ftnt"><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></span> No more straining to type complicated passwords.</p>
+
+<p>When you need a new password, password managers create new ones for you that are hard to crack. Many of them also remind you to change your passwords if it’s been a while.</p>
+
+<h2 id="which-password-manager-should-i-use">Which password manager should I use?</h2>
+
+<p>I use <a href="http://keepass.info/">KeePass</a>, a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.</p>
+
+<div class="cntr">
+  <img src="../assets/1-keepass.png" />
+</div>
+
+<p>KeePass, however, is not the most user-friendly service out there. I’ve played with <a href="https://www.lastpass.com/">LastPass</a> as an alternative. LastPass keeps your passwords in a “cloud” so you can access them anywhere.<span class="ftnt"><sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></span> LastPass runs on an ad-based model, making it also “free” to use.</p>
+
+<div class="cntr">
+  <img src="../assets/1-lastpass.jpg" />
+</div>
+
+<p>There are also other password management programs and services out there, though I haven’t tried any others personally.</p>
+
+<h1 id="what-if-i-screw-up-with-a-password-manager-and-lose-all-of-my-passwords">What if I screw up with a password manager and lose all of my passwords?</h1>
+
+<p>If you’re worried about losing your passwords and/or aren’t sure if a password manager is for you, you always have the option of easing into it. Start by putting one password into the manager for something that isn’t critically important, so that you get the hang of using it. As you get more comfortable, you can add more and more passwords.</p>
+
+<p>If anything goes wrong, you can still reset your passwords to online accounts the regular way.</p>
 
 <hr />
+<p>I hope you take a few minutes out of your day to give a password manager a try. In retrospect, I can’t believe it took me so long to take the jump–using a manager has been so much easier than the old system of remembering passwords that weren’t as safe anyway.</p>
+
+<p>Edited January 28, 2017</p>
+<ul>
+  <li>Added pictures.</li>
+  <li>Edited “How do password managers work?” section.</li>
+</ul>
+
 <p>Footnotes</p>
 
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p>You can also download these files and host them on your server directly instead of getting them from the cdn. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p>Some services even offer “Auto-Type”, which fills in the login fields for you with one click or shortcut combo! <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.). <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
 
-  </div>
+         </div>
 
-</article>
-
-  
+         
 <div class="tags">
     Tags:
    
-    <span class="tag"><a href="/tag/blogging">blogging</a></span>
+    <span class="tag"><a href="/tag/productivity">productivity</a></span>, 
+   
+    <span class="tag"><a href="/tag/security">security</a></span>, 
+   
+    <span class="tag"><a href="/tag/popular">popular</a></span>
    
 </div>
 
 
 
-  <div class="row pagenav">
+       </article>
+   
+
+    <!-- Pagination links -->
+    <div class="pagination">
       
-      <div class="col-xs-6 prev_post"><a href="/automating_C++_builds_ros/">&larr; Automating C++ builds in ROS</a></div>
+
       
+      <a href="/blog/page2/" class="newer">Newer Posts &rarr;</a>
       
-      <div class="col-xs-6 next_post"><a href="/staying_on_top_of_email/">Staying on top of email &rarr;</a></div>
-      
-  </div>
+    </div>
+   </div>
 
-
-  
-<div class="comments">
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-
-	    var disqus_shortname = 'http-thomasweng-com';
-
-	    (function() {
-	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	    })();
-
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-
-
-  </div>
-
-  	 <div class="sidebar col-sm-4">
+   	 <div class="sidebar col-sm-4">
 	   <h1>Recent Posts</h1>
 
 	   <ul>
@@ -228,9 +240,9 @@
 
 	 </div>
 
-  
-</div>
 
+  </div>
+</div>
 
     </div>
 
@@ -262,8 +274,8 @@
 
 		ga('create', 'UA-50853593-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/setting_up_tex/',
-		  'title': 'Setting up TeX math rendering for your blog or website'
+		  'page': '/blog/page3/',
+		  'title': ''
 		});
 	</script>
 	<!-- End Google Analytics -->

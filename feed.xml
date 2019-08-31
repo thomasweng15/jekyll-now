@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-08-29T04:36:51+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Terminal tips</title><link href="http://thomasweng.com/terminal_tips/" rel="alternate" type="text/html" title="Terminal tips" /><published>2019-08-27T00:00:00+00:00</published><updated>2019-08-27T00:00:00+00:00</updated><id>http://thomasweng.com/terminal_tips</id><content type="html" xml:base="http://thomasweng.com/terminal_tips/">&lt;p&gt;The terminal is an essential tool,&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; but also one whose tasks are most easily automated and optimized.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-08-31T22:33:17+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604_ros/" rel="alternate" type="text/html" title="How to install ROS drivers for Azure Kinect on Ubuntu 16.04" /><published>2019-08-31T00:00:00+00:00</published><updated>2019-08-31T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604_ros</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604_ros/">&lt;p&gt;Following up from my previous post on &lt;a href=&quot;../azure_kinect_1604&quot;&gt;installing the Azure Kinect SDK on Ubuntu 16.04&lt;/a&gt;, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.&lt;/p&gt;
+
+&lt;p&gt;The credit for figuring out these steps goes to &lt;a href=&quot;https://www.ri.cmu.edu/ri-people/kevin-zhang/&quot;&gt;Kevin Zhang&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h1 id=&quot;installation-steps&quot;&gt;Installation steps&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Install the Azure Kinect SDK executables on your path so they can be found by ROS.
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;path/to/Azure-Kinect-Sensor-SDK/build
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ninja &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Clone the official ROS driver into a catkin workspace.
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;catkin_ws/src
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; git clone https://github.com/microsoft/Azure_Kinect_ROS_Driver.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make minor edits to the codebase. If you were to build the workspace now, you would get errors relating to &lt;code class=&quot;highlighter-rouge&quot;&gt;std::atomic&lt;/code&gt; syntax.&lt;/p&gt;
+
+    &lt;p&gt;To fix this, open &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;repo&amp;gt;/include/azure_kinect_ros_driver/k4a_ros_device.h&lt;/code&gt; and convert all instances of &lt;code class=&quot;highlighter-rouge&quot;&gt;std::atomic_TYPE&lt;/code&gt; type declarations to &lt;code class=&quot;highlighter-rouge&quot;&gt;std::atomic&amp;lt;TYPE&amp;gt;&lt;/code&gt;. Below is a diff of the edits I made.&lt;/p&gt;
+    &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;117&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;117&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;K4AROSDevice&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;running_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ 
+  &lt;span class=&quot;c1&quot;&gt;// Last capture timestamp for synchronizing playback capture and imu thread&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;atomic_int64_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_capture_time_usec_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;atomic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int64_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_capture_time_usec_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ 
+  &lt;span class=&quot;c1&quot;&gt;// Last imu timestamp for synchronizing playback capture and imu thread&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;atomic_uint64_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_imu_time_usec_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;atomic_bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imu_stream_end_of_file_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;atomic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint64_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_imu_time_usec_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;atomic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imu_stream_end_of_file_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+ 
+  &lt;span class=&quot;c1&quot;&gt;// Threads&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;frame_publisher_thread_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Build the catkin workspace with either &lt;code class=&quot;highlighter-rouge&quot;&gt;catkin_make&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;catkin build&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Copy the libdepthengine and libstdc++ binaries that you placed in the &lt;code class=&quot;highlighter-rouge&quot;&gt;Azure_Kinect_SDK/build/bin&lt;/code&gt; folder from my &lt;a href=&quot;../azure_kinect_1604&quot;&gt;previous post&lt;/a&gt; in your catkin workspace.
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;path/to/Azure_Kinect_SDK/build/bin/libdepthengine.so.1.0 path/to/catkin_ws/devel/lib/
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;path/to/Azure_Kinect_SDK/build/bin/libstdc++.so.6 path/to/catkin_ws/devel/lib/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;You will have to do this whenever you do a clean build of your workspace.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Copy udev rules from the ROS driver repo to your machine.
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; /path/to/Azure_Kinect_ROS_Driver/scripts/99-k4a.rules /etc/udev/rules.d/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Unplug and replug your sensor into the machine after copying the file over.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Source your built workspace and launch the driver.
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;path/to/catkin_ws/devel/setup.bash
+&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; roslaunch azure_kinect_ros_driver driver.launch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Note that there are parameters you can adjust in the driver launch file, e.g. fps, resolution, etc.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Run Rviz and you should be able to open Image and PointCloud2 widgets that read topics from the sensor!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../assets/19-08-29_1.png&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    Screenshot from RViz
+  &lt;/div&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">Following up from my previous post on installing the Azure Kinect SDK on Ubuntu 16.04, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.</summary></entry><entry><title type="html">Terminal tips</title><link href="http://thomasweng.com/terminal_tips/" rel="alternate" type="text/html" title="Terminal tips" /><published>2019-08-27T00:00:00+00:00</published><updated>2019-08-27T00:00:00+00:00</updated><id>http://thomasweng.com/terminal_tips</id><content type="html" xml:base="http://thomasweng.com/terminal_tips/">&lt;p&gt;The terminal is an essential tool,&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; but also one whose tasks are most easily automated and optimized.&lt;/p&gt;
 
 &lt;p&gt;Most of the time spent on the command line is on non-value-adding tasks, like moving files around, executing programs, installing dependencies, and checking system status.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;
 These tasks are necessary, but do not end up in your final deliverable, i.e. a publication, code, or other project output.&lt;/p&gt;
@@ -64,7 +132,7 @@ I use aliases for computers that I ssh into often, e.g.&lt;/p&gt;
 &lt;div class=&quot;cntr&quot;&gt;
   &lt;img src=&quot;https://media.giphy.com/media/lquszCDcatgZlrC06g/giphy.gif&quot; /&gt;
   &lt;div class=&quot;caption&quot;&gt;
-  Demonstrating how to split panes with tmux.
+  Demonstrating how to split panes with tmux. Note that my keybindings are different from the tmux defaults.
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -178,6 +246,8 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
     Screenshot from k4aviewer
   &lt;/div&gt;
 &lt;/div&gt;
+
+&lt;p&gt;To integrate the sensor with ROS, take a look at my follow-up post: &lt;a href=&quot;../azure_kinect_1604_ros/&quot;&gt;How to install ROS drivers for Azure Kinect on Ubuntu 16.04&lt;/a&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 &lt;p&gt;Footnotes&lt;/p&gt;
@@ -600,64 +670,4 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 &lt;p&gt;Finally, I’m learning to become less anxious about applying to things. I want to treat applications more as learning opportunities rather than tests. If I feel overly anxious, not only is it counter productive, but it probably means that I’m overestimating how much I’ll lose if I get rejected. It’s better to just keep trying, learning, and growing.&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;p&gt;Thanks for reading, and best wishes to you on whatever projects or opportunities you are working towards! Stay tuned for more details about Rover.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">When it comes to applying for opportunities, I’m no different from everyone else: I always get anxious. But preparing an application is often a great way to make your work presentable and gauge your progress.</summary></entry><entry><title type="html">You Should Use a Password Manager</title><link href="http://thomasweng.com/on_password_managers/" rel="alternate" type="text/html" title="You Should Use a Password Manager" /><published>2017-01-23T00:00:00+00:00</published><updated>2017-01-23T00:00:00+00:00</updated><id>http://thomasweng.com/on_password_managers</id><content type="html" xml:base="http://thomasweng.com/on_password_managers/">&lt;p&gt;It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you &lt;em&gt;much&lt;/em&gt; less secure than having different passwords.&lt;/p&gt;
-
-&lt;p&gt;Still, it’s near impossible nowadays to remember an ever-expanding number of passwords for different accounts. Last year, I found that I was spending a silly amount of time coming up with passwords, remembering them, typing them in incorrectly, and resetting them.&lt;/p&gt;
-
-&lt;p&gt;I consequently started hunting for a solution, and ended up trying out a password manager. It solved my password issues so well, I haven’t looked back!&lt;/p&gt;
-
-&lt;p&gt;There isn’t much to a password manager, and using one has made logging into accounts so much easier and safer. Here’s the gist of it in less than two minutes.&lt;/p&gt;
-
-&lt;h1 id=&quot;how-do-password-managers-work&quot;&gt;How do password managers work?&lt;/h1&gt;
-
-&lt;p&gt;A password manager works like a safe. Your passwords are securely stored in an encrypted database, and you access them by entering a master password to decrypt the database.&lt;/p&gt;
-
-&lt;p&gt;It’s much easier to remember one long, secure password than numerous different ones. And if the safe (encrypted database) is stolen, thieves wont be able read your passwords without the key (master password).&lt;/p&gt;
-
-&lt;p&gt;When you need to log in to an account, you simply unlock your database, copy your credentials, and paste them into the login fields.&lt;span class=&quot;ftnt&quot;&gt;&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/span&gt; No more straining to type complicated passwords.&lt;/p&gt;
-
-&lt;p&gt;When you need a new password, password managers create new ones for you that are hard to crack. Many of them also remind you to change your passwords if it’s been a while.&lt;/p&gt;
-
-&lt;h2 id=&quot;which-password-manager-should-i-use&quot;&gt;Which password manager should I use?&lt;/h2&gt;
-
-&lt;p&gt;I use &lt;a href=&quot;http://keepass.info/&quot;&gt;KeePass&lt;/a&gt;, a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.&lt;/p&gt;
-
-&lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../assets/1-keepass.png&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;KeePass, however, is not the most user-friendly service out there. I’ve played with &lt;a href=&quot;https://www.lastpass.com/&quot;&gt;LastPass&lt;/a&gt; as an alternative. LastPass keeps your passwords in a “cloud” so you can access them anywhere.&lt;span class=&quot;ftnt&quot;&gt;&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/span&gt; LastPass runs on an ad-based model, making it also “free” to use.&lt;/p&gt;
-
-&lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../assets/1-lastpass.jpg&quot; /&gt;
-&lt;/div&gt;
-
-&lt;p&gt;There are also other password management programs and services out there, though I haven’t tried any others personally.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-if-i-screw-up-with-a-password-manager-and-lose-all-of-my-passwords&quot;&gt;What if I screw up with a password manager and lose all of my passwords?&lt;/h1&gt;
-
-&lt;p&gt;If you’re worried about losing your passwords and/or aren’t sure if a password manager is for you, you always have the option of easing into it. Start by putting one password into the manager for something that isn’t critically important, so that you get the hang of using it. As you get more comfortable, you can add more and more passwords.&lt;/p&gt;
-
-&lt;p&gt;If anything goes wrong, you can still reset your passwords to online accounts the regular way.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;I hope you take a few minutes out of your day to give a password manager a try. In retrospect, I can’t believe it took me so long to take the jump–using a manager has been so much easier than the old system of remembering passwords that weren’t as safe anyway.&lt;/p&gt;
-
-&lt;p&gt;Edited January 28, 2017&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Added pictures.&lt;/li&gt;
-  &lt;li&gt;Edited “How do password managers work?” section.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Footnotes&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;Some services even offer “Auto-Type”, which fills in the login fields for you with one click or shortcut combo! &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.). &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="security" /><category term="popular" /><summary type="html">It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you much less secure than having different passwords.</summary></entry></feed>
+&lt;p&gt;Thanks for reading, and best wishes to you on whatever projects or opportunities you are working towards! Stay tuned for more details about Rover.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">When it comes to applying for opportunities, I’m no different from everyone else: I always get anxious. But preparing an application is often a great way to make your work presentable and gauge your progress.</summary></entry></feed>
