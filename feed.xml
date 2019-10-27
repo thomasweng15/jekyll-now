@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-08-31T22:37:44+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604_ros/" rel="alternate" type="text/html" title="How to install ROS drivers for Azure Kinect on Ubuntu 16.04" /><published>2019-08-31T00:00:00+00:00</published><updated>2019-08-31T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604_ros</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604_ros/">&lt;p&gt;Following up from my previous post on &lt;a href=&quot;../azure_kinect_1604&quot;&gt;installing the Azure Kinect SDK on Ubuntu 16.04&lt;/a&gt;, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-10-27T03:36:24+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604_ros/" rel="alternate" type="text/html" title="How to install ROS drivers for Azure Kinect on Ubuntu 16.04" /><published>2019-08-31T00:00:00+00:00</published><updated>2019-08-31T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604_ros</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604_ros/">&lt;p&gt;Following up from my previous post on &lt;a href=&quot;../azure_kinect_1604&quot;&gt;installing the Azure Kinect SDK on Ubuntu 16.04&lt;/a&gt;, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.&lt;/p&gt;
 
 &lt;p&gt;The credit for figuring out these steps goes to &lt;a href=&quot;https://www.ri.cmu.edu/ri-people/kevin-zhang/&quot;&gt;Kevin Zhang&lt;/a&gt;!&lt;/p&gt;
 
@@ -9,7 +9,7 @@
 &lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ninja &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Clone the official ROS driver into a catkin workspace.
+  &lt;li&gt;Clone the official ROS driver into a catkin workspace.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;
     &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;catkin_ws/src
 &lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; git clone https://github.com/microsoft/Azure_Kinect_ROS_Driver.git
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
@@ -66,6 +66,17 @@
   &lt;div class=&quot;caption&quot;&gt;
     Screenshot from RViz
   &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Footnotes&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;I used commit &lt;code class=&quot;highlighter-rouge&quot;&gt;be9a528ddac3f9a494045b7acd76b7b32bd17105&lt;/code&gt;, but a later commit may work. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">Following up from my previous post on installing the Azure Kinect SDK on Ubuntu 16.04, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.</summary></entry><entry><title type="html">Terminal tips</title><link href="http://thomasweng.com/terminal_tips/" rel="alternate" type="text/html" title="Terminal tips" /><published>2019-08-27T00:00:00+00:00</published><updated>2019-08-27T00:00:00+00:00</updated><id>http://thomasweng.com/terminal_tips</id><content type="html" xml:base="http://thomasweng.com/terminal_tips/">&lt;p&gt;The terminal is an essential tool,&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; but also one whose tasks are most easily automated and optimized.&lt;/p&gt;
 
 &lt;p&gt;Most of the time spent on the command line is on non-value-adding tasks, like moving files around, executing programs, installing dependencies, and checking system status.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;
@@ -186,7 +197,7 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 &lt;p&gt;These steps worked for me on an existing Ubuntu 16.04 installation, not a fresh one, so your mileage may vary.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Download the v1.1 SDK from Github.
+  &lt;li&gt;Download the v1.1 SDK from Github.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;
     &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
@@ -196,7 +207,7 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
   &lt;/li&gt;
   &lt;li&gt;Follow the build steps in &lt;a href=&quot;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md&quot;&gt;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md&lt;/a&gt;.
     &lt;ul&gt;
-      &lt;li&gt;If you get a CMake error, you may need to upgrade CMake&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
+      &lt;li&gt;If you get a CMake error, you may need to upgrade CMake&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.
         &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;% Download and extract cmake 3.14.5
 &lt;/span&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; ~/temp
 &lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/temp
@@ -223,7 +234,7 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
     &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;libdepthengine.so.1.0&lt;/code&gt; is closed-source code for processing the raw depth stream from the camera.
  This binary is included as part of k4a-tools, the &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions&quot;&gt;Azure Kinect SDK Debian package for Ubuntu 18.04&lt;/a&gt;.&lt;/p&gt;
 
-    &lt;p&gt;As a result, you’ll need to install k4a-tools on an Ubuntu 18.04 OS following &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions&quot;&gt;these instructions&lt;/a&gt;, then copy the files installed into &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/lib/x86_64-linux-gnu&lt;/code&gt; onto your Ubuntu 16.04 OS.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+    &lt;p&gt;As a result, you’ll need to install k4a-tools on an Ubuntu 18.04 OS following &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions&quot;&gt;these instructions&lt;/a&gt;, then copy the files installed into &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/lib/x86_64-linux-gnu&lt;/code&gt; onto your Ubuntu 16.04 OS.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
     &lt;p&gt;In practice, I found that I only needed &lt;code class=&quot;highlighter-rouge&quot;&gt;libdepthengine.so.1.0&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;libstdc++.so.6&lt;/code&gt; from the &lt;code class=&quot;highlighter-rouge&quot;&gt;x86_64-linux-gnu&lt;/code&gt; folder.&lt;/p&gt;
   &lt;/li&gt;
@@ -232,7 +243,7 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 &lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Test the installation by running the SDK viewer.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;
+  &lt;li&gt;Test the installation by running the SDK viewer.&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;
     &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
 
@@ -255,13 +266,16 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
     &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line&quot;&gt;https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line&lt;/a&gt; &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;I used commit &lt;code class=&quot;highlighter-rouge&quot;&gt;fd6f537bb5ad9960faafc80a3cededbc8eb68609&lt;/code&gt;, but a later commit may work. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;Or find a friend who has a copy :) &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line&quot;&gt;https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;There are instructions for running the viewer as non-root &lt;a href=&quot;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#linux-device-setup&quot;&gt;here&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;Or find a friend who has a copy :) &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:4&quot;&gt;
+      &lt;p&gt;There are instructions for running the viewer as non-root &lt;a href=&quot;https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#linux-device-setup&quot;&gt;here&lt;/a&gt; &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">Microsoft recently released the Azure Kinect DK sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. The kit’s SDK officially supports Windows and Linux 18.04. I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.</summary></entry><entry><title type="html">Using my calendar as a time log</title><link href="http://thomasweng.com/calendar_time_log/" rel="alternate" type="text/html" title="Using my calendar as a time log" /><published>2019-01-05T00:00:00+00:00</published><updated>2019-01-05T00:00:00+00:00</updated><id>http://thomasweng.com/calendar_time_log</id><content type="html" xml:base="http://thomasweng.com/calendar_time_log/">&lt;p&gt;I used to only use my calendar to track upcoming meetings. But then I read Philip Guo’s &lt;a href=&quot;http://www.pgbovine.net/time-management.htm&quot;&gt;blog post on time management&lt;/a&gt;, and was fascinated by how he used his calendar to show where his time went.&lt;/p&gt;
