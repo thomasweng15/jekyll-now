@@ -18,7 +18,7 @@ $ cd path/to/Azure-Kinect-Sensor-SDK/build
 $ sudo ninja install
 ```
 
-2. Clone the official ROS driver into a catkin workspace.
+2. Clone the official ROS driver into a catkin workspace.[^1]
 ```console
 $ cd catkin_ws/src
 $ git clone https://github.com/microsoft/Azure_Kinect_ROS_Driver.git
@@ -78,4 +78,7 @@ $ roslaunch azure_kinect_ros_driver driver.launch
   </div>
 </div>
 
- 
+---
+Footnotes
+
+[^1]: I used commit `be9a528ddac3f9a494045b7acd76b7b32bd17105`, but a later commit may work.
