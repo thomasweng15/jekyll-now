@@ -71,6 +71,72 @@
      
        <article class="post">
 
+         <h1><a href="/emoji_in_terminal/">Replacing my command prompt with emoji</a></h1>
+
+         <div class="author">
+    <div>By Thomas Weng on November 26, 2019</div>
+    
+</div>
+
+
+
+         <div class="entry">
+         <p>The title says it all:</p>
+<div class="cntr">
+  <img src="../assets/19-11-15_1.png" />
+  <div class="caption">
+    My new emojified command prompt
+  </div>
+</div>
+
+<p>Why did I do this? Wanted to see if it was possible. And seeing emoji somehow brings me a lot of joy.</p>
+
+<p>I did this on my Mac with <a href="https://www.zsh.org/">zsh</a> and <a href="https://ohmyz.sh/">Oh My Zsh</a>. Here are the steps if you want to do the same in your own terminal.</p>
+
+<h1 id="1-in-your-zshrc-add-the-emoji-plugin-to-the-list-of-plugins">1. In your <code class="highlighter-rouge">.zshrc</code>, add the emoji plugin to the list of plugins.</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugins=(
+  git alias-tips autojump emoji
+)
+</code></pre></div></div>
+
+<h1 id="2-in-your-zsh-theme-update-the-prompt-variable">2. In your zsh theme, update the PROMPT variable.</h1>
+
+<p>You’ll find the name of your current theme in your <code class="highlighter-rouge">.zshrc</code> file. The file for that theme is under <code class="highlighter-rouge">/.oh-my-zsh/themes/</code>.</p>
+
+<p>In my theme file, I replaced <code class="highlighter-rouge">&gt;</code> with <code class="highlighter-rouge">$(random_emoji animals)</code>, which loads a random animal emoji as my terminal prompt each time I open a new terminal. Other options are available in the emoji plugin <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/emoji">documentation</a>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Old prompt
+PROMPT='
+${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}&gt;%{$resetcolor%} '
+# New prompt
+PROMPT='
+${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}$(random_emoji animals)%{$resetcolor%} '
+</code></pre></div></div>
+
+<p>To see changes, reload zsh with <code class="highlighter-rouge">source ~/.zshrc</code> or open and close the terminal.</p>
+
+<h1 id="3-change-the-command-prompt-emoji-with-the-random_emoji-command">3. Change the command prompt emoji with the <code class="highlighter-rouge">random_emoji</code> command</h1>
+
+<p>Step 2 replaces your prompt with a random emoji for each new terminal. If you get tired of the current emoji, you can change it with the command <code class="highlighter-rouge">random_emoji</code>. It outputs a random emoji and also randomly changes the emoji of your prompt.</p>
+
+<div class="cntr">
+  <img src="../assets/19-11-15_2.png" />
+  <div class="caption">
+    Change the command prompt emoji with `random_emoji`
+  </div>
+</div>
+
+<p>Enjoy!</p>
+
+         </div>
+
+         
+
+
+       </article>
+   
+       <article class="post">
+
          <h1><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></h1>
 
          <div class="author">
@@ -580,68 +646,6 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
        </article>
    
-       <article class="post">
-
-         <h1><a href="/staying_on_top_of_email/">Staying on top of email</a></h1>
-
-         <div class="author">
-    <div>By Thomas Weng on November  3, 2018</div>
-    
-        <div style="font-style: italic;">~1 min. read</div>
-    
-</div>
-
-
-
-         <div class="entry">
-         <p>I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.</p>
-
-<div class="cntr">
-  <img src="../assets/7-cluttered.png" />
-  <div class="caption">
-    Screenshot of someone's inbox from the Internet. 13k unread emails = instant anxiety.
-  </div>
-</div>
-
-<p>To keep a tidy inbox, I aim for Inbox Zero daily. That means for each email:</p>
-
-<ol>
-  <li>
-    <p>If there’s a task that can be done in a minute, I’ll do it immediately and archive it.</p>
-  </li>
-  <li>
-    <p>If there’s a task to be done today, I’ll add it to my to-do list and then <a href="https://support.google.com/mail/answer/7622010?co=GENIE.Platform%3DDesktop&amp;hl=en">snooze</a> the email.</p>
-  </li>
-  <li>
-    <p>If the task isn’t urgent, I’ll just snooze it to whenever I can/need to do it.</p>
-  </li>
-</ol>
-
-<div class="cntr">
-  <img src="../assets/7-clean.png" />
-  <div class="caption">
-    Much better!
-  </div>
-</div>
-
-<p>I don’t always achieve an empty inbox following this approach, especially when a lot of things are happening at once. The goal may also not always be to clear all emails, if you need some handy for your task for example.</p>
-
-<p>Though I tried to keep my approach lightweight, there’s definitely room for improvement. For example, I’m still experimenting to find a good to-do list workflow. I could be more disciplined about when I check my email to avoid interruptions in my work. So far, though, this method is pretty effective in helping me stay organized.</p>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>
-   
-</div>
-
-
-
-       </article>
-   
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -658,6 +662,8 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
 	   <ul>
 	     
+	     <li><a href="/emoji_in_terminal/">Replacing my command prompt with emoji</a></li>
+	     
 	     <li><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></li>
 	     
 	     <li><a href="/terminal_tips/">Terminal tips</a></li>
@@ -665,8 +671,6 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
 	     
 	     <li><a href="/calendar_time_log/">Using my calendar as a time log</a></li>
-	     
-	     <li><a href="/staying_on_top_of_email/">Staying on top of email</a></li>
 	     
 	   </ul>
 

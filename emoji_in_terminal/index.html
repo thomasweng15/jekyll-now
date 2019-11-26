@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>You Should Use a Password Manager – Thomas Weng – adventures in computing, productivity, and ?</title>
+    <title>Replacing my command prompt with emoji – Thomas Weng – adventures in computing, productivity, and ?</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,18 +9,30 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you much less secure than having different passwords.
+    <meta name="description" content="The title says it all:
+
+  
+  
+    My new emojified command prompt
+  
+
 
 " />
-    <meta property="og:description" content="It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you much less secure than having different passwords.
+    <meta property="og:description" content="The title says it all:
+
+  
+  
+    My new emojified command prompt
+  
+
 
 " />
     
     <meta name="author" content="Thomas Weng" />
 
     
-    <meta property="og:title" content="You Should Use a Password Manager" />
-    <meta property="twitter:title" content="You Should Use a Password Manager" />
+    <meta property="og:title" content="Replacing my command prompt with emoji" />
+    <meta property="twitter:title" content="Replacing my command prompt with emoji" />
     
 
     <!-- Fonts -->
@@ -75,102 +87,74 @@
 <div class="col-sm-8">
 
 <article class="post">
-  <h1>You Should Use a Password Manager</h1>
+  <h1>Replacing my command prompt with emoji</h1>
 
   <div class="author">
-    <div>By Thomas Weng on January 23, 2017</div>
-    
-        <div style="font-style: italic;">~2 min. read</div>
+    <div>By Thomas Weng on November 26, 2019</div>
     
 </div>
 
 
 
   <div class="content">
-  <p>It’s easy to get lazy and use the same password for multiple account logins. But doing so leaves you <em>much</em> less secure than having different passwords.</p>
+  <p>The title says it all:</p>
+<div class="cntr">
+  <img src="../assets/19-11-15_1.png" />
+  <div class="caption">
+    My new emojified command prompt
+  </div>
+</div>
 
-<p>Still, it’s near impossible nowadays to remember an ever-expanding number of passwords for different accounts. Last year, I found that I was spending a silly amount of time coming up with passwords, remembering them, typing them in incorrectly, and resetting them.</p>
+<p>Why did I do this? Wanted to see if it was possible. And seeing emoji somehow brings me a lot of joy.</p>
 
-<p>I consequently started hunting for a solution, and ended up trying out a password manager. It solved my password issues so well, I haven’t looked back!</p>
+<p>I did this on my Mac with <a href="https://www.zsh.org/">zsh</a> and <a href="https://ohmyz.sh/">Oh My Zsh</a>. Here are the steps if you want to do the same in your own terminal.</p>
 
-<p>There isn’t much to a password manager, and using one has made logging into accounts so much easier and safer. Here’s the gist of it in less than two minutes.</p>
+<h1 id="1-in-your-zshrc-add-the-emoji-plugin-to-the-list-of-plugins">1. In your <code class="highlighter-rouge">.zshrc</code>, add the emoji plugin to the list of plugins.</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugins=(
+  git alias-tips autojump emoji
+)
+</code></pre></div></div>
 
-<h1 id="how-do-password-managers-work">How do password managers work?</h1>
+<h1 id="2-in-your-zsh-theme-update-the-prompt-variable">2. In your zsh theme, update the PROMPT variable.</h1>
 
-<p>A password manager works like a safe. Your passwords are securely stored in an encrypted database, and you access them by entering a master password to decrypt the database.</p>
+<p>You’ll find the name of your current theme in your <code class="highlighter-rouge">.zshrc</code> file. The file for that theme is under <code class="highlighter-rouge">/.oh-my-zsh/themes/</code>.</p>
 
-<p>It’s much easier to remember one long, secure password than numerous different ones. And if the safe (encrypted database) is stolen, thieves wont be able read your passwords without the key (master password).</p>
+<p>In my theme file, I replaced <code class="highlighter-rouge">&gt;</code> with <code class="highlighter-rouge">$(random_emoji animals)</code>, which loads a random animal emoji as my terminal prompt each time I open a new terminal. Other options are available in the emoji plugin <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/emoji">documentation</a>.</p>
 
-<p>When you need to log in to an account, you simply unlock your database, copy your credentials, and paste them into the login fields.<span class="ftnt"><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></span> No more straining to type complicated passwords.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Old prompt
+PROMPT='
+${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}&gt;%{$resetcolor%} '
+# New prompt
+PROMPT='
+${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}$(random_emoji animals)%{$resetcolor%} '
+</code></pre></div></div>
 
-<p>When you need a new password, password managers create new ones for you that are hard to crack. Many of them also remind you to change your passwords if it’s been a while.</p>
+<p>To see changes, reload zsh with <code class="highlighter-rouge">source ~/.zshrc</code> or open and close the terminal.</p>
 
-<h2 id="which-password-manager-should-i-use">Which password manager should I use?</h2>
+<h1 id="3-change-the-command-prompt-emoji-with-the-random_emoji-command">3. Change the command prompt emoji with the <code class="highlighter-rouge">random_emoji</code> command</h1>
 
-<p>I use <a href="http://keepass.info/">KeePass</a>, a free program. KeePass is open-source, meaning that a community of security experts (and anyone else who is interested) is vetting the source code to verify that it really is secure.</p>
+<p>Step 2 replaces your prompt with a random emoji for each new terminal. If you get tired of the current emoji, you can change it with the command <code class="highlighter-rouge">random_emoji</code>. It outputs a random emoji and also randomly changes the emoji of your prompt.</p>
 
 <div class="cntr">
-  <img src="../assets/1-keepass.png" />
+  <img src="../assets/19-11-15_2.png" />
+  <div class="caption">
+    Change the command prompt emoji with `random_emoji`
+  </div>
 </div>
 
-<p>KeePass, however, is not the most user-friendly service out there. I’ve played with <a href="https://www.lastpass.com/">LastPass</a> as an alternative. LastPass keeps your passwords in a “cloud” so you can access them anywhere.<span class="ftnt"><sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></span> LastPass runs on an ad-based model, making it also “free” to use.</p>
-
-<div class="cntr">
-  <img src="../assets/1-lastpass.jpg" />
-</div>
-
-<p>There are also other password management programs and services out there, though I haven’t tried any others personally.</p>
-
-<h1 id="what-if-i-screw-up-with-a-password-manager-and-lose-all-of-my-passwords">What if I screw up with a password manager and lose all of my passwords?</h1>
-
-<p>If you’re worried about losing your passwords and/or aren’t sure if a password manager is for you, you always have the option of easing into it. Start by putting one password into the manager for something that isn’t critically important, so that you get the hang of using it. As you get more comfortable, you can add more and more passwords.</p>
-
-<p>If anything goes wrong, you can still reset your passwords to online accounts the regular way.</p>
-
-<hr />
-<p>I hope you take a few minutes out of your day to give a password manager a try. In retrospect, I can’t believe it took me so long to take the jump–using a manager has been so much easier than the old system of remembering passwords that weren’t as safe anyway.</p>
-
-<p>Edited January 28, 2017</p>
-<ul>
-  <li>Added pictures.</li>
-  <li>Edited “How do password managers work?” section.</li>
-</ul>
-
-<p>Footnotes</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>Some services even offer “Auto-Type”, which fills in the login fields for you with one click or shortcut combo! <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:2">
-      <p>I get around this problem with KeePass by keeping my password database in a cloud service myself (e.g. Dropbox, OneDrive, etc.). <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
+<p>Enjoy!</p>
 
   </div>
 
 </article>
 
   
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>, 
-   
-    <span class="tag"><a href="/tag/security">security</a></span>, 
-   
-    <span class="tag"><a href="/tag/popular">popular</a></span>
-   
-</div>
-
 
 
   <div class="row pagenav">
       
+      <div class="col-xs-6 prev_post"><a href="/azure_kinect_1604_ros/">&larr; How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></div>
       
-      <div class="col-xs-6 next_post"><a href="/microsoft_robotics_day/">Robotics Day at Microsoft &rarr;</a></div>
       
   </div>
 
@@ -296,8 +280,8 @@
 
 		ga('create', 'UA-50853593-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/on_password_managers/',
-		  'title': 'You Should Use a Password Manager'
+		  'page': '/emoji_in_terminal/',
+		  'title': 'Replacing my command prompt with emoji'
 		});
 	</script>
 	<!-- End Google Analytics -->

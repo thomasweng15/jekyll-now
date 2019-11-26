@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-10-27T03:36:24+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604_ros/" rel="alternate" type="text/html" title="How to install ROS drivers for Azure Kinect on Ubuntu 16.04" /><published>2019-08-31T00:00:00+00:00</published><updated>2019-08-31T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604_ros</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604_ros/">&lt;p&gt;Following up from my previous post on &lt;a href=&quot;../azure_kinect_1604&quot;&gt;installing the Azure Kinect SDK on Ubuntu 16.04&lt;/a&gt;, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2019-11-26T23:30:21+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Replacing my command prompt with emoji</title><link href="http://thomasweng.com/emoji_in_terminal/" rel="alternate" type="text/html" title="Replacing my command prompt with emoji" /><published>2019-11-26T00:00:00+00:00</published><updated>2019-11-26T00:00:00+00:00</updated><id>http://thomasweng.com/emoji_in_terminal</id><content type="html" xml:base="http://thomasweng.com/emoji_in_terminal/">&lt;p&gt;The title says it all:&lt;/p&gt;
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../assets/19-11-15_1.png&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    My new emojified command prompt
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Why did I do this? Wanted to see if it was possible. And seeing emoji somehow brings me a lot of joy.&lt;/p&gt;
+
+&lt;p&gt;I did this on my Mac with &lt;a href=&quot;https://www.zsh.org/&quot;&gt;zsh&lt;/a&gt; and &lt;a href=&quot;https://ohmyz.sh/&quot;&gt;Oh My Zsh&lt;/a&gt;. Here are the steps if you want to do the same in your own terminal.&lt;/p&gt;
+
+&lt;h1 id=&quot;1-in-your-zshrc-add-the-emoji-plugin-to-the-list-of-plugins&quot;&gt;1. In your &lt;code class=&quot;highlighter-rouge&quot;&gt;.zshrc&lt;/code&gt;, add the emoji plugin to the list of plugins.&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;plugins=(
+  git alias-tips autojump emoji
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;2-in-your-zsh-theme-update-the-prompt-variable&quot;&gt;2. In your zsh theme, update the PROMPT variable.&lt;/h1&gt;
+
+&lt;p&gt;You’ll find the name of your current theme in your &lt;code class=&quot;highlighter-rouge&quot;&gt;.zshrc&lt;/code&gt; file. The file for that theme is under &lt;code class=&quot;highlighter-rouge&quot;&gt;/.oh-my-zsh/themes/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my theme file, I replaced &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;$(random_emoji animals)&lt;/code&gt;, which loads a random animal emoji as my terminal prompt each time I open a new terminal. Other options are available in the emoji plugin &lt;a href=&quot;https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/emoji&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Old prompt
+PROMPT='
+${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}&amp;gt;%{$resetcolor%} '
+# New prompt
+PROMPT='
+${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}$(random_emoji animals)%{$resetcolor%} '
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To see changes, reload zsh with &lt;code class=&quot;highlighter-rouge&quot;&gt;source ~/.zshrc&lt;/code&gt; or open and close the terminal.&lt;/p&gt;
+
+&lt;h1 id=&quot;3-change-the-command-prompt-emoji-with-the-random_emoji-command&quot;&gt;3. Change the command prompt emoji with the &lt;code class=&quot;highlighter-rouge&quot;&gt;random_emoji&lt;/code&gt; command&lt;/h1&gt;
+
+&lt;p&gt;Step 2 replaces your prompt with a random emoji for each new terminal. If you get tired of the current emoji, you can change it with the command &lt;code class=&quot;highlighter-rouge&quot;&gt;random_emoji&lt;/code&gt;. It outputs a random emoji and also randomly changes the emoji of your prompt.&lt;/p&gt;
+
+&lt;div class=&quot;cntr&quot;&gt;
+  &lt;img src=&quot;../assets/19-11-15_2.png&quot; /&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    Change the command prompt emoji with `random_emoji`
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Enjoy!&lt;/p&gt;</content><author><name>Thomas Weng</name></author><summary type="html">The title says it all: My new emojified command prompt</summary></entry><entry><title type="html">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</title><link href="http://thomasweng.com/azure_kinect_1604_ros/" rel="alternate" type="text/html" title="How to install ROS drivers for Azure Kinect on Ubuntu 16.04" /><published>2019-08-31T00:00:00+00:00</published><updated>2019-08-31T00:00:00+00:00</updated><id>http://thomasweng.com/azure_kinect_1604_ros</id><content type="html" xml:base="http://thomasweng.com/azure_kinect_1604_ros/">&lt;p&gt;Following up from my previous post on &lt;a href=&quot;../azure_kinect_1604&quot;&gt;installing the Azure Kinect SDK on Ubuntu 16.04&lt;/a&gt;, this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04.&lt;/p&gt;
 
 &lt;p&gt;The credit for figuring out these steps goes to &lt;a href=&quot;https://www.ri.cmu.edu/ri-people/kevin-zhang/&quot;&gt;Kevin Zhang&lt;/a&gt;!&lt;/p&gt;
 
@@ -628,60 +673,4 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 
 &lt;p&gt;Of course, the math does become more relevant as one continues working with ML. I’m sure I wouldn’t have picked things up so quickly with Tensorflow had I not already studied the background concepts.&lt;/p&gt;
 
-&lt;p&gt;I’m looking forward to playing more with Tensorflow and learning about what’s going on under the hood. I’ll be keeping up with the math through online resources – courses, textbooks, and hopefully papers. Most of all, I’m excited to take the training wheels off soon and start building my own models from scratch!&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="machine learning" /><summary type="html">I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.</summary></entry><entry><title type="html">Robotics Day at Microsoft</title><link href="http://thomasweng.com/microsoft_robotics_day/" rel="alternate" type="text/html" title="Robotics Day at Microsoft" /><published>2017-02-01T00:00:00+00:00</published><updated>2017-02-01T00:00:00+00:00</updated><id>http://thomasweng.com/microsoft_robotics_day</id><content type="html" xml:base="http://thomasweng.com/microsoft_robotics_day/">&lt;p&gt;When it comes to applying for opportunities, I’m no different from everyone else: I always get anxious. But preparing an application is often a great way to make your work presentable and gauge your progress.&lt;/p&gt;
-
-&lt;p&gt;Earlier this month, I heard about Robotics Day, an all-day event at Microsoft consisting of a series of talks, guided tours of Microsoft Research labs, and an expo showcasing robots built by hobbyist employees. The organizers sent out a call for volunteers and an application for prospective expo presenters.&lt;/p&gt;
-
-&lt;p&gt;This event was right up my alley. I was excited at the prospect of connecting with other MS folks doing robotics. I had even been building my own robot these past few months, so the expo was the perfect opportunity to show it off! However, I didn’t feel confident about applying for the expo, because I feared my work wouldn’t meet the same bar as other presenters. I didn’t want to stick out and look like I didn’t know what I was doing.&lt;/p&gt;
-
-&lt;p&gt;I wavered for a bit about applying, but ultimately I figured that I would give it my best shot and let the organizers decide if I made the cut. I also signed up to be a volunteer, so that in case of rejection, I could at least help out and get to know the organizers.&lt;/p&gt;
-
-&lt;p&gt;In the end, I got to do it all: I volunteered, attended the talks, and presented at the expo! I’ll focus on my experience at the expo here, so that this post doesn’t get too long.&lt;/p&gt;
-
-&lt;h1 id=&quot;at-the-expo&quot;&gt;At the expo&lt;/h1&gt;
-&lt;p&gt;My presentation naturally focused on Rover, the robot that I have been building and programming for almost half a year. Here is a picture of the bot:&lt;/p&gt;
-
-&lt;div class=&quot;cntr&quot;&gt;
-  &lt;a data-flickr-embed=&quot;true&quot; href=&quot;https://www.flickr.com/photos/145491926@N08/32280109700/in/dateposted-public/&quot; title=&quot;rover&quot;&gt;&lt;img src=&quot;https://c1.staticflickr.com/1/714/32280109700_3c62f38457_c.jpg&quot; width=&quot;400&quot; height=&quot;400&quot; alt=&quot;rover&quot; /&gt;&lt;/a&gt;&lt;script async=&quot;&quot; src=&quot;//embedr.flickr.com/assets/client-code.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I am building Rover to be an intelligent, mobile agent, kind of like a pet. A big part of the fun is seeing how much intelligence I can build using off-the-shelf hardware and open-source software. I’ll be writing up a more detailed post on building and designing Rover soon.&lt;/p&gt;
-
-&lt;p&gt;Rover is still a work in progress, so I put together several materials to aid me with the presentation. Here’s a picture of my booth setup:&lt;/p&gt;
-
-&lt;div class=&quot;cntr&quot;&gt;
-  &lt;a data-flickr-embed=&quot;true&quot; href=&quot;https://www.flickr.com/photos/145491926@N08/32455305401/in/dateposted-public/&quot; title=&quot;IMG_8918&quot;&gt;&lt;img src=&quot;https://c1.staticflickr.com/1/564/32455305401_9b0a127ced_c.jpg&quot; width=&quot;450&quot; height=&quot;600&quot; alt=&quot;IMG_8918&quot; /&gt;&lt;/a&gt;&lt;script async=&quot;&quot; src=&quot;//embedr.flickr.com/assets/client-code.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Here’s an online version of the poster on the wall; click for a full page view:&lt;/p&gt;
-
-&lt;div class=&quot;cntr&quot;&gt;
-  &lt;a target=&quot;\_blank&quot; href=&quot;../assets/2-diag.png&quot;&gt;
-    &lt;img src=&quot;../assets/2-diag.png&quot; style=&quot;width: 90%; height: 90%;&quot; /&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;presentation-materials&quot;&gt;Presentation materials&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Poster.&lt;/strong&gt; On the poster, I mapped out the project goals, system design, roadmap, and key challenges, and other topics. It served as a handy reference when people asked questions, as I could point out the relevant details quickly.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Video.&lt;/strong&gt; I played a short video on loop with clips demoing Rover at different stages of development. I also included demos of robots on the market aiming to be intelligent agents for comparison.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Contact info.&lt;/strong&gt; I laid out some paper strips with project links and my contact information for people to take, in case they wanted to connect with me later.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;how-presenting-went&quot;&gt;How presenting went&lt;/h2&gt;
-&lt;p&gt;The expo lasted for two hours, and lots of people stopped by. I ended up having virtually no downtime, which was great! It was rewarding to see people checking out my robot, looking at my presentation materials, and asking me questions about what I had built.&lt;/p&gt;
-
-&lt;p&gt;It was interesting to observe what drew people’s attention. My robot was powered on but stationary, and many people were drawn to the booth by the spinning LIDAR on the robot. It turned out that few people knew that fairly inexpensive LIDARs were available for hobby robotics. Once people were engaged, I pitched my vision for Rover as an intelligent pet-like robot, and described the progress I was making towards that goal.&lt;/p&gt;
-
-&lt;p&gt;There were a lot of other cool robots on display, like battle robots, mobile robots made with bicycle wheels, and even a foosball-playing robot! All the presenters were really friendly, and we all had a great time demoing our creations.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-i-learned&quot;&gt;What I learned&lt;/h1&gt;
-
-&lt;p&gt;My biggest takeaway from this experience is realizing how important it is to practice pitching my ideas to other people. Though I had been working on my robot for months, I had very little to show for it besides the physical robot.&lt;/p&gt;
-
-&lt;p&gt;Preparing to show my project to other people forced me to distill the nebulous thoughts I had been working with into well-formed concepts. Showing my work also allowed me to gauge how people responded to Rover and get their feedback. And practicing my pitch helped me keep my communication skills sharp.&lt;/p&gt;
-
-&lt;p&gt;Finally, I’m learning to become less anxious about applying to things. I want to treat applications more as learning opportunities rather than tests. If I feel overly anxious, not only is it counter productive, but it probably means that I’m overestimating how much I’ll lose if I get rejected. It’s better to just keep trying, learning, and growing.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;Thanks for reading, and best wishes to you on whatever projects or opportunities you are working towards! Stay tuned for more details about Rover.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="robotics" /><summary type="html">When it comes to applying for opportunities, I’m no different from everyone else: I always get anxious. But preparing an application is often a great way to make your work presentable and gauge your progress.</summary></entry></feed>
+&lt;p&gt;I’m looking forward to playing more with Tensorflow and learning about what’s going on under the hood. I’ll be keeping up with the math through online resources – courses, textbooks, and hopefully papers. Most of all, I’m excited to take the training wheels off soon and start building my own models from scratch!&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="machine learning" /><summary type="html">I took some time out this past weekend to work through an introductory machine learning talk on building models using Tensorflow. Within a few hours, I coded up a model classifying handwritten digits from the MNIST dataset with 99.5% accuracy! Considering that the accuracy of cutting edge research models currently hover at around 99.7%, my model was a pretty good result for just a few hours of development.</summary></entry></feed>
