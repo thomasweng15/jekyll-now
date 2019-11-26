@@ -8,7 +8,7 @@ tags:
 
 The title says it all:
 <div class="cntr">
-  <img src="../assets/19-11-15_1.png" />
+  <img src="../assets/19-11-26_1.png" />
   <div class="caption">
     My new emojified command prompt
   </div>
@@ -47,7 +47,7 @@ To see changes, reload zsh with `source ~/.zshrc` or open and close the terminal
 Step 2 replaces your prompt with a random emoji for each new terminal. If you get tired of the current emoji, you can change it with the command `random_emoji`. It outputs a random emoji and also randomly changes the emoji of your prompt.
 
 <div class="cntr">
-  <img src="../assets/19-11-15_2.png" />
+  <img src="../assets/19-11-26_2.png" />
   <div class="caption">
     Change the command prompt emoji with `random_emoji`
   </div>
