@@ -71,6 +71,59 @@
      
        <article class="post">
 
+         <h1><a href="/installing_cuda/">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</a></h1>
+
+         <div class="author">
+    <div>By Thomas Weng on July 23, 2020</div>
+    
+</div>
+
+
+
+         <div class="entry">
+         <p>There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.</p>
+
+<ol>
+  <li>
+    <p>Determine the driver version and CUDA version you need. The versions will depend on the GPU you have and the code you want to run. For example, specific pytorch and tensorflow versions are tied to specific CUDA versions.</p>
+  </li>
+  <li>
+    <p>Download the driver and CUDA version as a runfile from the NVIDIA website: <a href="https://developer.nvidia.com/cuda-downloads">CUDA Downloads</a></p>
+  </li>
+  <li>
+    <p>If you already have nvidia installed, uninstall it: <code class="highlighter-rouge">sudo apt-get purge nvidia-*</code> and reboot your machine.</p>
+  </li>
+  <li>
+    <p>Upon restart, drop into the tty terminal with <code class="highlighter-rouge">Ctrl+Alt+F1</code> and log in.</p>
+  </li>
+  <li>
+    <p>Stop running the gui. On Ubuntu 16.04 run <code class="highlighter-rouge">sudo service lightdm stop</code>, on 18.04 run <code class="highlighter-rouge">sudo systemctl stop gdm3.service</code>.</p>
+  </li>
+  <li>
+    <p>Find the runfile you downloaded from step 2 and run it: <code class="highlighter-rouge">sudo sh ./NAME_OF_RUNFILE.run</code></p>
+  </li>
+  <li>
+    <p>Follow the prompts to install the driver and CUDA. If the installation fails, you will need to check <code class="highlighter-rouge">/var/log/nvidia-installer.log</code> or <code class="highlighter-rouge">/var/log/cuda-installer.log</code> to find out why. You can test if the installation was successful by running <code class="highlighter-rouge">nvidia-smi</code>.Check the reported driver and CUDA versions.</p>
+  </li>
+  <li>
+    <p>Restart the gui. On Ubuntu 16.04 run <code class="highlighter-rouge">sudo service lightdm start</code>, on 18.04 run <code class="highlighter-rouge">sudo systemctl start gdm3.service</code>.</p>
+  </li>
+  <li>
+    <p>Leave the tty terminal and return to the gui: <code class="highlighter-rouge">Ctrl+Alt+F7</code>.</p>
+  </li>
+</ol>
+
+<p>For more detailed instructions, see the <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">NVIDIA CUDA Installation Guide</a>.</p>
+
+         </div>
+
+         
+
+
+       </article>
+   
+       <article class="post">
+
          <h1><a href="/emoji_in_terminal/">Replacing my command prompt with emoji</a></h1>
 
          <div class="author">
@@ -501,151 +554,6 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
        </article>
    
-       <article class="post">
-
-         <h1><a href="/calendar_time_log/">Using my calendar as a time log</a></h1>
-
-         <div class="author">
-    <div>By Thomas Weng on January  5, 2019</div>
-    
-        <div style="font-style: italic;">~4 min. read</div>
-    
-</div>
-
-
-
-         <div class="entry">
-         <p>I used to only use my calendar to track upcoming meetings. But then I read Philip Guo’s <a href="http://www.pgbovine.net/time-management.htm">blog post on time management</a>, and was fascinated by how he used his calendar to show where his time went.</p>
-
-<div class="cntr">
-  <img src="../assets/8-postdoc-day.png" width="30%" />
-  <div class="caption">
-    The color-coding makes it easy to review at a glance.
-  </div>
-</div>
-
-<p>I decided to try Philip’s calendaring method to see if I was being as productive as I thought. It’s been over a year since I started logging, and I have found it to be great not only for gauging my past productivity, but also for kickstarting changes to how I spend time going forward.</p>
-
-<p>In the rest of this post, I’ll describe how I log my time and talk about the insights I’ve gained in more detail.</p>
-
-<h1 id="logging-is-simple-and-flexible">Logging is simple and flexible</h1>
-
-<p>There’s not much to it—after working on a task, I create a calendar entry for the time spent and color-code it. I use Google calendar, but any kind of calendar works. Here is an example of what one of my recent work days looks like.</p>
-
-<div class="cntr">
-  <img src="../assets/8-workday.png" width="35%" />
-  <div class="caption">
-    Had a slow morning and missed my bus...didn't want to spend more time looking for an ~ideal~ day
-  </div>
-</div>
-
-<p>I’ve color-coded the activities as follows:</p>
-
-<table style="margin-left: auto; margin-right: auto;">
-<colgroup>
-<col width="40%" />
-<col width="80%" />
-</colgroup>
-<thead>
-<!-- <tr class="header">
-<th>Color</th>
-<th>Category</th>
-</tr> -->
-</thead>
-<tbody>
-    <tr>
-        <td>
-            <span class="square" style="background-color: #D98177;"></span>
-            Pink
-        </td>
-        <td>
-            Health
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="square" style="background-color: #616161;"></span>
-            Grey
-        </td>
-        <td>
-            Travel
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="square" style="background-color: #4C87EC;"></span>
-            Blue
-        </td>
-        <td>
-            Coursework
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="square" style="background-color: #3D9ADF;"></span> 
-            Cyan
-        </td>
-        <td>
-            Research
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="square" style="background-color: #397D49;"></span>
-            Green
-        </td>
-        <td>Social and Family</td>
-    </tr>
-</tbody>
-</table>
-
-<style>
-.square {
-    width: 10px;
-    display: inline-block;
-    height: 10px;
-    vertical-align: middle;
-    margin-top: -5px;
-    margin-right: 3px;
-}
-</style>
-
-<p>The system is very flexible. You can use whatever color categories suit you best. Your labels for each activity can be as simple or as descriptive as you like. You can even adapt it for a productivity methodology like David Allen’s <a href="https://en.wikipedia.org/wiki/Getting_Things_Done">Getting Things Done</a> or Cal Newport’s <a href="http://calnewport.com/books/deep-work/">Deep Work</a>. Cal Newport even describes a similar method of logging your time.</p>
-
-<h1 id="logging-shows-me-where-my-time-goes-and-how-to-adjust">Logging shows me where my time goes and how to adjust</h1>
-
-<p>Since I started using this method, I have a better sense of how I’m spending my time compared to when I relied on my intuition. I’m able to catch patterns of behavior and reinforce them if they are positive, or work on eliminating them if they are negative. For example, I’ve noticed that my energy and focus dips in late afternoon before returning in the evening. Taking a break from work to nap or exercise helps me get through the slump.</p>
-
-<p>I also have a better sense of the present. Logging each task helps me be more deliberate about each activity I start, and makes me aware of deviations from my planned schedule quickly, so that I don’t reach the end of the day and realize too late that I went off track.</p>
-
-<p>Some may think it takes a lot of work to log time like this, but it really doesn’t take long. To me, the benefit of having a better handle on my time is worth the few moments it takes to do the logging.</p>
-
-<h1 id="some-final-notes">Some final notes</h1>
-
-<ul>
-  <li>If there are events that fit into multiple categories, I don’t worry too much about it and just pick one.</li>
-  <li>I work in thirty minute chunks, so I set the default event duration in Google calendar to thirty minutes instead of an hour.</li>
-  <li>I also generally try not to have overlapping things in my calendar. If there are conflicting events, I will cancel my appointment with the less important one and move it off my calendar or gray it out. I can’t be in two places at the same time anyway.</li>
-  <li>Unlike Philip Guo, I don’t keep track of my efficiency level for each task. I found it both difficult and distracting to assess how efficient I was.</li>
-  <li>In a way, this is similar to the post I wrote about <a href="https://thomasweng.com/journaling/">how I journal</a> in that it’s about recording things. When I started using this calendar, I stopped journaling my day-to-day items in as much detail because the calendar serves that purpose now. But I’ll still put my thoughts and feelings in my journal.</li>
-</ul>
-
-<p><i>Many thanks to <a href="https://www.cherieho.com/">Cherie Ho</a> and <a href="https://www.ri.cmu.edu/ri-people/ada-taylor/">Ada Taylor</a> for reviewing this post!</i></p>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>
-   
-</div>
-
-
-
-       </article>
-   
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -662,6 +570,8 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
 	   <ul>
 	     
+	     <li><a href="/installing_cuda/">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</a></li>
+	     
 	     <li><a href="/emoji_in_terminal/">Replacing my command prompt with emoji</a></li>
 	     
 	     <li><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></li>
@@ -669,8 +579,6 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 	     <li><a href="/terminal_tips/">Terminal tips</a></li>
 	     
 	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
-	     
-	     <li><a href="/calendar_time_log/">Using my calendar as a time log</a></li>
 	     
 	   </ul>
 

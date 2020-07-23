@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Replacing my command prompt with emoji – Thomas Weng – adventures in computing, productivity, and ?</title>
+    <title>Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04 – Thomas Weng – adventures in computing, productivity, and ?</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,30 +9,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="The title says it all:
-
-  
-  
-    My new emojified command prompt
-  
-
+    <meta name="description" content="There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.
 
 " />
-    <meta property="og:description" content="The title says it all:
-
-  
-  
-    My new emojified command prompt
-  
-
+    <meta property="og:description" content="There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.
 
 " />
     
     <meta name="author" content="Thomas Weng" />
 
     
-    <meta property="og:title" content="Replacing my command prompt with emoji" />
-    <meta property="twitter:title" content="Replacing my command prompt with emoji" />
+    <meta property="og:title" content="Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04" />
+    <meta property="twitter:title" content="Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04" />
     
 
     <!-- Fonts -->
@@ -87,62 +75,49 @@
 <div class="col-sm-8">
 
 <article class="post">
-  <h1>Replacing my command prompt with emoji</h1>
+  <h1>Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</h1>
 
   <div class="author">
-    <div>By Thomas Weng on November 26, 2019</div>
+    <div>By Thomas Weng on July 23, 2020</div>
     
 </div>
 
 
 
   <div class="content">
-  <p>The title says it all:</p>
-<div class="cntr">
-  <img src="../assets/19-11-26_1.png" />
-  <div class="caption">
-    My new emojified command prompt
-  </div>
-</div>
+  <p>There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.</p>
 
-<p>Why did I do this? Wanted to see if it was possible. And seeing emoji somehow brings me a lot of joy.</p>
+<ol>
+  <li>
+    <p>Determine the driver version and CUDA version you need. The versions will depend on the GPU you have and the code you want to run. For example, specific pytorch and tensorflow versions are tied to specific CUDA versions.</p>
+  </li>
+  <li>
+    <p>Download the driver and CUDA version as a runfile from the NVIDIA website: <a href="https://developer.nvidia.com/cuda-downloads">CUDA Downloads</a></p>
+  </li>
+  <li>
+    <p>If you already have nvidia installed, uninstall it: <code class="highlighter-rouge">sudo apt-get purge nvidia-*</code> and reboot your machine.</p>
+  </li>
+  <li>
+    <p>Upon restart, drop into the tty terminal with <code class="highlighter-rouge">Ctrl+Alt+F1</code> and log in.</p>
+  </li>
+  <li>
+    <p>Stop running the gui. On Ubuntu 16.04 run <code class="highlighter-rouge">sudo service lightdm stop</code>, on 18.04 run <code class="highlighter-rouge">sudo systemctl stop gdm3.service</code>.</p>
+  </li>
+  <li>
+    <p>Find the runfile you downloaded from step 2 and run it: <code class="highlighter-rouge">sudo sh ./NAME_OF_RUNFILE.run</code></p>
+  </li>
+  <li>
+    <p>Follow the prompts to install the driver and CUDA. If the installation fails, you will need to check <code class="highlighter-rouge">/var/log/nvidia-installer.log</code> or <code class="highlighter-rouge">/var/log/cuda-installer.log</code> to find out why. You can test if the installation was successful by running <code class="highlighter-rouge">nvidia-smi</code>.Check the reported driver and CUDA versions.</p>
+  </li>
+  <li>
+    <p>Restart the gui. On Ubuntu 16.04 run <code class="highlighter-rouge">sudo service lightdm start</code>, on 18.04 run <code class="highlighter-rouge">sudo systemctl start gdm3.service</code>.</p>
+  </li>
+  <li>
+    <p>Leave the tty terminal and return to the gui: <code class="highlighter-rouge">Ctrl+Alt+F7</code>.</p>
+  </li>
+</ol>
 
-<p>I did this on my Mac with <a href="https://www.zsh.org/">zsh</a> and <a href="https://ohmyz.sh/">Oh My Zsh</a>. Here are the steps if you want to do the same in your own terminal.</p>
-
-<h1 id="1-in-your-zshrc-add-the-emoji-plugin-to-the-list-of-plugins">1. In your <code class="highlighter-rouge">.zshrc</code>, add the emoji plugin to the list of plugins.</h1>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugins=(
-  git alias-tips autojump emoji
-)
-</code></pre></div></div>
-
-<h1 id="2-in-your-zsh-theme-update-the-prompt-variable">2. In your zsh theme, update the PROMPT variable.</h1>
-
-<p>You’ll find the name of your current theme in your <code class="highlighter-rouge">.zshrc</code> file. The file for that theme is under <code class="highlighter-rouge">/.oh-my-zsh/themes/</code>.</p>
-
-<p>In my theme file, I replaced <code class="highlighter-rouge">&gt;</code> with <code class="highlighter-rouge">$(random_emoji animals)</code>, which loads a random animal emoji as my terminal prompt each time I open a new terminal. Other options are available in the emoji plugin <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/emoji">documentation</a>.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Old prompt
-PROMPT='
-${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}&gt;%{$resetcolor%} '
-# New prompt
-PROMPT='
-${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}$(random_emoji animals)%{$resetcolor%} '
-</code></pre></div></div>
-
-<p>To see changes, reload zsh with <code class="highlighter-rouge">source ~/.zshrc</code> or open and close the terminal.</p>
-
-<h1 id="3-change-the-command-prompt-emoji-with-the-random_emoji-command">3. Change the command prompt emoji with the <code class="highlighter-rouge">random_emoji</code> command</h1>
-
-<p>Step 2 replaces your prompt with a random emoji for each new terminal. If you get tired of the current emoji, you can change it with the command <code class="highlighter-rouge">random_emoji</code>. It outputs a random emoji and also randomly changes the emoji of your prompt.</p>
-
-<div class="cntr">
-  <img src="../assets/19-11-26_2.png" />
-  <div class="caption">
-    Change the command prompt emoji with `random_emoji`
-  </div>
-</div>
-
-<p>Enjoy!</p>
+<p>For more detailed instructions, see the <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">NVIDIA CUDA Installation Guide</a>.</p>
 
   </div>
 
@@ -153,10 +128,8 @@ ${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}$(random_emoji animals)%{$
 
   <div class="row pagenav">
       
-      <div class="col-xs-6 prev_post"><a href="/azure_kinect_1604_ros/">&larr; How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></div>
+      <div class="col-xs-6 prev_post"><a href="/emoji_in_terminal/">&larr; Replacing my command prompt with emoji</a></div>
       
-      
-      <div class="col-xs-6 next_post"><a href="/installing_cuda/">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04 &rarr;</a></div>
       
   </div>
 
@@ -282,8 +255,8 @@ ${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}$(random_emoji animals)%{$
 
 		ga('create', 'UA-50853593-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/emoji_in_terminal/',
-		  'title': 'Replacing my command prompt with emoji'
+		  'page': '/installing_cuda/',
+		  'title': 'Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04'
 		});
 	</script>
 	<!-- End Google Analytics -->
