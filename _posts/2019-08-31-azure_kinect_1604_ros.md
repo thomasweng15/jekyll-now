@@ -5,6 +5,7 @@ author: Thomas Weng
 comments: true
 tags:
 - robotics
+- how-to
 ---
 
 Following up from my previous post on [installing the Azure Kinect SDK on Ubuntu 16.04](../azure_kinect_1604), this post provides instructions for setting up ROS drivers for the Azure Kinect. These instructions apply for ROS kinetic and Ubuntu 16.04. 

@@ -3,7 +3,8 @@ layout: post
 title: Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04
 author: Thomas Weng
 comments: true
-tags:
+tags: 
+- how-to
 ---
 
 There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me. 
