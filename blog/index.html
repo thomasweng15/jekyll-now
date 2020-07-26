@@ -90,6 +90,12 @@
   <li>
     <p>Download the driver and CUDA version as a runfile from the NVIDIA website: <a href="https://developer.nvidia.com/cuda-downloads">CUDA Downloads</a></p>
   </li>
+  <li>Disable the default nouveau drivers. Create a file at <code class="highlighter-rouge">/etc/modprobe.d/blacklist-nouveau.conf</code> and add the following:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> blacklist nouveau
+ options nouveau modeset=0
+</code></pre></div>    </div>
+    <p>Then regenerate the kernel initramfs: <code class="highlighter-rouge">sudo update-initramfs -u</code></p>
+  </li>
   <li>
     <p>If you already have nvidia installed, uninstall it: <code class="highlighter-rouge">sudo apt-get purge nvidia-*</code> and reboot your machine.</p>
   </li>
@@ -108,9 +114,7 @@
   <li>
     <p>Restart the gui. On Ubuntu 16.04 run <code class="highlighter-rouge">sudo service lightdm start</code>, on 18.04 run <code class="highlighter-rouge">sudo systemctl start gdm3.service</code>.</p>
   </li>
-  <li>
-    <p>Leave the tty terminal and return to the gui: <code class="highlighter-rouge">Ctrl+Alt+F7</code>.</p>
-  </li>
+  <li>Leave the tty terminal and return to the gui: <code class="highlighter-rouge">Ctrl+Alt+F7</code>.</li>
 </ol>
 
 <p>For more detailed instructions, see the <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">NVIDIA CUDA Installation Guide</a>.</p>

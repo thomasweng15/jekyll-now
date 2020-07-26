@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2020-07-23T20:17:11+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</title><link href="http://thomasweng.com/installing_cuda/" rel="alternate" type="text/html" title="Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04" /><published>2020-07-23T00:00:00+00:00</published><updated>2020-07-23T00:00:00+00:00</updated><id>http://thomasweng.com/installing_cuda</id><content type="html" xml:base="http://thomasweng.com/installing_cuda/">&lt;p&gt;There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2020-07-26T04:17:08+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</title><link href="http://thomasweng.com/installing_cuda/" rel="alternate" type="text/html" title="Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04" /><published>2020-07-23T00:00:00+00:00</published><updated>2020-07-23T00:00:00+00:00</updated><id>http://thomasweng.com/installing_cuda</id><content type="html" xml:base="http://thomasweng.com/installing_cuda/">&lt;p&gt;There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -6,6 +6,12 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Download the driver and CUDA version as a runfile from the NVIDIA website: &lt;a href=&quot;https://developer.nvidia.com/cuda-downloads&quot;&gt;CUDA Downloads&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Disable the default nouveau drivers. Create a file at &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/modprobe.d/blacklist-nouveau.conf&lt;/code&gt; and add the following:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; blacklist nouveau
+ options nouveau modeset=0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Then regenerate the kernel initramfs: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo update-initramfs -u&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;If you already have nvidia installed, uninstall it: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo apt-get purge nvidia-*&lt;/code&gt; and reboot your machine.&lt;/p&gt;
@@ -25,9 +31,7 @@
   &lt;li&gt;
     &lt;p&gt;Restart the gui. On Ubuntu 16.04 run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo service lightdm start&lt;/code&gt;, on 18.04 run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo systemctl start gdm3.service&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Leave the tty terminal and return to the gui: &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl+Alt+F7&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Leave the tty terminal and return to the gui: &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl+Alt+F7&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;For more detailed instructions, see the &lt;a href=&quot;https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html&quot;&gt;NVIDIA CUDA Installation Guide&lt;/a&gt;.&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="how-to" /><summary type="html">There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.</summary></entry><entry><title type="html">Replacing my command prompt with emoji</title><link href="http://thomasweng.com/emoji_in_terminal/" rel="alternate" type="text/html" title="Replacing my command prompt with emoji" /><published>2019-11-26T00:00:00+00:00</published><updated>2019-11-26T00:00:00+00:00</updated><id>http://thomasweng.com/emoji_in_terminal</id><content type="html" xml:base="http://thomasweng.com/emoji_in_terminal/">&lt;p&gt;The title says it all:&lt;/p&gt;
