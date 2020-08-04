@@ -71,6 +71,129 @@
      
        <article class="post">
 
+         <h1><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></h1>
+
+         <div class="author">
+    <div>By Thomas Weng on July 19, 2019</div>
+    
+</div>
+
+
+
+         <div class="entry">
+         <p>Microsoft recently released the <a href="https://azure.microsoft.com/en-us/services/kinect-dk/">Azure Kinect DK</a> sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
+The kit’s SDK officially supports Windows and Linux 18.04.
+I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.</p>
+
+<h1 id="why-downgrade-to-ubuntu-1604">Why downgrade to Ubuntu 16.04?</h1>
+
+<p>Many of the robots I work with or have worked with are tied to Ubuntu 16.04, e.g. the Rethink Robotics Sawyer robot, as well as the PR2.
+Upgrading the robot hardware to 18.04 is difficult and would break existing projects.
+Although upgrading to 18.04 will eventually be necessary, it is helpful to have the Azure Kinect DK working on 16.04 in the meantime.</p>
+
+<h1 id="installation-steps">Installation steps</h1>
+<p>These steps worked for me on an existing Ubuntu 16.04 installation, not a fresh one, so your mileage may vary.</p>
+
+<ol>
+  <li>Download the v1.1 SDK from Github.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
+</code></pre></div>    </div>
+  </li>
+  <li>Install dependencies using the provided script.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
+</code></pre></div>    </div>
+  </li>
+  <li>Follow the build steps in <a href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md">https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md</a>.
+    <ul>
+      <li>If you get a CMake error, you may need to upgrade CMake<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>.
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">% Download and extract cmake 3.14.5
+</span><span class="gp">$</span> <span class="nb">mkdir</span> ~/temp
+<span class="gp">$</span> <span class="nb">cd</span> ~/temp
+<span class="gp">$</span> wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
+<span class="gp">$</span> <span class="nb">tar</span> <span class="nt">-xzvf</span> cmake-3.14.5.tar.gz
+<span class="gp">$</span> <span class="nb">cd </span>cmake-3.14.5/
+</code></pre></div>        </div>
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">% Install extracted source
+</span><span class="gp">$</span> ./bootstrap
+<span class="gp">$</span> make <span class="nt">-j4</span>
+<span class="gp">$</span> <span class="nb">sudo </span>make <span class="nb">install</span>
+<span class="gp">$</span> cmake <span class="nt">--version</span>
+</code></pre></div>        </div>
+      </li>
+      <li>If you get a libsoundio error, you may need to install jack-tools.
+        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">sudo </span>apt-get <span class="nb">install </span>jack-tools
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Get a copy of the depthengine binary <code class="highlighter-rouge">libdepthengine.so.1.0</code> and missing dependencies</p>
+
+    <p><code class="highlighter-rouge">libdepthengine.so.1.0</code> is closed-source code for processing the raw depth stream from the camera.
+ This binary is included as part of k4a-tools, the <a href="https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions">Azure Kinect SDK Debian package for Ubuntu 18.04</a>.</p>
+
+    <p>As a result, you’ll need to install k4a-tools on an Ubuntu 18.04 OS following <a href="https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions">these instructions</a>, then copy the files installed into <code class="highlighter-rouge">/usr/local/lib/x86_64-linux-gnu</code> onto your Ubuntu 16.04 OS.<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup></p>
+
+    <p>In practice, I found that I only needed <code class="highlighter-rouge">libdepthengine.so.1.0</code> and <code class="highlighter-rouge">libstdc++.so.6</code> from the <code class="highlighter-rouge">x86_64-linux-gnu</code> folder.</p>
+  </li>
+  <li>Copy the depthengine binary and missing dependencies into the <code class="highlighter-rouge">bin/</code> folder generated by the build in step 3.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cp </span>path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
+<span class="gp">$</span> <span class="nb">cp </span>path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
+</code></pre></div>    </div>
+  </li>
+  <li>Test the installation by running the SDK viewer.<sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup>
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">sudo </span>path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
+</code></pre></div>    </div>
+
+    <p>If all went well you be able to open your device and see all data streams coming in as below.</p>
+  </li>
+</ol>
+
+<div class="cntr">
+  <img src="../assets/19-07-19_1.png" />
+  <div class="caption">
+    Screenshot from k4aviewer
+  </div>
+</div>
+
+<p>To integrate the sensor with ROS, take a look at my follow-up post: <a href="../azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></p>
+
+<hr />
+<p>Footnotes</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>I used commit <code class="highlighter-rouge">fd6f537bb5ad9960faafc80a3cededbc8eb68609</code>, but a later commit may work. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p><a href="https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line">https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>Or find a friend who has a copy :) <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:4">
+      <p>There are instructions for running the viewer as non-root <a href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#linux-device-setup">here</a> <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+         </div>
+
+         
+<div class="tags">
+    Tags:
+   
+    <span class="tag"><a href="/tag/robotics">robotics</a></span>
+   
+</div>
+
+
+
+       </article>
+   
+       <article class="post">
+
          <h1><a href="/calendar_time_log/">Using my calendar as a time log</a></h1>
 
          <div class="author">
@@ -465,104 +588,6 @@ started roslaunch server http://localhost:34414/
 
        </article>
    
-       <article class="post">
-
-         <h1><a href="/journaling/">How I Journal</a></h1>
-
-         <div class="author">
-    <div>By Thomas Weng on May 30, 2017</div>
-    
-        <div style="font-style: italic;">~3 min. read</div>
-    
-</div>
-
-
-
-         <div class="entry">
-         <p>Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.</p>
-
-<p>Journaling is one effective way to take control of your life and memories. Although taking photos and videos are more common ways to keep track of what you do or see, I’ve found writing to be more effective when it comes to reflecting on my life and staying organized.</p>
-
-<h1 id="forming-habits">Forming habits</h1>
-
-<p>People I’ve spoken to on this subject are generally receptive to the concept of journaling, but many find it difficult to prioritize the activity and keep a routine. I personally journal about once a week, filling in several days at a time. After a few months, it’s fulfilling to go back and revisit old entries. It’s amazing how a few short sentences can bring you back to an amazing conversation with a close friend, or your mood on a sunny, relaxing day, for example.</p>
-
-<p>For me, one of the biggest starting hurdles was choosing the proper journaling medium. There are countless apps out there, but many of them have inconvenient tradeoffs. Apps often make it difficult to export your data, get in your way with ads, or keep useful features behind paywalls. There’s always pen and paper, but while writing by hand can be relaxing, it is also slower than typing, difficult to search through, and hard to preserve through the years.</p>
-
-<h1 id="journaling-in-markdown">Journaling in Markdown</h1>
-
-<p>My solution for the past year and a half has been to journal digitally in Markdown files. Markdown is designed to be easy-to-read, easy-to-write, and it avoids the pitfalls I mentioned above. Here’s a example of how I journal, albeit somewhat contrived and with less detail:</p>
-
-<pre class="highlight">
-<code>
-## Mon 29
-* __exercise__ 7 minute workout
-* Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we've been spending our spare time doing these past few months.
-* Met up with Y at Cafe Cesura. Worked on a blog post about journaling.
-</code>
-</pre>
-<p>Which converts into the following HTML:</p>
-
-<hr />
-<h2 id="mon-29">Mon 29</h2>
-<ul>
-  <li><strong>exercise</strong> 7 minute workout</li>
-  <li>Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we’ve been spending our spare time doing these past few months.</li>
-  <li>Met up with Y. at Cafe Cesura. Worked on a blog post about journaling.</li>
-</ul>
-
-<hr />
-
-<p>Markdown’s lightweight structure provides both organization and flexibility. I generally use headers for dates, followed by bullet points describing each significant event of the day. I keep each month in a separate file, and each year of files in a distinct folder.</p>
-
-<p>I also use tags like <code class="text">__exercise__</code> above to mark certain categories of events or thoughts. This has an added benefit of being easily searchable in Atom, my text editor of choice for journaling.</p>
-
-<div class="cntr">
-  <img src="../assets/4-search.png" />
-</div>
-<p><br />
-Atom also provides a handy Markdown preview:
-<br /></p>
-<div class="cntr">
-  <img src="../assets/4-preview.png" />
-</div>
-<p><br />
-Using Markdown, I can write faster than on paper, search through my notes quickly, and save backup copies easily. I don’t have to rely on any apps, nor give any third parties ownership of my data.</p>
-
-<h1 id="a-year-and-a-half-of-markdown">A year and a half of Markdown</h1>
-<p>As I mentioned earlier, I’ve been journaling in markdown for the past 1.5 years, and I’m really enjoying the setup. I journal approximately once a week, but I’ve been trying to increase the frequency. The amount of information I retain about a particular day significantly diminishes by the third passing day.</p>
-
-<h2 id="perspectives-on-time-and-value">Perspectives on time and value</h2>
-
-<p>Journaling has given me a much better higher-level understanding of where my time goes and more importantly, what I value. Keeping the one folder per year structure I have now, I’ll have 60 folders of journal files, give or take, by the end of my life. That’s not a lot, all things considered, and made me think about what I want to accomplish and record in my lifetime.</p>
-
-<h2 id="handwritten-notes-are-still-cool">Handwritten notes are still cool</h2>
-
-<p>Digital journaling hasn’t completely replaced pen and paper. I still take handwritten notes in pocket notepads to remember things to do, books to read, or random thoughts. More often than not, I’ll transfer the interesting portions into my journal.</p>
-
-<h1 id="whats-next">What’s next</h1>
-<p>There are other sources of data besides journaling that I want to pull together to form a richer picture. Photos, calendars, conversations, and geotags would add a lot of context to my journal.</p>
-
-<p>To this end, I started writing a parser in Python for the Markdown-generated HTML files. The output is a Python object, which I can work with programmatically. As an example use case, I’ll be able to match up a given date with photos taken on that date in Google Photos. Ultimately, I hope to put together a simple webpage to show what I was up to on a given date in every year of my life.</p>
-
-<p><i>If you liked this post, you may also like this one I wrote on <a href="https://thomasweng.com/calendar_time_log/">how I keep a calendar</a>.</i></p>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>, 
-   
-    <span class="tag"><a href="/tag/popular">popular</a></span>
-   
-</div>
-
-
-
-       </article>
-   
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -581,6 +606,8 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 
 	   <ul>
 	     
+	     <li><a href="/compressing_videos_ffmpeg/">Compressing Videos with ffmpeg</a></li>
+	     
 	     <li><a href="/installing_cuda/">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</a></li>
 	     
 	     <li><a href="/emoji_in_terminal/">Replacing my command prompt with emoji</a></li>
@@ -588,8 +615,6 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 	     <li><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></li>
 	     
 	     <li><a href="/terminal_tips/">Terminal tips</a></li>
-	     
-	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
 	     
 	   </ul>
 
@@ -613,7 +638,7 @@ Using Markdown, I can write faster than on paper, search through my notes quickl
 	     
 	     
 	     
-	     <li><a href="/tag/how-to">how-to</a> (2)</li>
+	     <li><a href="/tag/how-to">how-to</a> (3)</li>
 	     
 	     
 	     

@@ -71,6 +71,44 @@
      
        <article class="post">
 
+         <h1><a href="/compressing_videos_ffmpeg/">Compressing Videos with ffmpeg</a></h1>
+
+         <div class="author">
+    <div>By Thomas Weng on August  4, 2020</div>
+    
+</div>
+
+
+
+         <div class="entry">
+         <p>Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.</p>
+
+<p>I used to compress my videos using <a href="https://www.apple.com/final-cut-pro/compressor/">Compressor</a> after making my videos with iMovie or Final Cut Pro. But Compressor was slow and buggy at times - the compression process would hang and only work after restarting, the compressed video was just a blank screen, etc. I’m sure Compressor is a powerful tool for a video editing expert, but I’m just a researcher with a simple task in mind.</p>
+
+<p>Now I just use <a href="https://ffmpeg.org/">ffmpeg</a> to compress my videos. I share/export the video from Final Cut Pro and then use this command to compress it:</p>
+
+<p><code class="highlighter-rouge">ffmpeg -i VIDEO.mov -vcodec libx264 -crf 20 VIDEO_COMPRESSED.mov</code></p>
+
+<p>The <code class="highlighter-rouge">-crf</code> flag specifies the compression factor and it ranges from 0 (lossless) to 51 (worst quality), with 23 as the default. If I’m trying to get under a size limit, I’ll run the command multiple times, playing with this value until I meet the requirement.</p>
+
+<p>ffmpeg can also be used for converting between video formats, trimming, cropping, etc. Hope this helps!</p>
+
+         </div>
+
+         
+<div class="tags">
+    Tags:
+   
+    <span class="tag"><a href="/tag/how-to">how-to</a></span>
+   
+</div>
+
+
+
+       </article>
+   
+       <article class="post">
+
          <h1><a href="/installing_cuda/">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</a></h1>
 
          <div class="author">
@@ -444,129 +482,6 @@ I use aliases for computers that I ssh into often, e.g.</p>
 
        </article>
    
-       <article class="post">
-
-         <h1><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></h1>
-
-         <div class="author">
-    <div>By Thomas Weng on July 19, 2019</div>
-    
-</div>
-
-
-
-         <div class="entry">
-         <p>Microsoft recently released the <a href="https://azure.microsoft.com/en-us/services/kinect-dk/">Azure Kinect DK</a> sensor, a $399 developer-oriented sensor kit for robotics and mixed reality applications. 
-The kit’s SDK officially supports Windows and Linux 18.04.
-I’ve managed to get the v1.1 SDK working on Ubuntu 16.04, and have documented the steps below.</p>
-
-<h1 id="why-downgrade-to-ubuntu-1604">Why downgrade to Ubuntu 16.04?</h1>
-
-<p>Many of the robots I work with or have worked with are tied to Ubuntu 16.04, e.g. the Rethink Robotics Sawyer robot, as well as the PR2.
-Upgrading the robot hardware to 18.04 is difficult and would break existing projects.
-Although upgrading to 18.04 will eventually be necessary, it is helpful to have the Azure Kinect DK working on 16.04 in the meantime.</p>
-
-<h1 id="installation-steps">Installation steps</h1>
-<p>These steps worked for me on an existing Ubuntu 16.04 installation, not a fresh one, so your mileage may vary.</p>
-
-<ol>
-  <li>Download the v1.1 SDK from Github.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>
-    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> git clone https://github.com/microsoft/Azure-Kinect-Sensor-SDK/tree/release/1.1.x
-</code></pre></div>    </div>
-  </li>
-  <li>Install dependencies using the provided script.
-    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> bash ./Azure-Kinect-Sensor-SDK/scripts/bootstrap-ubuntu.sh
-</code></pre></div>    </div>
-  </li>
-  <li>Follow the build steps in <a href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md">https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/release/1.1.x/docs/building.md</a>.
-    <ul>
-      <li>If you get a CMake error, you may need to upgrade CMake<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>.
-        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">% Download and extract cmake 3.14.5
-</span><span class="gp">$</span> <span class="nb">mkdir</span> ~/temp
-<span class="gp">$</span> <span class="nb">cd</span> ~/temp
-<span class="gp">$</span> wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz
-<span class="gp">$</span> <span class="nb">tar</span> <span class="nt">-xzvf</span> cmake-3.14.5.tar.gz
-<span class="gp">$</span> <span class="nb">cd </span>cmake-3.14.5/
-</code></pre></div>        </div>
-        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">% Install extracted source
-</span><span class="gp">$</span> ./bootstrap
-<span class="gp">$</span> make <span class="nt">-j4</span>
-<span class="gp">$</span> <span class="nb">sudo </span>make <span class="nb">install</span>
-<span class="gp">$</span> cmake <span class="nt">--version</span>
-</code></pre></div>        </div>
-      </li>
-      <li>If you get a libsoundio error, you may need to install jack-tools.
-        <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">sudo </span>apt-get <span class="nb">install </span>jack-tools
-</code></pre></div>        </div>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Get a copy of the depthengine binary <code class="highlighter-rouge">libdepthengine.so.1.0</code> and missing dependencies</p>
-
-    <p><code class="highlighter-rouge">libdepthengine.so.1.0</code> is closed-source code for processing the raw depth stream from the camera.
- This binary is included as part of k4a-tools, the <a href="https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions">Azure Kinect SDK Debian package for Ubuntu 18.04</a>.</p>
-
-    <p>As a result, you’ll need to install k4a-tools on an Ubuntu 18.04 OS following <a href="https://docs.microsoft.com/en-us/azure/Kinect-dk/sensor-sdk-download#linux-installation-instructions">these instructions</a>, then copy the files installed into <code class="highlighter-rouge">/usr/local/lib/x86_64-linux-gnu</code> onto your Ubuntu 16.04 OS.<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup></p>
-
-    <p>In practice, I found that I only needed <code class="highlighter-rouge">libdepthengine.so.1.0</code> and <code class="highlighter-rouge">libstdc++.so.6</code> from the <code class="highlighter-rouge">x86_64-linux-gnu</code> folder.</p>
-  </li>
-  <li>Copy the depthengine binary and missing dependencies into the <code class="highlighter-rouge">bin/</code> folder generated by the build in step 3.
-    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">cp </span>path/to/x86_64-linux-gnu/libdepthengine.so.1.0 path/to/Azure-Kinect-Sensor-SDK/build/bin/libdepthengine.so.1.0
-<span class="gp">$</span> <span class="nb">cp </span>path/to/x86_64-linux-gnu/libstdc++.so.6 path/to/Azure-Kinect-Sensor-SDK/build/bin/libstdc++.so.6
-</code></pre></div>    </div>
-  </li>
-  <li>Test the installation by running the SDK viewer.<sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup>
-    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> <span class="nb">sudo </span>path/to/Azure-Kinect-Sensor-SDK/build/bin/k4aviewer
-</code></pre></div>    </div>
-
-    <p>If all went well you be able to open your device and see all data streams coming in as below.</p>
-  </li>
-</ol>
-
-<div class="cntr">
-  <img src="../assets/19-07-19_1.png" />
-  <div class="caption">
-    Screenshot from k4aviewer
-  </div>
-</div>
-
-<p>To integrate the sensor with ROS, take a look at my follow-up post: <a href="../azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></p>
-
-<hr />
-<p>Footnotes</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>I used commit <code class="highlighter-rouge">fd6f537bb5ad9960faafc80a3cededbc8eb68609</code>, but a later commit may work. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:2">
-      <p><a href="https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line">https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:3">
-      <p>Or find a friend who has a copy :) <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:4">
-      <p>There are instructions for running the viewer as non-root <a href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#linux-device-setup">here</a> <a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/robotics">robotics</a></span>
-   
-</div>
-
-
-
-       </article>
-   
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -583,6 +498,8 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 
 	   <ul>
 	     
+	     <li><a href="/compressing_videos_ffmpeg/">Compressing Videos with ffmpeg</a></li>
+	     
 	     <li><a href="/installing_cuda/">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</a></li>
 	     
 	     <li><a href="/emoji_in_terminal/">Replacing my command prompt with emoji</a></li>
@@ -590,8 +507,6 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 	     <li><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></li>
 	     
 	     <li><a href="/terminal_tips/">Terminal tips</a></li>
-	     
-	     <li><a href="/azure_kinect_1604/">How to install the Azure Kinect SDK on Ubuntu 16.04</a></li>
 	     
 	   </ul>
 
@@ -615,7 +530,7 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
 	     
 	     
 	     
-	     <li><a href="/tag/how-to">how-to</a> (2)</li>
+	     <li><a href="/tag/how-to">how-to</a> (3)</li>
 	     
 	     
 	     

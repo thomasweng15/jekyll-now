@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Staying on top of email – Thomas Weng – adventures in computing, productivity, and ?</title>
+    <title>Compressing Videos with ffmpeg – Thomas Weng – adventures in computing, productivity, and ?</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,18 +9,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.
+    <meta name="description" content="Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.
 
 " />
-    <meta property="og:description" content="I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.
+    <meta property="og:description" content="Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.
 
 " />
     
     <meta name="author" content="Thomas Weng" />
 
     
-    <meta property="og:title" content="Staying on top of email" />
-    <meta property="twitter:title" content="Staying on top of email" />
+    <meta property="og:title" content="Compressing Videos with ffmpeg" />
+    <meta property="twitter:title" content="Compressing Videos with ffmpeg" />
     
 
     <!-- Fonts -->
@@ -75,51 +75,27 @@
 <div class="col-sm-8">
 
 <article class="post">
-  <h1>Staying on top of email</h1>
+  <h1>Compressing Videos with ffmpeg</h1>
 
   <div class="author">
-    <div>By Thomas Weng on November  3, 2018</div>
-    
-        <div style="font-style: italic;">~1 min. read</div>
+    <div>By Thomas Weng on August  4, 2020</div>
     
 </div>
 
 
 
   <div class="content">
-  <p>I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.</p>
+  <p>Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.</p>
 
-<div class="cntr">
-  <img src="../assets/7-cluttered.png" />
-  <div class="caption">
-    Screenshot of someone's inbox from the Internet. 13k unread emails = instant anxiety.
-  </div>
-</div>
+<p>I used to compress my videos using <a href="https://www.apple.com/final-cut-pro/compressor/">Compressor</a> after making my videos with iMovie or Final Cut Pro. But Compressor was slow and buggy at times - the compression process would hang and only work after restarting, the compressed video was just a blank screen, etc. I’m sure Compressor is a powerful tool for a video editing expert, but I’m just a researcher with a simple task in mind.</p>
 
-<p>To keep a tidy inbox, I aim for Inbox Zero daily. That means for each email:</p>
+<p>Now I just use <a href="https://ffmpeg.org/">ffmpeg</a> to compress my videos. I share/export the video from Final Cut Pro and then use this command to compress it:</p>
 
-<ol>
-  <li>
-    <p>If there’s a task that can be done in a minute, I’ll do it immediately and archive it.</p>
-  </li>
-  <li>
-    <p>If there’s a task to be done today, I’ll add it to my to-do list and then <a href="https://support.google.com/mail/answer/7622010?co=GENIE.Platform%3DDesktop&amp;hl=en">snooze</a> the email.</p>
-  </li>
-  <li>
-    <p>If the task isn’t urgent, I’ll just snooze it to whenever I can/need to do it.</p>
-  </li>
-</ol>
+<p><code class="highlighter-rouge">ffmpeg -i VIDEO.mov -vcodec libx264 -crf 20 VIDEO_COMPRESSED.mov</code></p>
 
-<div class="cntr">
-  <img src="../assets/7-clean.png" />
-  <div class="caption">
-    Much better!
-  </div>
-</div>
+<p>The <code class="highlighter-rouge">-crf</code> flag specifies the compression factor and it ranges from 0 (lossless) to 51 (worst quality), with 23 as the default. If I’m trying to get under a size limit, I’ll run the command multiple times, playing with this value until I meet the requirement.</p>
 
-<p>I don’t always achieve an empty inbox following this approach, especially when a lot of things are happening at once. The goal may also not always be to clear all emails, if you need some handy for your task for example.</p>
-
-<p>Though I tried to keep my approach lightweight, there’s definitely room for improvement. For example, I’m still experimenting to find a good to-do list workflow. I could be more disciplined about when I check my email to avoid interruptions in my work. So far, though, this method is pretty effective in helping me stay organized.</p>
+<p>ffmpeg can also be used for converting between video formats, trimming, cropping, etc. Hope this helps!</p>
 
   </div>
 
@@ -129,7 +105,7 @@
 <div class="tags">
     Tags:
    
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>
+    <span class="tag"><a href="/tag/how-to">how-to</a></span>
    
 </div>
 
@@ -137,10 +113,8 @@
 
   <div class="row pagenav">
       
-      <div class="col-xs-6 prev_post"><a href="/setting_up_tex/">&larr; Setting up TeX math rendering for your blog or website</a></div>
+      <div class="col-xs-6 prev_post"><a href="/installing_cuda/">&larr; Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</a></div>
       
-      
-      <div class="col-xs-6 next_post"><a href="/calendar_time_log/">Using my calendar as a time log &rarr;</a></div>
       
   </div>
 
@@ -271,8 +245,8 @@
 
 		ga('create', 'UA-50853593-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/staying_on_top_of_email/',
-		  'title': 'Staying on top of email'
+		  'page': '/compressing_videos_ffmpeg/',
+		  'title': 'Compressing Videos with ffmpeg'
 		});
 	</script>
 	<!-- End Google Analytics -->

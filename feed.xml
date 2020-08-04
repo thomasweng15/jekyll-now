@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2020-07-26T04:17:08+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</title><link href="http://thomasweng.com/installing_cuda/" rel="alternate" type="text/html" title="Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04" /><published>2020-07-23T00:00:00+00:00</published><updated>2020-07-23T00:00:00+00:00</updated><id>http://thomasweng.com/installing_cuda</id><content type="html" xml:base="http://thomasweng.com/installing_cuda/">&lt;p&gt;There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2020-08-04T18:27:56+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>adventures in computing, productivity, and ?</subtitle><entry><title type="html">Compressing Videos with ffmpeg</title><link href="http://thomasweng.com/compressing_videos_ffmpeg/" rel="alternate" type="text/html" title="Compressing Videos with ffmpeg" /><published>2020-08-04T00:00:00+00:00</published><updated>2020-08-04T00:00:00+00:00</updated><id>http://thomasweng.com/compressing_videos_ffmpeg</id><content type="html" xml:base="http://thomasweng.com/compressing_videos_ffmpeg/">&lt;p&gt;Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.&lt;/p&gt;
+
+&lt;p&gt;I used to compress my videos using &lt;a href=&quot;https://www.apple.com/final-cut-pro/compressor/&quot;&gt;Compressor&lt;/a&gt; after making my videos with iMovie or Final Cut Pro. But Compressor was slow and buggy at times - the compression process would hang and only work after restarting, the compressed video was just a blank screen, etc. I’m sure Compressor is a powerful tool for a video editing expert, but I’m just a researcher with a simple task in mind.&lt;/p&gt;
+
+&lt;p&gt;Now I just use &lt;a href=&quot;https://ffmpeg.org/&quot;&gt;ffmpeg&lt;/a&gt; to compress my videos. I share/export the video from Final Cut Pro and then use this command to compress it:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg -i VIDEO.mov -vcodec libx264 -crf 20 VIDEO_COMPRESSED.mov&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;-crf&lt;/code&gt; flag specifies the compression factor and it ranges from 0 (lossless) to 51 (worst quality), with 23 as the default. If I’m trying to get under a size limit, I’ll run the command multiple times, playing with this value until I meet the requirement.&lt;/p&gt;
+
+&lt;p&gt;ffmpeg can also be used for converting between video formats, trimming, cropping, etc. Hope this helps!&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="how-to" /><summary type="html">Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.</summary></entry><entry><title type="html">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</title><link href="http://thomasweng.com/installing_cuda/" rel="alternate" type="text/html" title="Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04" /><published>2020-07-23T00:00:00+00:00</published><updated>2020-07-23T00:00:00+00:00</updated><id>http://thomasweng.com/installing_cuda</id><content type="html" xml:base="http://thomasweng.com/installing_cuda/">&lt;p&gt;There are several ways to install NVIDIA drivers. This method using a runfile is the one that works most reliably for me.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -633,70 +643,4 @@ started roslaunch server http://localhost:34414/
       &lt;p&gt;I set the main node with the &lt;code class=&quot;highlighter-rouge&quot;&gt;required=true&lt;/code&gt; attribute in my launch file so I only need to kill that node to stop the others. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="robotics" /><summary type="html">If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.1 Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &amp;#8617;</summary></entry><entry><title type="html">How I Journal</title><link href="http://thomasweng.com/journaling/" rel="alternate" type="text/html" title="How I Journal" /><published>2017-05-30T00:00:00+00:00</published><updated>2017-05-30T00:00:00+00:00</updated><id>http://thomasweng.com/journaling</id><content type="html" xml:base="http://thomasweng.com/journaling/">&lt;p&gt;Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.&lt;/p&gt;
-
-&lt;p&gt;Journaling is one effective way to take control of your life and memories. Although taking photos and videos are more common ways to keep track of what you do or see, I’ve found writing to be more effective when it comes to reflecting on my life and staying organized.&lt;/p&gt;
-
-&lt;h1 id=&quot;forming-habits&quot;&gt;Forming habits&lt;/h1&gt;
-
-&lt;p&gt;People I’ve spoken to on this subject are generally receptive to the concept of journaling, but many find it difficult to prioritize the activity and keep a routine. I personally journal about once a week, filling in several days at a time. After a few months, it’s fulfilling to go back and revisit old entries. It’s amazing how a few short sentences can bring you back to an amazing conversation with a close friend, or your mood on a sunny, relaxing day, for example.&lt;/p&gt;
-
-&lt;p&gt;For me, one of the biggest starting hurdles was choosing the proper journaling medium. There are countless apps out there, but many of them have inconvenient tradeoffs. Apps often make it difficult to export your data, get in your way with ads, or keep useful features behind paywalls. There’s always pen and paper, but while writing by hand can be relaxing, it is also slower than typing, difficult to search through, and hard to preserve through the years.&lt;/p&gt;
-
-&lt;h1 id=&quot;journaling-in-markdown&quot;&gt;Journaling in Markdown&lt;/h1&gt;
-
-&lt;p&gt;My solution for the past year and a half has been to journal digitally in Markdown files. Markdown is designed to be easy-to-read, easy-to-write, and it avoids the pitfalls I mentioned above. Here’s a example of how I journal, albeit somewhat contrived and with less detail:&lt;/p&gt;
-
-&lt;pre class=&quot;highlight&quot;&gt;
-&lt;code&gt;
-## Mon 29
-* __exercise__ 7 minute workout
-* Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we've been spending our spare time doing these past few months.
-* Met up with Y at Cafe Cesura. Worked on a blog post about journaling.
-&lt;/code&gt;
-&lt;/pre&gt;
-&lt;p&gt;Which converts into the following HTML:&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h2 id=&quot;mon-29&quot;&gt;Mon 29&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;exercise&lt;/strong&gt; 7 minute workout&lt;/li&gt;
-  &lt;li&gt;Skyped with X. It was the first time we caught up in a while! We talked about our living situations, our jobs, and what we’ve been spending our spare time doing these past few months.&lt;/li&gt;
-  &lt;li&gt;Met up with Y. at Cafe Cesura. Worked on a blog post about journaling.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Markdown’s lightweight structure provides both organization and flexibility. I generally use headers for dates, followed by bullet points describing each significant event of the day. I keep each month in a separate file, and each year of files in a distinct folder.&lt;/p&gt;
-
-&lt;p&gt;I also use tags like &lt;code class=&quot;text&quot;&gt;__exercise__&lt;/code&gt; above to mark certain categories of events or thoughts. This has an added benefit of being easily searchable in Atom, my text editor of choice for journaling.&lt;/p&gt;
-
-&lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../assets/4-search.png&quot; /&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-Atom also provides a handy Markdown preview:
-&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;cntr&quot;&gt;
-  &lt;img src=&quot;../assets/4-preview.png&quot; /&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-Using Markdown, I can write faster than on paper, search through my notes quickly, and save backup copies easily. I don’t have to rely on any apps, nor give any third parties ownership of my data.&lt;/p&gt;
-
-&lt;h1 id=&quot;a-year-and-a-half-of-markdown&quot;&gt;A year and a half of Markdown&lt;/h1&gt;
-&lt;p&gt;As I mentioned earlier, I’ve been journaling in markdown for the past 1.5 years, and I’m really enjoying the setup. I journal approximately once a week, but I’ve been trying to increase the frequency. The amount of information I retain about a particular day significantly diminishes by the third passing day.&lt;/p&gt;
-
-&lt;h2 id=&quot;perspectives-on-time-and-value&quot;&gt;Perspectives on time and value&lt;/h2&gt;
-
-&lt;p&gt;Journaling has given me a much better higher-level understanding of where my time goes and more importantly, what I value. Keeping the one folder per year structure I have now, I’ll have 60 folders of journal files, give or take, by the end of my life. That’s not a lot, all things considered, and made me think about what I want to accomplish and record in my lifetime.&lt;/p&gt;
-
-&lt;h2 id=&quot;handwritten-notes-are-still-cool&quot;&gt;Handwritten notes are still cool&lt;/h2&gt;
-
-&lt;p&gt;Digital journaling hasn’t completely replaced pen and paper. I still take handwritten notes in pocket notepads to remember things to do, books to read, or random thoughts. More often than not, I’ll transfer the interesting portions into my journal.&lt;/p&gt;
-
-&lt;h1 id=&quot;whats-next&quot;&gt;What’s next&lt;/h1&gt;
-&lt;p&gt;There are other sources of data besides journaling that I want to pull together to form a richer picture. Photos, calendars, conversations, and geotags would add a lot of context to my journal.&lt;/p&gt;
-
-&lt;p&gt;To this end, I started writing a parser in Python for the Markdown-generated HTML files. The output is a Python object, which I can work with programmatically. As an example use case, I’ll be able to match up a given date with photos taken on that date in Google Photos. Ultimately, I hope to put together a simple webpage to show what I was up to on a given date in every year of my life.&lt;/p&gt;
-
-&lt;p&gt;&lt;i&gt;If you liked this post, you may also like this one I wrote on &lt;a href=&quot;https://thomasweng.com/calendar_time_log/&quot;&gt;how I keep a calendar&lt;/a&gt;.&lt;/i&gt;&lt;/p&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="popular" /><summary type="html">Can you remember, off the top of your head, what you were doing at this date and time two months ago? What about just two weekends ago? It is surprising to me how rarely people journal when our memories are so ephemeral. We have new thoughts, experiences, and conversations every day, yet we save and reflect on so few of them.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="robotics" /><summary type="html">If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.1 Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &amp;#8617;</summary></entry></feed>
