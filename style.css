@@ -472,6 +472,122 @@ pre.highlight::-webkit-scrollbar {
   font-style: italic;
 }
 
+/* --- Tables --- */
+table {
+  padding: 0;
+}
+
+table tr {
+  border-top: 1px solid #cccccc;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+table tr th {
+  font-weight: bold;
+  border: 1px solid #cccccc;
+  text-align: left;
+  margin: 0;
+  padding: 6px 13px;
+}
+
+table tr td {
+  border: 1px solid #cccccc;
+  text-align: left;
+  margin: 0;
+  padding: 6px 13px;
+}
+
+table tr th :first-child,
+table tr td :first-child {
+  margin-top: 0;
+}
+
+table tr th :last-child,
+table tr td :last-child {
+  margin-bottom: 0;
+}
+
+/* CONTENT STYLING */
+div.heading {
+  font-size: large;
+  font-weight: bold;
+  color: black;
+  font-family: sans-serif;
+}
+
+table tr.year {
+  background-color: transparent;
+}
+
+li.year {
+  list-style: none;
+  font-size: large;
+  font-weight: bold;
+  margin-top: 1em;
+  text-align: left;
+}
+
+li.pubitem {
+  margin-top: 0.5em;
+  text-align: left;
+}
+
+td.pubitem {
+  vertical-align: top;
+}
+
+div.pubitem {
+  margin-top: 0px;
+}
+
+div.pubauthor {
+  color: #5b2503;
+}
+
+a.pubauthor {
+  color: #5b2503;
+}
+
+div.pubInfo {
+  margin-left: 15px;
+  border-left-style: solid;
+  border-width: 2px;
+  border-color: #aaaaaa;
+}
+
+div.pubjournal {
+  font-style: italic;
+  color: #213C53;
+}
+
+div.pubspan {
+  font-size: small;
+}
+
+table tr td, table tr {
+  border: transparent;
+}
+
+td.pubimg {
+  /* <http://www.w3.org/wiki/CSS/Properties/text-align>
+   * left, right, center, justify, inherit
+   */
+  text-align: center;
+  /* <http://www.w3.org/wiki/CSS/Properties/vertical-align>
+   * baseline, sub, super, top, text-top, middle,
+   * bottom, text-bottom, length, or a value in percentage
+   */
+  vertical-align: top;
+  border-width: 100px;
+  text-align: left;
+}
+
 pre.highlight {
   background-color: #efefef;
   padding: 7px 7px 7px 10px;
