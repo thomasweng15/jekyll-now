@@ -3,12 +3,29 @@ layout: default
 redirect_from: "/about"
 ---
 
-<div class="home">
-  <p>
-    Hi, I am a PhD student in Robotics working with Prof. <a href="http://davheld.github.io/">Dave Held</a> at the CMU Robotics Institute. My research interests lie in robot learning and human-robot interaction.
-  </p>
 
-  <p>
+
+<div class="container home">
+  <div class="row">
+    <div class="col-sm-3">
+      <img class="img-responsive center-block" src="assets/headshot.jpg" img width="150" />
+    </div>
+    <div class="col-sm-9">
+      <p>
+        Hi, I am a PhD student with Prof. <a href="http://davheld.github.io/">Dave Held</a> at the CMU Robotics Institute. 
+        I am interested in research applying learning to robotic perception and manipulation. 
+      </p>
+      <p>
+        Prior to my PhD, I worked on human-robot interaction with Prof. <a href="https://homes.cs.washington.edu/~mcakmak/">Maya Cakmak</a> at UW and Prof. <a href="http://www.cs.yale.edu/homes/scaz/">Brian Scassellati</a> at Yale. 
+      </p>
+      <p>
+        [<a href="resources/cv.pdf">CV</a>] [<a href="https://scholar.google.com/citations?hl=en&user=RGox7v4AAAAJ&view_op=list_works&authuser=1&sortby=pubdate">Google Scholar</a>] [<a href="https://github.com/thomasweng15">Github</a>] [<a href="https://twitter.com/thomas_weng">Twitter</a>]
+      </p>
+    </div>
+  </div>
+  
+
+  <!-- <p>
     I graduated from Yale in 2015 with bachelor's degrees in Computer Science and Economics. As an undergraduate, I assisted Brian Scassellati's research at the <a href="https://scazlab.yale.edu/" target="_blank">Social Robotics Lab</a>, resulting in second-author publications in <a href="http://scazlab.yale.edu/sites/default/files/files/ADMONI_hri16.pdf" target="_blank">HRI 2016</a> and <a href="http://hennyadmoni.com/documents/admoni2016icra.pdf" target="_blank">ICRA 2016</a>. My senior thesis on robotic perception of human gestures was awarded the 2015 Computer Science Research Prize. 
   </p>
 
@@ -18,20 +35,26 @@ redirect_from: "/about"
 
   <p>
     In my spare time, I read/listen to <a href="https://www.goodreads.com/user/show/49071790-thomas" target="_blank">books</a>, practice cooking, participate in athletic events like Tough Mudder with friends, and travel with a moleskine so I can sketch the sights.
-  </p>
+  </p> -->
 </div>
 
 <h2>Recent News</h2>
 
-<table class="table news">
+<ul>
+  <li>Paper accepted to IROS 2020! <a href="https://arxiv.org/abs/2008.05626">Cloth Region Segmentation for Robust Grasp Selection</a>.</li>
+  <li>Paper accepted to RA-L with ICRA 2020 presentation option! <a href="https://arxiv.org/abs/2006.00028">Multi-modal Transfer Learning for Grasping Transparent and Reflective Objects</a>.</li>
+  <li>Honored to receive the 2019 NSF Graduate Research Fellowship!</li>
+</ul>
+
+<!-- <table class="table news">
   <tbody>
     <tr>
       <th scope="row">Jun 30, 2020</th>
-      <td>Paper accepted to IROS 2020! Cloth Region Segmentation for Robust Grasp Selection.</td>
+      <td>Paper accepted to IROS 2020! <a href="https://arxiv.org/abs/2008.05626">Cloth Region Segmentation for Robust Grasp Selection</a>.</td>
     </tr> 
     <tr>
       <th scope="row">Jan 27, 2020</th>
-      <td>Paper accepted to RA-L with ICRA 2020 presentation option! <a href="https://arxiv.org/abs/2006.00028">Multi-modal Transfer Learning for Grasping Transparent and Reflective Objects.</a></td>
+      <td>Paper accepted to RA-L with ICRA 2020 presentation option! <a href="https://arxiv.org/abs/2006.00028">Multi-modal Transfer Learning for Grasping Transparent and Reflective Objects</a>.</td>
     </tr> 
     <tr>
       <th scope="row">Apr 08, 2019</th>
@@ -54,14 +77,96 @@ redirect_from: "/about"
       <td>I am participating in the Spring 2 batch at <a href="https://www.recurse.com" target="_blank">Recurse Center</a> in NYC from April to June.</td>
     </tr>
   </tbody>
-</table>
+</table> -->
 
 <h2>Recent Blog Posts</h2>
 
 <div class="posts">
-  {% for post in site.posts limit:5 %}
+  {% for post in site.posts limit:3 %}
     <article>
       <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
     </article>
   {% endfor %}
 </div>
+
+<h2>Publications</h2>
+
+<table cellpadding="10" width="100%">
+  <tr>
+    <td class="pubimg" width="250" height="100">
+        <img src="assets/papers/iros20.png" img width="250">
+    </td>
+    <td><a href="https://arxiv.org/abs/2008.05626">Cloth Region Segmentation for Robust Grasp Selection</a><br>
+        <div class="pubauthor">
+            Jianing Qian*, Thomas Weng*, Luxin Zhang, Brian Okorn, David Held<br>
+        </div>
+        <div class="pubjournal">International Conference on Intelligent Robots and Systems (IROS), 2020
+        <!--div style="font-size:small">
+            <a href="GOTURN/GOTURN.html">[Project Page]</a>
+            <a href="GOTURN/GOTURN.pdf">[Full Paper]</a>
+            <a href="GOTURN/supplement.pdf">[Supplement]</a></div-->
+        </div>
+        <br>
+    </td>
+  </tr>
+  <tr>
+    <td class="pubimg" width="250" height="100">
+        <img src="assets/papers/ral20.png" img width="250">
+    </td>
+    <td><a href="https://arxiv.org/abs/2006.00028">Multi-modal Transfer Learning for Grasping Transparent and Specular Objects</a><br>
+        <div class="pubauthor">
+            Thomas Weng, Amith Pallankize, Yimin Tang, Oliver Kroemer, David Held<br>
+        </div>
+        <div class="pubjournal">Robotics and Automation Letters (RA-L) with presentation at the International Conference of Robotics and Automation (ICRA), 2020</div>
+        <br>
+    </td>
+  </tr>
+  <tr>
+    <td class="pubimg" width="250" height="100">
+        <img src="assets/papers/icra19.png" img width="250">
+    </td>
+    <td><a href="https://personalrobotics.cs.washington.edu/publications/wang2019legibleprojections.pdf">Robot Object Referencing through Legible Situated Projections</a><br>
+        <div class="pubauthor">
+            Thomas Weng, Leah Perlmutter, Stefanos Nikolaidis, Siddhartha Srinivasa, Maya Cakmak<br>
+        </div>
+        <div class="pubjournal">2019 International Conference on Robotics and Automation (ICRA)</div>
+        <br>
+    </td>
+  </tr>
+  <tr>
+    <td class="pubimg" width="250" height="100">
+        <img src="assets/papers/sui18.png" img width="250">
+    </td>
+    <td><a href="https://www.researchgate.net/profile/Yasaman_Sefidgar/publication/328176638_RobotIST_Interactive_Situated_Tangible_Robot_Programming/links/5bcabb13458515f7d9cba68b/RobotIST-Interactive-Situated-Tangible-Robot-Programming.pdf">RobotIST: Interactive Situated Tangible Robot Programming</a><br>
+        <div class="pubauthor">
+            Yasaman S Sefidgar*, Thomas Weng*, Heather Harvey, Sarah Elliott, Maya Cakmak<br>
+        </div>
+        <div class="pubjournal">Proceedings of the Symposium on Spatial User Interaction 2018</div>
+        <br>
+    </td>
+  </tr>
+  <tr>
+    <td class="pubimg" width="250" height="100">
+        <img src="assets/papers/icra16.png" img width="250">
+    </td>
+    <td><a href="http://www.hennyadmoni.com/documents/admoni2016icra.pdf">Modeling communicative behaviors for object references in human-robot interaction</a><br>
+        <div class="pubauthor">
+            Henny Admoni, Thomas Weng, Brian Scassellati<br>
+        </div>
+        <div class="pubjournal">2016 IEEE International Conference onRobotics and Automation (ICRA)</div>
+        <br>
+    </td>
+  </tr>
+  <tr>
+    <td class="pubimg" width="250" height="100">
+        <img src="assets/papers/hri16.png" img width="250">
+    </td>
+    <td><a href="http://scazlab.yale.edu/sites/default/files/files/ADMONI_hri16.pdf">Robot nonverbal behavior improves task performance in difficult collaborations</a><br>
+        <div class="pubauthor">
+            Henny Admoni, Thomas Weng, Bradley Hayes, Brian Scassellati<br>
+        </div>
+        <div class="pubjournal">2016 11th ACM/IEEE International Conference on Human-Robot Interaction (HRI)</div>
+        <br>
+    </td>
+  </tr>
+</table>
