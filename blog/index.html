@@ -71,6 +71,66 @@
      
        <article class="post">
 
+         <h1><a href="/moveit_cartesian_jump_threshold/">Filter MoveIt cartesian path plans with jump_threshold</a></h1>
+
+         <div class="author">
+    <div>By Thomas Weng on December 20, 2020</div>
+    
+</div>
+
+
+
+         <div class="entry">
+         <p><a href="https://moveit.ros.org/">MoveIt</a> is a useful tool for robot motion planning, but it often lacks documentation for key functions and features. One particularly opaque function is <code class="highlighter-rouge">compute_cartesian_path</code>, which takes as input waypoints of end effector poses, and outputs a joint trajectory that visits each pose. Although this function is in the <a href="http://docs.ros.org/en/melodic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html">tutorials</a>, the tutorials don’t cover the critical role of the <code class="highlighter-rouge">jump_threshold</code> parameter when running the function on a real robot.</p>
+
+<p>On real robots, executing the trajectory produced by <code class="highlighter-rouge">compute_cartesian_path(..., jump_threshold=0)</code> can sometimes cause the robot to jerk unpredictably away from the desired path. This undesirable motion seems to occur when the arm approaches singularities and can’t continue following the waypoints without reorienting the arm.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<p>The solution to this problem is to set the <code class="highlighter-rouge">jump_threshold</code> parameter, which limits the maximum distance or “jump” in joint positions between two consecutive trajectory points. When this parameter is set, the planner returns a partial solution if consecutive joint positions exceed the threshold, so the robot will no longer move jerkily.</p>
+
+<p>But what should the value of <code class="highlighter-rouge">jump_threshold</code> be? Looking at the <a href="https://github.com/ros-planning/moveit/blob/701fbddb26f5aa4e752235b893292fc4618da135/moveit_core/robot_state/src/robot_state.cpp#L2096">code</a>, the trajectory points must satisfy the following condition:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distance between consecutive joint positions &lt;= jump_threshold * mean joint position distance
+</code></pre></div></div>
+
+<p>So the distance must be less than or equal to the threshold times the mean distance.<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> In practice, I played with the threshold<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup> until the robot moved without jerking or stopping prematurely.</p>
+
+<p>Tuning the <code class="highlighter-rouge">jump_threshold</code> was critical for getting cartesian path planning working on our robot arm. Now, we plan the whole trajectory up front and abort if only a partial trajectory is found. Hope this helps!</p>
+
+<hr />
+<p>Footnotes</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>In most cases, the cartesian planner will recognize that there is no feasible plan and return a partial trajectory. But sometimes it seems to attempt to reorient the arm quickly, which causes the jerky deviation from the desired path. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>There is <a href="https://github.com/ros-planning/moveit/blob/701fbddb26f5aa4e752235b893292fc4618da135/moveit_core/robot_state/src/robot_state.cpp#L2132">code</a> for using an absolute distance condition instead of the mean. Also see this <a href="https://github.com/ros-planning/moveit/issues/773">Github issue</a> for relevant discussion. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>I use <code class="highlighter-rouge">jump_threshold=5.0</code> but your mileage may vary. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+         </div>
+
+         
+<div class="tags">
+    Tags:
+   
+    <span class="tag"><a href="/tag/how-to">how-to</a></span>, 
+   
+    <span class="tag"><a href="/tag/robotics">robotics</a></span>
+   
+</div>
+
+
+
+       </article>
+   
+       <article class="post">
+
          <h1><a href="/compressing_videos_ffmpeg/">Compressing Videos with ffmpeg</a></h1>
 
          <div class="author">
@@ -346,142 +406,6 @@ ${_current_dir}$(git_prompt_info) %{$fg[$CARETCOLOR]%}$(random_emoji animals)%{$
 
        </article>
    
-       <article class="post">
-
-         <h1><a href="/terminal_tips/">Terminal tips</a></h1>
-
-         <div class="author">
-    <div>By Thomas Weng on August 27, 2019</div>
-    
-</div>
-
-
-
-         <div class="entry">
-         <p>The terminal is an essential tool,<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> but also one whose tasks are most easily automated and optimized.</p>
-
-<p>Most of the time spent on the command line is on non-value-adding tasks, like moving files around, executing programs, installing dependencies, and checking system status.<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>
-These tasks are necessary, but do not end up in your final deliverable, i.e. a publication, code, or other project output.</p>
-
-<p>Therefore, you should aim to spend as little time in the terminal as possible, focusing instead on value-adding tasks like writing programs, analyzing data, making visualizations, etc.</p>
-
-<p>Here are some ways to automate or speed up terminal tasks. I’m assuming you use bash, but the items here are applicable to most terminals.</p>
-<ol>
-  <li><a href="#1-shorten-commands-using-aliases-and-scripts">Shorten commands using aliases and scripts</a></li>
-  <li><a href="#2-use-reverse-i-search-to-find-past-commands">Use reverse-i-search to find past commands</a></li>
-  <li><a href="#3-check-system-status-using-htop">Check system status using htop</a></li>
-  <li><a href="#4-split-one-terminal-into-multiple-with-tmux">Split one terminal into several with tmux</a></li>
-  <li><a href="#5-download-files-faster-using-aria2">Download files faster using aria2</a></li>
-  <li><a href="#6-set-up-key-based-authentication-for-ssh-and-github">Set up key-based authentication for ssh and Github</a></li>
-  <li><a href="#7-try-out-other-terminals">Try out other terminals</a></li>
-</ol>
-
-<h1 id="1-shorten-commands-using-aliases-and-scripts">1. Shorten commands using aliases and scripts</h1>
-
-<p>This one seems obvious, but if you run the same set of commands often, turn them into <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">aliases</a>. 
-I use aliases for computers that I ssh into often, e.g.</p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
-<span class="nb">alias hostname</span><span class="o">=</span><span class="s2">"ssh &lt;username&gt;@&lt;hostname&gt;"</span>
-</code></pre></div></div>
-
-<p>Another use case is for aliases is to shorten series of commands, like navigating to a directory and running a script.</p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
-<span class="nb">alias </span><span class="nv">intera</span><span class="o">=</span><span class="s2">"cd ~/catkin_ws &amp;&amp; source intera.sh"</span>
-</code></pre></div></div>
-
-<p>If a series of commands is longer or more complicated (e.g. building and running code), it may be better to turn it into a <a href="https://www.digitalocean.com/community/tutorial_series/an-introduction-to-shell-scripting">shell script</a>, which will allow you to take advantage of for loops, command line arguments, etc.</p>
-
-<h1 id="2-use-reverse-i-search-to-find-past-commands">2. Use reverse-i-search to find past commands</h1>
-
-<p>Related to the first point, avoid typing out commands, especially if you have typed a similar one already. Besides using tab-autocompleting aggressively, I also use <a href="https://lifehacker.com/ctrl-r-to-search-and-other-terminal-history-tricks-278888">reverse-i-search</a> all the time to search my command history. Activate reverse-i-search using <code class="highlighter-rouge">Ctrl+r</code> and then type in a query to find matches. Hit <code class="highlighter-rouge">Ctrl+r</code> again to find the next match.</p>
-
-<div class="cntr">
-  <img src="https://media.giphy.com/media/lOsUAIXzpcK3nr6Tej/giphy.gif" />
-  <div class="caption">
-  Demonstrating reverse-i-search.
-  </div>
-</div>
-
-<h1 id="3-check-system-status-using-htop">3. Check system status using htop</h1>
-
-<p><a href="https://hisham.hm/htop/">htop</a> is an improved version of the <code class="highlighter-rouge">top</code> command, with colors, better navigation, and other features.</p>
-
-<div class="cntr">
-  <img src="../assets/19-08-27_1.png" />
-  <div class="caption">
-  Screenshot of htop.
-  </div>
-</div>
-
-<p>Besides checking system usage, I also use this to find (<code class="highlighter-rouge">F4</code>) and kill (<code class="highlighter-rouge">F9</code>) processes as root (<code class="highlighter-rouge">sudo htop</code>).</p>
-
-<h1 id="4-split-one-terminal-into-several-with-tmux">4. Split one terminal into several with tmux</h1>
-
-<p>Use <a href="https://github.com/tmux/tmux/wiki">tmux</a> to create and switch between multiple terminal panes within one window.</p>
-
-<div class="cntr">
-  <img src="https://media.giphy.com/media/lquszCDcatgZlrC06g/giphy.gif" />
-  <div class="caption">
-  Demonstrating how to split panes with tmux. Note that my keybindings are different from the tmux defaults.
-  </div>
-</div>
-
-<p>Another benefit to tmux is that these terminals will persist even if your ssh connection drops. Simply run <code class="highlighter-rouge">tmux attach</code> after ssh-ing back in to return to your panes.</p>
-
-<h1 id="5-download-files-faster-using-aria2">5. Download files faster using aria2</h1>
-
-<p><a href="https://aria2.github.io/">aria2</a> is an alternative to <code class="highlighter-rouge">wget</code> or <code class="highlighter-rouge">curl</code> that parallelizes downloads:</p>
-
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span> aria2c <span class="nt">-x8</span> &lt;URL&gt;
-</code></pre></div></div>
-
-<p><code class="highlighter-rouge">-xN</code> specifies how many connections to open for parallelization.</p>
-
-<h1 id="6-set-up-key-based-authentication-for-ssh-and-github">6. Set up key-based authentication for ssh and Github</h1>
-
-<p>Instead of typing your password each time you ssh or push/pull from Github, use key-based authentication. It only takes a few minutes and has the dual benefit of being easier and more secure than password authentication.</p>
-
-<p>To set up key-based authentication for ssh, see this DigitalOcean post: <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">How To Set Up SSH Keys</a>. You’ll need to do this once per computer you want to <code class="highlighter-rouge">ssh</code> into. For Github, follow the steps outlined here: <a href="https://help.github.com/en/articles/connecting-to-github-with-ssh">Connecting to Github with SSH</a></p>
-
-<h1 id="7-try-out-other-terminals">7. Try out other terminals</h1>
-
-<p>You can also explore beyond bash and try terminals with more features. I use zsh as my default shell with plugins for jumping between directories, better autocomplete, etc. If you’re interested in zsh, check out these articles on how to get started: <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Articles">Articles from the Oh My Zsh wiki</a>.</p>
-
-<hr />
-
-<p><em>Many thanks to <a href="http://www.andrew.cmu.edu/user/abhijatb/">Cherie Ho</a> for editing this post and introducing me to zsh, <a href="https://homes.cs.washington.edu/~lrperlmu/">Leah Perlmutter</a> for introducing me to reverse-i-search, <a href="https://personalrobotics.cs.washington.edu/people/">Rosario Scalise</a> for tmux, and <a href="http://www.andrew.cmu.edu/user/abhijatb/">Abhijat Biswas</a> for aria2!</em></p>
-
-<p>Footnotes</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>If you’re a beginner with the terminal, <a href="https://swcarpentry.github.io/shell-novice/reference/">this reference</a> from Software Carpentry is a good starting point. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-    <li id="fn:2">
-      <p>I consider working in a terminal-based editor like vim different from being on the command line itself. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-         </div>
-
-         
-<div class="tags">
-    Tags:
-   
-    <span class="tag"><a href="/tag/programming">programming</a></span>, 
-   
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>
-   
-</div>
-
-
-
-       </article>
-   
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -498,6 +422,8 @@ I use aliases for computers that I ssh into often, e.g.</p>
 
 	   <ul>
 	     
+	     <li><a href="/moveit_cartesian_jump_threshold/">Filter MoveIt cartesian path plans with jump_threshold</a></li>
+	     
 	     <li><a href="/compressing_videos_ffmpeg/">Compressing Videos with ffmpeg</a></li>
 	     
 	     <li><a href="/installing_cuda/">Installing NVIDIA drivers and CUDA on Ubuntu 16.04 and 18.04</a></li>
@@ -505,8 +431,6 @@ I use aliases for computers that I ssh into often, e.g.</p>
 	     <li><a href="/emoji_in_terminal/">Replacing my command prompt with emoji</a></li>
 	     
 	     <li><a href="/azure_kinect_1604_ros/">How to install ROS drivers for Azure Kinect on Ubuntu 16.04</a></li>
-	     
-	     <li><a href="/terminal_tips/">Terminal tips</a></li>
 	     
 	   </ul>
 
@@ -530,7 +454,7 @@ I use aliases for computers that I ssh into often, e.g.</p>
 	     
 	     
 	     
-	     <li><a href="/tag/how-to">how-to</a> (3)</li>
+	     <li><a href="/tag/how-to">how-to</a> (4)</li>
 	     
 	     
 	     
@@ -552,7 +476,7 @@ I use aliases for computers that I ssh into often, e.g.</p>
 	     
 	     
 	     
-	     <li><a href="/tag/robotics">robotics</a> (4)</li>
+	     <li><a href="/tag/robotics">robotics</a> (5)</li>
 	     
 	     
 	     

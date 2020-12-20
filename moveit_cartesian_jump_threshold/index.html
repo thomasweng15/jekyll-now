@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Staying on top of email – Thomas Weng – research profile</title>
+    <title>Filter MoveIt cartesian path plans with jump_threshold – Thomas Weng – research profile</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,18 +9,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.
+    <meta name="description" content="MoveIt is a useful tool for robot motion planning, but it often lacks documentation for key functions and features. One particularly opaque function is compute_cartesian_path, which takes as input waypoints of end effector poses, and outputs a joint trajectory that visits each pose. Although this function is in the tutorials, the tutorials don’t cover the critical role of the jump_threshold parameter when running the function on a real robot.
 
 " />
-    <meta property="og:description" content="I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.
+    <meta property="og:description" content="MoveIt is a useful tool for robot motion planning, but it often lacks documentation for key functions and features. One particularly opaque function is compute_cartesian_path, which takes as input waypoints of end effector poses, and outputs a joint trajectory that visits each pose. Although this function is in the tutorials, the tutorials don’t cover the critical role of the jump_threshold parameter when running the function on a real robot.
 
 " />
     
     <meta name="author" content="Thomas Weng" />
 
     
-    <meta property="og:title" content="Staying on top of email" />
-    <meta property="twitter:title" content="Staying on top of email" />
+    <meta property="og:title" content="Filter MoveIt cartesian path plans with jump_threshold" />
+    <meta property="twitter:title" content="Filter MoveIt cartesian path plans with jump_threshold" />
     
 
     <!-- Fonts -->
@@ -75,51 +75,47 @@
 <div class="col-sm-8">
 
 <article class="post">
-  <h1>Staying on top of email</h1>
+  <h1>Filter MoveIt cartesian path plans with jump_threshold</h1>
 
   <div class="author">
-    <div>By Thomas Weng on November  3, 2018</div>
-    
-        <div style="font-style: italic;">~1 min. read</div>
+    <div>By Thomas Weng on December 20, 2020</div>
     
 </div>
 
 
 
   <div class="content">
-  <p>I find it hard to be productive when my inbox is cluttered with emails. It’s easy to lose track of high-priority tasks in a messy inbox.</p>
+  <p><a href="https://moveit.ros.org/">MoveIt</a> is a useful tool for robot motion planning, but it often lacks documentation for key functions and features. One particularly opaque function is <code class="highlighter-rouge">compute_cartesian_path</code>, which takes as input waypoints of end effector poses, and outputs a joint trajectory that visits each pose. Although this function is in the <a href="http://docs.ros.org/en/melodic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html">tutorials</a>, the tutorials don’t cover the critical role of the <code class="highlighter-rouge">jump_threshold</code> parameter when running the function on a real robot.</p>
 
-<div class="cntr">
-  <img src="../assets/7-cluttered.png" />
-  <div class="caption">
-    Screenshot of someone's inbox from the Internet. 13k unread emails = instant anxiety.
-  </div>
+<p>On real robots, executing the trajectory produced by <code class="highlighter-rouge">compute_cartesian_path(..., jump_threshold=0)</code> can sometimes cause the robot to jerk unpredictably away from the desired path. This undesirable motion seems to occur when the arm approaches singularities and can’t continue following the waypoints without reorienting the arm.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<p>The solution to this problem is to set the <code class="highlighter-rouge">jump_threshold</code> parameter, which limits the maximum distance or “jump” in joint positions between two consecutive trajectory points. When this parameter is set, the planner returns a partial solution if consecutive joint positions exceed the threshold, so the robot will no longer move jerkily.</p>
+
+<p>But what should the value of <code class="highlighter-rouge">jump_threshold</code> be? Looking at the <a href="https://github.com/ros-planning/moveit/blob/701fbddb26f5aa4e752235b893292fc4618da135/moveit_core/robot_state/src/robot_state.cpp#L2096">code</a>, the trajectory points must satisfy the following condition:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distance between consecutive joint positions &lt;= jump_threshold * mean joint position distance
+</code></pre></div></div>
+
+<p>So the distance must be less than or equal to the threshold times the mean distance.<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> In practice, I played with the threshold<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup> until the robot moved without jerking or stopping prematurely.</p>
+
+<p>Tuning the <code class="highlighter-rouge">jump_threshold</code> was critical for getting cartesian path planning working on our robot arm. Now, we plan the whole trajectory up front and abort if only a partial trajectory is found. Hope this helps!</p>
+
+<hr />
+<p>Footnotes</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>In most cases, the cartesian planner will recognize that there is no feasible plan and return a partial trajectory. But sometimes it seems to attempt to reorient the arm quickly, which causes the jerky deviation from the desired path. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>There is <a href="https://github.com/ros-planning/moveit/blob/701fbddb26f5aa4e752235b893292fc4618da135/moveit_core/robot_state/src/robot_state.cpp#L2132">code</a> for using an absolute distance condition instead of the mean. Also see this <a href="https://github.com/ros-planning/moveit/issues/773">Github issue</a> for relevant discussion. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>I use <code class="highlighter-rouge">jump_threshold=5.0</code> but your mileage may vary. <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
 </div>
-
-<p>To keep a tidy inbox, I aim for Inbox Zero daily. That means for each email:</p>
-
-<ol>
-  <li>
-    <p>If there’s a task that can be done in a minute, I’ll do it immediately and archive it.</p>
-  </li>
-  <li>
-    <p>If there’s a task to be done today, I’ll add it to my to-do list and then <a href="https://support.google.com/mail/answer/7622010?co=GENIE.Platform%3DDesktop&amp;hl=en">snooze</a> the email.</p>
-  </li>
-  <li>
-    <p>If the task isn’t urgent, I’ll just snooze it to whenever I can/need to do it.</p>
-  </li>
-</ol>
-
-<div class="cntr">
-  <img src="../assets/7-clean.png" />
-  <div class="caption">
-    Much better!
-  </div>
-</div>
-
-<p>I don’t always achieve an empty inbox following this approach, especially when a lot of things are happening at once. The goal may also not always be to clear all emails, if you need some handy for your task for example.</p>
-
-<p>Though I tried to keep my approach lightweight, there’s definitely room for improvement. For example, I’m still experimenting to find a good to-do list workflow. I could be more disciplined about when I check my email to avoid interruptions in my work. So far, though, this method is pretty effective in helping me stay organized.</p>
 
   </div>
 
@@ -129,7 +125,9 @@
 <div class="tags">
     Tags:
    
-    <span class="tag"><a href="/tag/productivity">productivity</a></span>
+    <span class="tag"><a href="/tag/how-to">how-to</a></span>, 
+   
+    <span class="tag"><a href="/tag/robotics">robotics</a></span>
    
 </div>
 
@@ -137,10 +135,8 @@
 
   <div class="row pagenav">
       
-      <div class="col-xs-6 prev_post"><a href="/setting_up_tex/">&larr; Setting up TeX math rendering for your blog or website</a></div>
+      <div class="col-xs-6 prev_post"><a href="/compressing_videos_ffmpeg/">&larr; Compressing Videos with ffmpeg</a></div>
       
-      
-      <div class="col-xs-6 next_post"><a href="/calendar_time_log/">Using my calendar as a time log &rarr;</a></div>
       
   </div>
 
@@ -271,8 +267,8 @@
 
 		ga('create', 'UA-50853593-1', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/staying_on_top_of_email/',
-		  'title': 'Staying on top of email'
+		  'page': '/moveit_cartesian_jump_threshold/',
+		  'title': 'Filter MoveIt cartesian path plans with jump_threshold'
 		});
 	</script>
 	<!-- End Google Analytics -->

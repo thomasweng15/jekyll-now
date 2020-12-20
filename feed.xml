@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2020-11-04T17:16:08+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>research profile</subtitle><entry><title type="html">Compressing Videos with ffmpeg</title><link href="http://thomasweng.com/compressing_videos_ffmpeg/" rel="alternate" type="text/html" title="Compressing Videos with ffmpeg" /><published>2020-08-04T00:00:00+00:00</published><updated>2020-08-04T00:00:00+00:00</updated><id>http://thomasweng.com/compressing_videos_ffmpeg</id><content type="html" xml:base="http://thomasweng.com/compressing_videos_ffmpeg/">&lt;p&gt;Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.4">Jekyll</generator><link href="http://thomasweng.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://thomasweng.com/" rel="alternate" type="text/html" /><updated>2020-12-20T20:26:42+00:00</updated><id>http://thomasweng.com/feed.xml</id><title type="html">Thomas Weng</title><subtitle>research profile</subtitle><entry><title type="html">Filter MoveIt cartesian path plans with jump_threshold</title><link href="http://thomasweng.com/moveit_cartesian_jump_threshold/" rel="alternate" type="text/html" title="Filter MoveIt cartesian path plans with jump_threshold" /><published>2020-12-20T00:00:00+00:00</published><updated>2020-12-20T00:00:00+00:00</updated><id>http://thomasweng.com/moveit_cartesian_jump_threshold</id><content type="html" xml:base="http://thomasweng.com/moveit_cartesian_jump_threshold/">&lt;p&gt;&lt;a href=&quot;https://moveit.ros.org/&quot;&gt;MoveIt&lt;/a&gt; is a useful tool for robot motion planning, but it often lacks documentation for key functions and features. One particularly opaque function is &lt;code class=&quot;highlighter-rouge&quot;&gt;compute_cartesian_path&lt;/code&gt;, which takes as input waypoints of end effector poses, and outputs a joint trajectory that visits each pose. Although this function is in the &lt;a href=&quot;http://docs.ros.org/en/melodic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html&quot;&gt;tutorials&lt;/a&gt;, the tutorials don’t cover the critical role of the &lt;code class=&quot;highlighter-rouge&quot;&gt;jump_threshold&lt;/code&gt; parameter when running the function on a real robot.&lt;/p&gt;
+
+&lt;p&gt;On real robots, executing the trajectory produced by &lt;code class=&quot;highlighter-rouge&quot;&gt;compute_cartesian_path(..., jump_threshold=0)&lt;/code&gt; can sometimes cause the robot to jerk unpredictably away from the desired path. This undesirable motion seems to occur when the arm approaches singularities and can’t continue following the waypoints without reorienting the arm.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;The solution to this problem is to set the &lt;code class=&quot;highlighter-rouge&quot;&gt;jump_threshold&lt;/code&gt; parameter, which limits the maximum distance or “jump” in joint positions between two consecutive trajectory points. When this parameter is set, the planner returns a partial solution if consecutive joint positions exceed the threshold, so the robot will no longer move jerkily.&lt;/p&gt;
+
+&lt;p&gt;But what should the value of &lt;code class=&quot;highlighter-rouge&quot;&gt;jump_threshold&lt;/code&gt; be? Looking at the &lt;a href=&quot;https://github.com/ros-planning/moveit/blob/701fbddb26f5aa4e752235b893292fc4618da135/moveit_core/robot_state/src/robot_state.cpp#L2096&quot;&gt;code&lt;/a&gt;, the trajectory points must satisfy the following condition:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;distance between consecutive joint positions &amp;lt;= jump_threshold * mean joint position distance
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So the distance must be less than or equal to the threshold times the mean distance.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; In practice, I played with the threshold&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; until the robot moved without jerking or stopping prematurely.&lt;/p&gt;
+
+&lt;p&gt;Tuning the &lt;code class=&quot;highlighter-rouge&quot;&gt;jump_threshold&lt;/code&gt; was critical for getting cartesian path planning working on our robot arm. Now, we plan the whole trajectory up front and abort if only a partial trajectory is found. Hope this helps!&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Footnotes&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;In most cases, the cartesian planner will recognize that there is no feasible plan and return a partial trajectory. But sometimes it seems to attempt to reorient the arm quickly, which causes the jerky deviation from the desired path. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;There is &lt;a href=&quot;https://github.com/ros-planning/moveit/blob/701fbddb26f5aa4e752235b893292fc4618da135/moveit_core/robot_state/src/robot_state.cpp#L2132&quot;&gt;code&lt;/a&gt; for using an absolute distance condition instead of the mean. Also see this &lt;a href=&quot;https://github.com/ros-planning/moveit/issues/773&quot;&gt;Github issue&lt;/a&gt; for relevant discussion. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;I use &lt;code class=&quot;highlighter-rouge&quot;&gt;jump_threshold=5.0&lt;/code&gt; but your mileage may vary. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="how-to" /><category term="robotics" /><summary type="html">MoveIt is a useful tool for robot motion planning, but it often lacks documentation for key functions and features. One particularly opaque function is compute_cartesian_path, which takes as input waypoints of end effector poses, and outputs a joint trajectory that visits each pose. Although this function is in the tutorials, the tutorials don’t cover the critical role of the jump_threshold parameter when running the function on a real robot.</summary></entry><entry><title type="html">Compressing Videos with ffmpeg</title><link href="http://thomasweng.com/compressing_videos_ffmpeg/" rel="alternate" type="text/html" title="Compressing Videos with ffmpeg" /><published>2020-08-04T00:00:00+00:00</published><updated>2020-08-04T00:00:00+00:00</updated><id>http://thomasweng.com/compressing_videos_ffmpeg</id><content type="html" xml:base="http://thomasweng.com/compressing_videos_ffmpeg/">&lt;p&gt;Publication venues in robotics often allow supplementary video submissions. There are often strict size limits on video submissions. To meet these limits, it’s often necessary to compress the video.&lt;/p&gt;
 
 &lt;p&gt;I used to compress my videos using &lt;a href=&quot;https://www.apple.com/final-cut-pro/compressor/&quot;&gt;Compressor&lt;/a&gt; after making my videos with iMovie or Final Cut Pro. Now I just use &lt;a href=&quot;https://ffmpeg.org/&quot;&gt;ffmpeg&lt;/a&gt; to compress my videos. I share/export the video from Final Cut Pro and then use this command to compress it:&lt;/p&gt;
 
@@ -544,103 +574,4 @@ Although upgrading to 18.04 will eventually be necessary, it is helpful to have 
       &lt;p&gt;You can also download these files and host them on your server directly instead of getting them from the cdn. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="blogging" /><summary type="html">Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</summary></entry><entry><title type="html">Automating C++ builds in ROS</title><link href="http://thomasweng.com/automating_C++_builds_ros/" rel="alternate" type="text/html" title="Automating C++ builds in ROS" /><published>2017-09-09T00:00:00+00:00</published><updated>2017-09-09T00:00:00+00:00</updated><id>http://thomasweng.com/automating_C++_builds_ros</id><content type="html" xml:base="http://thomasweng.com/automating_C++_builds_ros/">&lt;p&gt;If you’re working on a C++ ROS project, you probably run &lt;code class=&quot;highlighter-rouge&quot;&gt;catkin build&lt;/code&gt; every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
-
-&lt;p&gt;To fix this, I’ve automated the build process to build when saving a file! No more manual building :).&lt;/p&gt;
-
-&lt;p&gt;Here’s how it works. I’ve written a shell script called &lt;code class=&quot;highlighter-rouge&quot;&gt;builder.sh&lt;/code&gt; that kicks off a build for you every time you save a file in your source directories. If the build fails, it will output the error. If the build succeeds, it’ll print a success message. Here’s an example of a build failure, followed by success:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash builder.sh
-Setting up watches.
-Watches established.
-octomapper.cpp modified, rebuilding...
-_______________________________________________________________________________
-Errors     &amp;lt;&amp;lt; perception:make /home/tweng/catkin_ws/logs/perception/build.make.1447.log
-/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp: In member function ‘void perception::Octomapper::publish_octomap(octomap::OcTree*)’:
-/home/tweng/catkin_ws/src/ros-project/src/perception/src/octomapper.cpp:99:3: error: ‘pub’ was not declared in this scope
-   pub.publish(octomap_msg);
-   ^
-make[2]: *** [CMakeFiles/perception_octomapper.dir/src/octomapper.cpp.o] Error 1
-make[1]: *** [CMakeFiles/perception_octomapper.dir/all] Error 2
-make: *** [all] Error 2
-cd /home/tweng/catkin_ws/build/perception; catkin build --get-env perception | catkin env -si  /usr/bin/make --jobserver-fds=6,7 -j; cd -
-...............................................................................
-Failed     &amp;lt;&amp;lt; perception:make           [ Exited with code 2 ]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;There is syntax highlighting in your terminal which makes this output more readable.&lt;/p&gt;
-
-&lt;p&gt;After fixing the issue and saving, the build runs again automatically:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;octomapper.cpp modified, rebuilding...
-[build] Summary: All 2 packages succeeded!
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;It’s fairly simple to get this set up for your workspace. You’ll need to:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Get the script from this Github gist: &lt;a href=&quot;https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-builder-sh&quot;&gt;builder.sh&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Configure it to watch your workspace directories&lt;/li&gt;
-  &lt;li&gt;Run it in a terminal using &lt;code class=&quot;highlighter-rouge&quot;&gt;bash builder.sh&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Start coding and enjoying ~build-on-save~&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;but-wait-theres-more-roslaunch-auto-restart&quot;&gt;But wait, there’s more: &lt;code class=&quot;highlighter-rouge&quot;&gt;roslaunch&lt;/code&gt; auto-restart!&lt;/h1&gt;
-
-&lt;p&gt;After your build completes, you’ll probably need to run or restart your ROS nodes to test your changes. That’s another manual step we can automate.&lt;/p&gt;
-
-&lt;p&gt;This time, a script called &lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; runs your project’s &lt;code class=&quot;highlighter-rouge&quot;&gt;roslaunch&lt;/code&gt; command and listens periodically to make sure your ROS nodes are alive. As you make changes and get a successful build, &lt;code class=&quot;highlighter-rouge&quot;&gt;builder.sh&lt;/code&gt; – the original script – sends a signal to kill your ROS nodes.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; When the ROS nodes die, &lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; will automatically restart them, grabbing your newest build. Here’s an example of what restarting looks like:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash launcher.sh
-Launching roslaunch
-... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-15112.log
-Checking log directory for disk usage. This may take awhile.
-Press Ctrl-C to interrupt
-Done checking log file disk usage. Usage is &amp;lt;1GB.
-
-started roslaunch server http://localhost:39545/
-
-...
-
-/process_cloud_main shutdownCallback:163: Shutdown request received.
-/process_cloud_main shutdownCallback:164: Reason given for shutdown: [user request]
-================================================================================REQUIRED process [process_cloud_main-1] has died!
-process has finished cleanly
-log file: /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/process_cloud_main-1*.log
-Initiating shutdown!
-================================================================================
-[publish_saved_cloud-3] killing on exit
-[person_broadcaster-2] killing on exit
-[process_cloud_main-1] killing on exit
-shutting down processing monitor...
-... shutting down processing monitor complete
-done
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; notices that the node has gone down and triggers a restart:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Launching roslaunch
-... logging to /home/tweng/.ros/log/3674ab20-73be-11e7-b57f-b8ca3ab4b589/roslaunch-silverarm-30141.log
-Checking log directory for disk usage. This may take awhile.
-Press Ctrl-C to interrupt
-Done checking log file disk usage. Usage is &amp;lt;1GB.
-
-started roslaunch server http://localhost:34414/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You can get &lt;code class=&quot;highlighter-rouge&quot;&gt;launcher.sh&lt;/code&gt; &lt;a href=&quot;https://gist.github.com/thomasweng15/db12693f957ecafb6eed3bb011db37a3#file-launcher-sh&quot;&gt;here&lt;/a&gt;. You’d run it in a terminal (&lt;code class=&quot;highlighter-rouge&quot;&gt;bash launcher.sh&lt;/code&gt;), just like the first one.&lt;/p&gt;
-
-&lt;p&gt;If your builds take a lot of processing power and/or take a long time, you may need to make adjustments to this script. I personally haven’t had any problems rebuilding on every save. One option if you do have problems is to rebuild only the package you are working on, and not the whole workspace.&lt;/p&gt;
-
-&lt;p&gt;Hope this helps and you find it useful!&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;Footnotes&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: &lt;a href=&quot;https://vimeo.com/36579366&quot;&gt;video link&lt;/a&gt;. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;I set the main node with the &lt;code class=&quot;highlighter-rouge&quot;&gt;required=true&lt;/code&gt; attribute in my launch file so I only need to kill that node to stop the others. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="productivity" /><category term="robotics" /><summary type="html">If you’re working on a C++ ROS project, you probably run catkin build every time you make a change. This is tedious and takes you out of your programming flow. It’s especially annoying when your build fails multiple times due to small errors. I’m a big proponent of keeping the iteration loop as small as possible.1 Originally inspired by Brett Victor’s talk, “Inventing on Principle.” Check it out a recording of it here: video link. &amp;#8617;</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Thomas Weng</name></author><category term="blogging" /><summary type="html">Setting up \(\TeX\)math typesetting on your website is one of those tasks that can seem really difficult if you don’t know what to look for. Here’s a simple way to do it.</summary></entry></feed>
